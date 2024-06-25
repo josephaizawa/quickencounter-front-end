@@ -87,36 +87,75 @@ const MonsterStatBlock = ({ selectedMonster }) => {
               <polyline points="0,0 400,2.5 0,5"></polyline>
             </svg>
             <div className="property-line first">
-              <h4>Damage Immunities</h4>
-              <p>poison, psychic</p>
-            </div>
-            <div className="property-line">
-              <h4>Condition Immunities</h4>
+              <h4>Saving Throws</h4>
               <p>
-                blinded, charmed, deafened, exhaustion, frightened, petrified,
-                poisoned
+                {selectedMonster.proficiencies[0].proficiency.name}:&nbsp;
+                {selectedMonster.proficiencies[0].value}
+              </p>
+              <p>
+                {selectedMonster.proficiencies[1].proficiency.name}:&nbsp;
+                {selectedMonster.proficiencies[1].value}
+              </p>
+              <p>
+                {selectedMonster.proficiencies[2].proficiency.name}:&nbsp;
+                {selectedMonster.proficiencies[2].value}
               </p>
             </div>
             <div className="property-line">
-              <h4>Senses</h4>
+              <h4>Skills</h4>
               <p>
-                blindsight 60ft. (blind beyond this radius), passive Perception
-                6
+                {selectedMonster.proficiencies[3].proficiency.name}:&nbsp;
+                {selectedMonster.proficiencies[3].value}
+              </p>
+              <p>
+                {selectedMonster.proficiencies[4].proficiency.name}:&nbsp;
+                {selectedMonster.proficiencies[4].value}
+              </p>
+            </div>
+            <div className="property-line">
+              <h4>Damage Vulnerabilities</h4>
+              <p>{selectedMonster.damage_vulnerabilities}</p>
+            </div>
+            <div className="property-line">
+              <h4>Damage Resistances</h4>
+              <p>{selectedMonster.damage_resistances}</p>
+            </div>
+            <div className="property-line">
+              <h4>Damage Immunities</h4>
+              <p>{selectedMonster.damage_immunities}</p>
+            </div>
+            <div className="property-line">
+              <h4>Condition Immunities</h4>
+              <p>{selectedMonster.condition_immunities}</p>
+            </div>
+            <div className="property-line">
+              <h4>Senses</h4>
+              <p>darkvision: {selectedMonster.senses.darkvision}</p>
+              <p>
+                Passive perception: {selectedMonster.senses.passive_perception}
               </p>
             </div>
             <div className="property-line">
               <h4>Languages</h4>
-              <p>&mdash;</p>
+              <p>{selectedMonster.languages}</p>
             </div>
             <div className="property-line last">
               <h4>Challenge</h4>
-              <p>1 (200 XP)</p>
+              <p>
+                {selectedMonster.challenge_rating} ({selectedMonster.xp} XP)
+              </p>
             </div>
           </div>
           <svg height="5" width="100%" className="tapered-rule">
             <polyline points="0,0 400,2.5 0,5"></polyline>
           </svg>
-          <div className="property-block">
+          {selectedMonster.special_abilities.map((ability) => (
+            <div className="property-block">
+              <h4>{ability.name}</h4>
+              <p>{ability.desc}</p>
+            </div>
+          ))}
+          {/* <div className="property-block">
             <h4>Antimagic Suceptibility.</h4>
             <p>
               The armor is incapacitated while in the area of an{" "}
@@ -133,7 +172,7 @@ const MonsterStatBlock = ({ selectedMonster }) => {
               normal suit of armor.
             </p>
           </div>{" "}
-          ock
+          ock */}
         </div>
         <div className="section-right">
           <div className="actions">
