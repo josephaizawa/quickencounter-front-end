@@ -8,4 +8,14 @@ function calculateDifficultCR(partyLevel) {
   }
 }
 
+function calculateBoss(cr) {
+  let boss = Math.round(cr / 2);
+  return boss;
+}
+
+function calculateMinion(cr) {
+  let minion = Math.round(cr / 5);
+  return boss;
+}
+
 export { calculateDifficultCR };
