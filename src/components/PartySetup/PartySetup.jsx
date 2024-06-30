@@ -1,8 +1,10 @@
 import "../PartySetup/PartySetup.scss";
 import { useState, useEffect } from "react";
+import { calculateDifficultCR } from "../../utils/calculator";
+import axios from "axios";
 
 function PartySetupComponent() {
-  const [partyMembers, setPartyMembers] = useState(
+  const [partyMembers, setPartyMembers] = useState([
     {
       name: "Party Member 1",
       level: 1,
@@ -10,28 +12,44 @@ function PartySetupComponent() {
     {
       name: "Party Member 2",
       level: 1,
-    }
-  );
+    },
+    {
+      name: "Party Member 3",
+      level: 1,
+    },
+    {
+      name: "Party Member 4",
+      level: 1,
+    },
+  ]);
+
+  const totalPartyLevel = partyMembers.reduce((accumulator, partyMember) => {
+    return accumulator + partyMember.level;
+  }, 0);
+
+  const difficultCR = calculateDifficultCR(totalPartyLevel);
 
   let handleChange = (i, e) => {
-    let newFormValues = [...formValues];
-    newFormValues[i][e.target.name] = e.target.value;
-    setFormValues(newFormValues);
-  };
+    let newPartyValues = [...partyMembers];
+    newPartyValues[i][e.target.name] =
+      e.target.name === "level" ? parseInt(e.target.value, 10) : e.target.value;
 
-  let addFormFields = () => {
-    setFormValues([...formValues, { name: "", email: "" }]);
-  };
-
-  let removeFormFields = (i) => {
-    let newFormValues = [...formValues];
-    newFormValues.splice(i, 1);
-    setFormValues(newFormValues);
+    setPartyMembers(newPartyValues);
   };
 
   let handleSubmit = (event) => {
     event.preventDefault();
-    alert(JSON.stringify(formValues));
+    async function updateInventoryItem() {
+      try {
+        const res = await axios.post(
+          `http://localhost:8080/monsters/filtered`,
+          difficultCR
+        );
+      } catch (error) {
+        console.error("error caught in the catch block:", error);
+      }
+    }
+    updateInventoryItem();
   };
   return (
     <section className="party-setup">
@@ -44,18 +62,23 @@ function PartySetupComponent() {
             <input
               type="text"
               name="name"
-              value={element.name || ""}
+              value={element.name}
               onChange={(e) => handleChange(index, e)}
             />
             <label>Level</label>
             <input
               type="number"
               name="level"
-              value={element.level || ""}
+              value={element.level}
               onChange={(e) => handleChange(index, e)}
             />
           </div>
         ))}
+        <div className="party-setup__form-button">
+          <button className="button submit" type="submit">
+            Submit
+          </button>
+        </div>
       </form>
     </section>
   );
