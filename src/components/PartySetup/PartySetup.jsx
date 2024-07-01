@@ -1,7 +1,8 @@
 import "../PartySetup/PartySetup.scss";
 import { useState, useEffect } from "react";
-import { calculateDifficultCR } from "../../utils/calculator";
+import { calculateDifficultCR } from "../../utils/calculators";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 function PartySetupComponent() {
   const [partyMembers, setPartyMembers] = useState([
@@ -28,6 +29,7 @@ function PartySetupComponent() {
   }, 0);
 
   const difficultCR = calculateDifficultCR(totalPartyLevel);
+  console.log(partyMembers);
 
   let handleChange = (i, e) => {
     let newPartyValues = [...partyMembers];
@@ -37,25 +39,25 @@ function PartySetupComponent() {
     setPartyMembers(newPartyValues);
   };
 
-  let handleSubmit = (event) => {
-    event.preventDefault();
-    async function updateInventoryItem() {
-      try {
-        const res = await axios.post(
-          `http://localhost:8080/monsters/filtered`,
-          difficultCR
-        );
-      } catch (error) {
-        console.error("error caught in the catch block:", error);
-      }
-    }
-    updateInventoryItem();
-  };
+  // let handleSubmit = (event) => {
+  //   event.preventDefault();
+  //   async function updateInventoryItem() {
+  //     try {
+  //       const res = await axios.post(
+  //         `http://localhost:8080/monsters/filtered`,
+  //         difficultCR
+  //       );
+  //     } catch (error) {
+  //       console.error("error caught in the catch block:", error);
+  //     }
+  //   }
+  //   updateInventoryItem();
+  // };
   return (
     <section className="party-setup">
       <h1 className="party-setup__title">Adventuring Party</h1>
 
-      <form className="party-setup__form" onSubmit={handleSubmit}>
+      <form className="party-setup__form" /*onSubmit={handleSubmit}*/>
         {partyMembers.map((element, index) => (
           <div className="party-setup__member" key={index}>
             <label>Name</label>
@@ -74,11 +76,17 @@ function PartySetupComponent() {
             />
           </div>
         ))}
-        <div className="party-setup__form-button">
-          <button className="button submit" type="submit">
-            Submit
-          </button>
-        </div>
+        <Link
+          className="party-setup__form-button-link"
+          to="/monsterselect"
+          state={difficultCR}
+        >
+          <div className="party-setup__form-button">
+            <button className="button submit" type="submit">
+              Submit
+            </button>
+          </div>
+        </Link>
       </form>
     </section>
   );

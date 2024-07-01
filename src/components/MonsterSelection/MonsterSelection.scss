@@ -1,0 +1,15 @@
+.monster-select {
+  background-color: gray;
+
+  &__title {
+    color: red;
+  }
+
+  &__form {
+    border: 1px solid black;
+  }
+  &__card {
+    border: 1px solid black;
+    padding: 1rem;
+  }
+}
