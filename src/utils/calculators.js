@@ -1,21 +1,25 @@
+var roundNearQtr = function (number) {
+  return (Math.round(number * 4) / 4).toFixed(2);
+};
+
 function calculateDifficultCR(partyLevel) {
   if (partyLevel <= 16) {
-    return Math.round(partyLevel / 4);
+    return roundNearQtr(partyLevel / 4);
   } else if (partyLevel < 20) {
-    return Math.round(partyLevel / 3);
+    return roundNearQtr(partyLevel / 3);
   } else {
-    return Math.round(partyLevel / 2);
+    return roundNearQtr(partyLevel / 2);
   }
 }
 
 function calculateBoss(cr) {
-  let boss = Math.round(cr / 2);
+  let boss = roundNearQtr(cr / 2);
   return boss;
 }
 
 function calculateMinion(cr) {
-  let minion = Math.round(cr / 5);
-  return boss;
+  let minion = roundNearQtr(cr / 5);
+  return minion;
 }
 
-export { calculateDifficultCR };
+export { calculateDifficultCR, calculateBoss, calculateMinion };

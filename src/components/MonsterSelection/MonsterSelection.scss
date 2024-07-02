@@ -5,11 +5,35 @@
     color: red;
   }
 
-  &__form {
+  &__container {
     border: 1px solid black;
+    height: 50vh;
+    overflow-x: hidden;
+    overflow-y: auto;
   }
   &__card {
     border: 1px solid black;
     padding: 1rem;
   }
+}
+
+.monster-list {
+  background-color: gray;
+  color: black;
+
+  &__title {
+    color: red;
+  }
+
+  &__container {
+    border: 1px solid black;
+    height: 50vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+}
+
+.selected-monster__card {
+  border: 1px solid black;
+  padding: 1rem;
 }
