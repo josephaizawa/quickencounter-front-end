@@ -3,6 +3,7 @@ import "./App.css";
 import HomePage from "./pages/HomePage/HomePage";
 import PartySetupComponent from "./components/PartySetup/PartySetup";
 import MonsterSelectionComponent from "./components/MonsterSelection/MonsterSelection";
+import MonsterStatBlock from "./components/MonsterStatBlock/MonsterStatBlock";
 
 function App() {
   return (
@@ -16,6 +17,8 @@ function App() {
             path="/monsterselect"
             element={<MonsterSelectionComponent />}
           />
+
+          <Route path="/monsterlist" element={<MonsterStatBlock />} />
         </Routes>
       </BrowserRouter>
     </>

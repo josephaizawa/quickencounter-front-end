@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { calculateBoss, calculateMinion } from "../../utils/calculators";
+import { Link } from "react-router-dom";
 
 function MonsterSelectionComponent() {
   const [monsterList, setMonsterList] = useState([]);
@@ -108,10 +109,23 @@ function MonsterSelectionComponent() {
   };
 
   let handleCRPlus = (i, e) => {
+    e.preventDefault();
+    e.stopPropagation();
     let newMonsterListValues = [...selectedMonsterList];
-    newMonsterListValues[index] = {
-      ...newMonsterListValues[index],
-      cr: newMonsterListValues[index].cr + 1, // Increment the cr value
+    newMonsterListValues[i] = {
+      ...newMonsterListValues[i],
+      cr: newMonsterListValues[i].cr + 1, // Increment the cr value
+    };
+
+    setSelectedMonsterList(newMonsterListValues);
+  };
+  let handleCRMinus = (i, e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    let newMonsterListValues = [...selectedMonsterList];
+    newMonsterListValues[i] = {
+      ...newMonsterListValues[i],
+      cr: newMonsterListValues[i].cr - 1, // Increment the cr value
     };
 
     setSelectedMonsterList(newMonsterListValues);
@@ -147,20 +161,6 @@ function MonsterSelectionComponent() {
     }
   };
 
-  //   let handleSubmit = (event) => {
-  //     event.preventDefault();
-  //     async function updateInventoryItem() {
-  //       try {
-  //         const res = await axios.post(
-  //           `http://localhost:8080/monsters/filtered`,
-  //           difficultCR
-  //         );
-  //       } catch (error) {
-  //         console.error("error caught in the catch block:", error);
-  //       }
-  //     }
-  //     updateInventoryItem();
-  //   };
   return (
     <section className="monster-select">
       <h1 className="monster-select__encounter-type-title">
@@ -206,6 +206,17 @@ function MonsterSelectionComponent() {
       </section>
       <section className="monster-list">
         <h1 className="monster-list__title">Monsters</h1>
+        <Link
+          className="monster-list__button-link"
+          to="/monsterlist"
+          state={selectedMonsterList}
+        >
+          <div className="monster-list__button">
+            <button className="button submit" type="submit">
+              Generate List
+            </button>
+          </div>
+        </Link>
         <div className="monster-list__container">
           {selectedMonsterList.map((element, index) => (
             <div
@@ -218,7 +229,7 @@ function MonsterSelectionComponent() {
               <button
                 className="monster-select__decrease-button"
                 type="submit"
-                onClick={(e) => handleCRChange(index, e)}
+                onClick={(e) => handleCRMinus(index, e)}
               >
                 -
               </button>

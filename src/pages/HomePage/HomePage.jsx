@@ -7,45 +7,8 @@ import MonsterStatBlock from "../../components/MonsterStatBlock/MonsterStatBlock
 import PartySetupComponent from "../../components/PartySetup/PartySetup.jsx";
 
 function HomePage() {
-  // const [monsters, setMonsters] = useState(null);
-  // const [selectedMonster, setSelectedMonster] = useState(null);
-  // const { monsterName } = useParams();
-
-  // useEffect(() => {
-  //   const fetchMonsters = async () => {
-  //     try {
-  //       const response = await axios.get(
-  //         `https://www.dnd5eapi.co/api/monsters/`
-  //       );
-  //       console.log(response);
-  //       setMonsters(response.data);
-  //     } catch (e) {
-  //       console.error("error getting video data:", e);
-  //     }
-
-  //     try {
-  //       const response = await axios.get(
-  //         `https://www.dnd5eapi.co/api/monsters/aboleth`
-  //       );
-  //       console.log(response.data);
-  //       setSelectedMonster(response.data);
-  //     } catch (e) {
-  //       console.error("error getting video data:", e);
-  //     }
-  //   };
-  //   fetchMonsters();
-  // }, []);
-
-  // if (!selectedMonster) {
-  //   return <div>Loading..</div>;
-  // }
-
-  // const filteredMonsters = monsters.filter(
-  //   (monster) => monster.name !== selectedMonster.index
-  // );
   return (
     <>
-      {/* <Header /> */}
       <PartySetupComponent />
     </>
   );
