@@ -5,7 +5,7 @@ import axios from "axios";
 
 const MonsterStatBlock = () => {
   const [detailedMonsterList, setDetailedMonsterList] = useState([]);
-  const [editedMonsterList, setEditedMonsterList] = useState([]);
+  // const [editedMonsterList, setEditedMonsterList] = useState([]);
   const location = useLocation();
   const selectedMonsterList = location.state || {};
 
@@ -32,50 +32,50 @@ const MonsterStatBlock = () => {
     fetchMonsterInfo();
   }, []);
 
-  useEffect(() => {
-    const findEditedCR = (array1) => {
-      const editedMonsters = [];
+  // useEffect(() => {
+  //   const findEditedCR = (array1) => {
+  //     const editedMonsters = [];
 
-      for (let i = 0; i < array1.length; i++) {
-        const selectedMonster = array1[i];
-        const monsterCR = selectedMonster.cr;
-        const monsterChallengeRating = selectedMonster.challenge_rating;
-        if (monsterCR.toString() !== monsterChallengeRating.toString()) {
-          editedMonsters.push(selectedMonster);
-        }
-      }
+  //     for (let i = 0; i < array1.length; i++) {
+  //       const selectedMonster = array1[i];
+  //       const monsterCR = selectedMonster.cr;
+  //       const monsterChallengeRating = selectedMonster.challenge_rating;
+  //       if (monsterCR.toString() !== monsterChallengeRating.toString()) {
+  //         editedMonsters.push(selectedMonster);
+  //       }
+  //     }
 
-      setEditedMonsterList(editedMonsters);
-    };
-    findEditedCR(selectedMonsterList);
-  }, []);
+  //     setEditedMonsterList(editedMonsters);
+  //   };
+  //   findEditedCR(selectedMonsterList);
+  // }, []);
 
-  useEffect(() => {
-    const fetchEditedMonsterInfo = async () => {
-      try {
-        const requests = editedMonsterList.map(async (monster) => {
-          const monsterName = monster.name;
-          const response = await axios.get(
-            `https://www.dnd5eapi.co/api/monsters/${monsterName
-              .replace(/ /g, "-")
-              .toLowerCase()}`
-          );
-          return response.data;
-        });
+  // useEffect(() => {
+  //   const fetchEditedMonsterInfo = async () => {
+  //     try {
+  //       const requests = editedMonsterList.map(async (monster) => {
+  //         const monsterName = monster.name;
+  //         const response = await axios.get(
+  //           `https://www.dnd5eapi.co/api/monsters/${monsterName
+  //             .replace(/ /g, "-")
+  //             .toLowerCase()}`
+  //         );
+  //         return response.data;
+  //       });
 
-        const editedMonsters = await Promise.all(requests);
-        setEditedMonsterList(editedMonsters);
-      } catch (error) {
-        console.error("Error fetching monster data:", error);
-      }
-    };
+  //       const editedMonsters = await Promise.all(requests);
+  //       setEditedMonsterList(editedMonsters);
+  //     } catch (error) {
+  //       console.error("Error fetching monster data:", error);
+  //     }
+  //   };
 
-    if (editedMonsterList.length > 0) {
-      fetchEditedMonsterInfo();
-    }
-  }, [editedMonsterList]);
+  //   if (editedMonsterList.length > 0) {
+  //     fetchEditedMonsterInfo();
+  //   }
+  // }, [editedMonsterList]);
 
-  console.log(editedMonsterList);
+  // console.log(editedMonsterList);
   console.log(detailedMonsterList);
   console.log(selectedMonsterList);
 

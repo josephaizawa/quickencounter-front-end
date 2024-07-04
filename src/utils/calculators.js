@@ -2,6 +2,14 @@ var roundNearQtr = function (number) {
   return (Math.round(number * 4) / 4).toFixed(2);
 };
 
+var roundNearQtr = function (number) {
+  if (number < 1) {
+    return (Math.round(number * 4) / 4).toFixed(2);
+  } else {
+    return Math.round(number);
+  }
+};
+
 function calculateDifficultCR(partyLevel) {
   if (partyLevel <= 16) {
     return roundNearQtr(partyLevel / 4);
@@ -22,4 +30,9 @@ function calculateMinion(cr) {
   return minion;
 }
 
-export { calculateDifficultCR, calculateBoss, calculateMinion };
+function calculateOne(cr) {
+  let one = roundNearQtr(cr);
+  return one;
+}
+
+export { calculateDifficultCR, calculateBoss, calculateMinion, calculateOne };

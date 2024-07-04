@@ -1,15 +1,10 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
-import { useParams } from "react-router-dom";
-// import { baseUrl, apiKeyQuery } from "../../api/api.js";
 import "../HomePage/HomePage.scss";
-import MonsterStatBlock from "../../components/MonsterStatBlock/MonsterStatBlock.jsx";
-import PartySetupComponent from "../../components/PartySetup/PartySetup.jsx";
+import StartScreenComponent from "../../components/StartScreen/StartScreen";
 
 function HomePage() {
   return (
     <>
-      <PartySetupComponent />
+      <StartScreenComponent />
     </>
   );
 }
