@@ -5,6 +5,7 @@ import axios from "axios";
 
 const MonsterStatBlock = () => {
   const [detailedMonsterList, setDetailedMonsterList] = useState([]);
+  const [editedMonsterList, setEditedMonsterList] = useState([]);
   const location = useLocation();
   const selectedMonsterList = location.state || {};
 
@@ -29,9 +30,55 @@ const MonsterStatBlock = () => {
     };
 
     fetchMonsterInfo();
-  }, [selectedMonsterList]);
+  }, []);
 
+  useEffect(() => {
+    const findEditedCR = (array1) => {
+      const editedMonsters = [];
+
+      for (let i = 0; i < array1.length; i++) {
+        const selectedMonster = array1[i];
+        const monsterCR = selectedMonster.cr;
+        const monsterChallengeRating = selectedMonster.challenge_rating;
+        if (monsterCR.toString() !== monsterChallengeRating.toString()) {
+          editedMonsters.push(selectedMonster);
+        }
+      }
+
+      setEditedMonsterList(editedMonsters);
+    };
+    findEditedCR(selectedMonsterList);
+  }, []);
+
+  useEffect(() => {
+    const fetchEditedMonsterInfo = async () => {
+      try {
+        const requests = editedMonsterList.map(async (monster) => {
+          const monsterName = monster.name;
+          const response = await axios.get(
+            `https://www.dnd5eapi.co/api/monsters/${monsterName
+              .replace(/ /g, "-")
+              .toLowerCase()}`
+          );
+          return response.data;
+        });
+
+        const editedMonsters = await Promise.all(requests);
+        setEditedMonsterList(editedMonsters);
+      } catch (error) {
+        console.error("Error fetching monster data:", error);
+      }
+    };
+
+    if (editedMonsterList.length > 0) {
+      fetchEditedMonsterInfo();
+    }
+  }, [editedMonsterList]);
+
+  console.log(editedMonsterList);
   console.log(detailedMonsterList);
+  console.log(selectedMonsterList);
+
   return (
     <>
       <main className="monster-list">
@@ -65,8 +112,11 @@ const MonsterStatBlock = () => {
                   </div>
                   <div className="property-line last">
                     <h4>Speed</h4>
-                    <p>Walk {e.speed.walk}</p>
-                    <p>Swim {e.speed.swim || "N/A"}</p>
+                    {e.speed.walk && <p>Walk {e.speed.walk}</p>}
+                    {e.speed.swim && <p>Swim {e.speed.swim}</p>}
+                    {e.speed.fly && <p>Fly {e.speed.fly}</p>}
+                    {e.speed.burrow && <p>Burrow {e.speed.burrow}</p>}
+                    {e.speed.climb && <p>Climb {e.speed.climb}</p>}
                   </div>
                   <svg height="5" width="100%" className="tapered-rule">
                     <polyline points="0,0 400,2.5 0,5"></polyline>
@@ -114,7 +164,19 @@ const MonsterStatBlock = () => {
                   <svg height="5" width="100%" className="tapered-rule">
                     <polyline points="0,0 400,2.5 0,5"></polyline>
                   </svg>
-                  <div className="property-line first">
+                  {e.proficiencies && e.proficiencies.length > 0 && (
+                    <div className="property-line">
+                      <h4>Proficiencies</h4>
+                      {e.proficiencies.map((proficiency) => (
+                        <p>
+                          {proficiency.proficiency.name}
+                          :&nbsp;
+                          {proficiency.value}
+                        </p>
+                      ))}
+                    </div>
+                  )}
+                  {/* <div className="property-line first">
                     <h4>Saving Throws</h4>
                     <p>
                       {e.proficiencies[0]?.proficiency.name ?? "N/A"}:&nbsp;
@@ -139,8 +201,42 @@ const MonsterStatBlock = () => {
                       {e.proficiencies[4]?.proficiency.name ?? "N/A"}:&nbsp;
                       {e.proficiencies[4]?.value ?? "N/A"}
                     </p>
-                  </div>
-                  <div className="property-line">
+                  </div> */}
+                  {e.damage_vulnerabilities &&
+                    e.damage_vulnerabilities.length > 0 && (
+                      <div className="property-line">
+                        <h4>Damage Vulnerabilities</h4>
+                        {e.damage_vulnerabilities.map((vulnerability) => (
+                          <p>{vulnerability.value}</p>
+                        ))}
+                      </div>
+                    )}
+                  {e.damage_resistances && e.damage_resistances.length > 0 && (
+                    <div className="property-line">
+                      <h4>Damage Resistances</h4>
+                      {e.damage_resistances.map((resistance) => (
+                        <p>{resistance.value}</p>
+                      ))}
+                    </div>
+                  )}
+                  {e.damage_immunities && e.damage_immunities.length > 0 && (
+                    <div className="property-line">
+                      <h4>Damage Immunities</h4>
+                      {e.damage_immunities.map((immunity) => (
+                        <p>{immunity}</p>
+                      ))}
+                    </div>
+                  )}
+                  {e.condition_immunities &&
+                    e.condition_immunities.length > 0 && (
+                      <div className="property-line">
+                        <h4>Condition Immunities</h4>
+                        {e.condition_immunities.map((immunity) => (
+                          <p>{immunity.name}</p>
+                        ))}
+                      </div>
+                    )}
+                  {/* <div className="property-line">
                     <h4>Damage Vulnerabilities</h4>
                     <p>{e.damage_vulnerabilities[0]?.value ?? "N/A"}</p>
                     <p>{e.damage_vulnerabilities[1]?.value ?? "N/A"}</p>
@@ -158,13 +254,18 @@ const MonsterStatBlock = () => {
                     <p>{e.condition_immunities[0]?.name ?? "N/A"}</p>
                     <p>{e.condition_immunities[1]?.name ?? "N/A"}</p>
                     <p>{e.condition_immunities[2]?.name ?? "N/A"}</p>
-                  </div>
+                  </div> */}
                   <div className="property-line">
                     <h4>Senses</h4>
-                    <p>darkvision: {e.senses.darkvision || "N/A"}</p>
-                    <p>
-                      Passive perception: {e.senses.passive_perception || "N/A"}
-                    </p>
+                    {e.senses.blindsight && (
+                      <p>blindsight: {e.senses.blindsight}</p>
+                    )}
+                    {e.senses.darkvision && (
+                      <p>darkvision: {e.senses.darkvision}</p>
+                    )}
+                    {e.senses.passive_perception && (
+                      <p>Passive perception: {e.senses.passive_perception}</p>
+                    )}
                   </div>
                   <div className="property-line">
                     <h4>Languages</h4>
@@ -180,12 +281,17 @@ const MonsterStatBlock = () => {
                 <svg height="5" width="100%" className="tapered-rule">
                   <polyline points="0,0 400,2.5 0,5"></polyline>
                 </svg>
-                {e.special_abilities.map((ability) => (
-                  <div className="property-block">
-                    <h4>{ability.name || "N/A"}</h4>
-                    <p>{ability.desc || "N/A"}</p>
-                  </div>
-                ))}
+                <h3>Special Abilities</h3>
+                {e.special_abilities && e.special_abilities.length > 0 ? (
+                  e.special_abilities.map((ability) => (
+                    <div className="property-block">
+                      <h4>{ability.name}</h4>:&nbsp;
+                      <p>{ability.desc}</p>
+                    </div>
+                  ))
+                ) : (
+                  <p>No Actions Available</p>
+                )}
                 {/* <div className="property-block">
             <h4>Antimagic Suceptibility.</h4>
             <p>
@@ -205,10 +311,20 @@ const MonsterStatBlock = () => {
           </div>{" "}
           ock */}
               </div>
-              <div className="section-right">
-                <div className="actions">
+              <div className="actions">
+                <div className="section-right">
                   <h3>Actions</h3>
-                  <div className="property-block">
+                  {e.actions && e.actions.length > 0 ? (
+                    e.actions.map((action) => (
+                      <div className="property-block">
+                        <h4>{action.name}</h4>:&nbsp;
+                        <p>{action.desc}</p>
+                      </div>
+                    ))
+                  ) : (
+                    <p>No Actions Available</p>
+                  )}
+                  {/* <div className="property-block">
                     <h4>Multiattack.</h4>
                     <p>The armor makes two melee attacks.</p>
                   </div>
@@ -219,11 +335,22 @@ const MonsterStatBlock = () => {
                       target.
                       <i>Hit:</i> 5 (1d6 + 2) bludgeoning damage.
                     </p>
-                  </div>
+                  </div> */}
                 </div>
                 <div className="actions">
                   <h3>Legendary Actions</h3>
-                  <div className="property-block">
+                  {e.legendary_actions && e.legendary_actions.length > 0 ? (
+                    e.legendary_actions.map((action) => (
+                      <div className="property-block">
+                        <h4>{action.name}</h4>:&nbsp;
+                        <p>{action.desc}</p>
+                      </div>
+                    ))
+                  ) : (
+                    <p>No Legendary Actions Available</p>
+                  )}
+
+                  {/* <div className="property-block">
                     <h4>Multiattack.</h4>
                     <p>The armor makes two melee attacks.</p>
                   </div>
@@ -234,7 +361,7 @@ const MonsterStatBlock = () => {
                       target.
                       <i>Hit:</i> 5 (1d6 + 2) bludgeoning damage.
                     </p>
-                  </div>
+                  </div> */}
                 </div>
               </div>
               <hr className="orange-border bottom" />
