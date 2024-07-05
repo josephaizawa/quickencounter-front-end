@@ -1,4 +1,4 @@
-import "../MonsterSelection/MonsterSelection.scss";
+import "../MonsterSelection/MonsterSelectionOptions.scss";
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -162,51 +162,46 @@ function MonsterSelectionBossMinions() {
   };
 
   return (
-    <section className="monster-select">
-      <h1 className="monster-select__title">Select Monster</h1>
-      <section
-        className="monster-select__container" /*onSubmit={handleSubmit}*/
-      >
-        {monsterList.map((element, index) => (
-          <div
-            className="monster-select__card"
-            key={index}
-            onClick={() => handleClick(index)}
-          >
-            <h2 className="monster-select__card-name">{element.name}</h2>
-            <p className="monster-select__card-cr">CR: {element.cr}</p>
-            <p className="monster-select__card-environments">
-              Environments: {element.environments.join(", ")}
-            </p>
-          </div>
-        ))}
-      </section>
-      <section className="monster-list">
-        <h1 className="monster-list__title">Monsters</h1>
-        <Link
-          className="monster-list__button-link"
-          to="/monsterlist"
-          state={selectedMonsterList}
+    <main className="app-window">
+      <section className="monster-selected">
+        <h1 className="monster-selected__title">Select Monster</h1>
+        <section
+          className="monster-selected__container" /*onSubmit={handleSubmit}*/
         >
-          <div className="monster-list__button">
-            <button className="button submit" type="submit">
-              Generate List
-            </button>
-          </div>
-        </Link>
-        <div className="monster-list__container">
-          {selectedMonsterList.map((element, index) => (
+          {monsterList.map((element, index) => (
             <div
-              className="selected-monster__card"
+              className="monster-selected__card"
               key={index}
-              onClick={() => removeSelectedMonster(index)}
+              onClick={() => handleClick(index)}
             >
-              <h2 className="selected-monster__card-name">{element.name}</h2>
-              <p className="selected-monster__card-cr">CR: {element.cr}</p>
-              <p className="monster-select__card-environments">
+              <h2 className="monster-selected__card-info bold">
+                {element.name}
+              </h2>
+              <p className="monster-selected__card-info">CR: {element.cr}</p>
+              <p className="monster-selected__card-info">
                 Environments: {element.environments.join(", ")}
               </p>
-              {/* <button
+            </div>
+          ))}
+        </section>
+        <section className="monster-lists">
+          <h1 className="monster-lists__title">Monster List</h1>
+
+          <div className="selected-monster">
+            {selectedMonsterList.map((element, index) => (
+              <div
+                className="selected-monster__card"
+                key={index}
+                onClick={() => removeSelectedMonster(index)}
+              >
+                <h2 className="selected-monster__card-info bold">
+                  {element.name}
+                </h2>
+                <p className="selected-monster__card-info">CR: {element.cr}</p>
+                <p className="selected-monster__card-info">
+                  Environments: {element.environments.join(", ")}
+                </p>
+                {/* <button
                 className="monster-select__decrease-button"
                 type="submit"
                 onClick={(e) => handleCRMinus(index, e)}
@@ -220,11 +215,23 @@ function MonsterSelectionBossMinions() {
               >
                 +
               </button> */}
+              </div>
+            ))}
+          </div>
+          <Link
+            className="monster-lists__button-link"
+            to="/monsterlist"
+            state={selectedMonsterList}
+          >
+            <div className="monster-lists__button">
+              <p className="monster-lists__button-select" type="submit">
+                Generate List
+              </p>
             </div>
-          ))}
-        </div>
+          </Link>
+        </section>
       </section>
-    </section>
+    </main>
   );
 }
 

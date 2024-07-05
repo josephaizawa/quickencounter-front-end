@@ -82,7 +82,9 @@ const MonsterStatBlock = () => {
   return (
     <>
       <main className="monster-list">
-        <h1 className="monster-list__title">Monsters</h1>
+        <div className="monster-list__title-container">
+          <h1 className="monster-list__title">Monsters</h1>
+        </div>
         <section className="monster-list_container">
           {detailedMonsterList.map((e, i) => (
             <div className="stat-block wide">

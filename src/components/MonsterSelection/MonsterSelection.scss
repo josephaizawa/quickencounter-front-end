@@ -1,39 +1,48 @@
+@use "../../styles/partials/resets" as *;
+@use "../../styles/partials/branding" as *;
+@use "../../styles/partials/mixins" as *;
+
+.app-window {
+  width: 70vw;
+  height: 70vh;
+  background-color: $window-grey;
+  border-radius: 8px;
+}
+
 .monster-select {
-  background-color: gray;
+  padding: 2rem;
 
   &__title {
-    color: red;
+    color: $primary-brown;
+    @include regular;
+    font-weight: 700;
+    margin-top: 3rem;
   }
 
-  &__container {
-    border: 1px solid black;
-    height: 50vh;
-    overflow-x: hidden;
-    overflow-y: auto;
+  &__options {
+    @include positioning(flex, column, center, center);
+    margin-top: 2rem;
   }
-  &__card {
-    border: 1px solid black;
-    padding: 1rem;
+
+  &__button-link {
+    @include positioning(flex, column, center, center);
+  }
+
+  &__button {
+    @include positioning(flex, column, center, center);
+    background-color: $primary-red;
+    border-radius: 8px;
+    height: 5rem;
+    width: 10rem;
+    margin: 1rem;
+
+    &-next {
+      color: $primary-white;
+    }
   }
 }
 
-.monster-list {
-  background-color: gray;
-  color: black;
-
-  &__title {
-    color: red;
-  }
-
-  &__container {
-    border: 1px solid black;
-    height: 50vh;
-    overflow-x: hidden;
-    overflow-y: auto;
-  }
-}
-
-.selected-monster__card {
-  border: 1px solid black;
-  padding: 1rem;
+.small-button {
+  height: 4rem;
+  width: 7rem;
 }

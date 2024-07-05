@@ -1,0 +1,89 @@
+@use "../../styles/partials/resets" as *;
+@use "../../styles/partials/branding" as *;
+@use "../../styles/partials/mixins" as *;
+
+.app-window {
+  width: 70vw;
+  height: 80vh;
+  background-color: $window-grey;
+  border-radius: 8px;
+}
+
+.monster-selected {
+  padding: 1rem;
+
+  &__title {
+    color: $primary-brown;
+    @include regular;
+    font-weight: 700;
+  }
+
+  &__container {
+    height: 28vh;
+    // background-color: $secondary-grey;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  &__card {
+    border: 2px solid $primary-red;
+    padding: 0.5rem;
+    &-info {
+      color: $primary-red;
+      @include regular;
+      padding: 0.15rem;
+    }
+  }
+}
+
+.monster-lists {
+  //   padding: 1rem;
+
+  &__title {
+    color: $primary-brown;
+    @include regular;
+    font-weight: 700;
+  }
+
+  &__button-link {
+    @include positioning(flex, column, center, center);
+  }
+  &__button {
+    @include positioning(flex, column, center, center);
+    background-color: $primary-red;
+    border-radius: 8px;
+    height: 3rem;
+    width: 5rem;
+
+    &-select {
+      color: $primary-white;
+    }
+  }
+  &__container {
+    height: 28vh;
+    // background-color: $secondary-grey;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+}
+.selected-monster {
+  height: 28vh;
+  // background-color: $secondary-grey;
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  &__card {
+    border: 2px solid $primary-red;
+    padding: 0.5rem;
+
+    &-info {
+      color: $primary-red;
+      @include regular;
+      padding: 0.15rem;
+    }
+  }
+}
+
+.bold {
+  font-weight: 700;
+}

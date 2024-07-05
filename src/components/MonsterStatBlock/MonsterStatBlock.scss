@@ -1,3 +1,6 @@
+@use "../../styles/partials/resets" as *;
+@use "../../styles/partials/branding" as *;
+@use "../../styles/partials/mixins" as *;
 body {
   text-align: center;
   font-size: 13.5px;
@@ -8,6 +11,21 @@ body * {
   max-width: 100%;
   font-family: "Noto Sans", "Myriad Pro", Calibri, Helvetica, Arial, sans-serif;
 }
+
+.monster-list {
+  margin-top: 3rem;
+
+  &__title-container {
+    border-radius: 8px;
+    background-color: $window-grey;
+  }
+  &__title {
+    color: $primary-red;
+    @include regular;
+    font-weight: 700;
+  }
+}
+
 .stat-block {
   text-align: left;
   margin: 20px;

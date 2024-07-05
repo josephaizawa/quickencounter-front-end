@@ -1,26 +1,3 @@
 @use "../src/styles/partials/resets";
 @use "../src/styles/partials/branding" as *;
 @use "../src/styles/partials/mixins" as *;
-
-* {
-  margin: 0;
-  padding: 0;
-}
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  list-style: none;
-}
-
-.page-content {
-  @include desktop {
-    display: flex;
-    margin-left: 5rem;
-  }
-  &__video-list {
-    @include desktop {
-      border-left: 1px solid $primary-color-silver;
-    }
-  }
-}

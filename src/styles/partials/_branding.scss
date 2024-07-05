@@ -5,6 +5,7 @@ $primary-black: #000000;
 $secondary-light-brown: #99582a;
 $secondary-tan: #bb9457;
 $secondary-grey: #6f7d8c;
+$window-grey: #6f7d8ccc;
 
 $tablet-breakpoint: 768px;
 $desktop-breakpoint: 1280px;
@@ -12,13 +13,13 @@ $desktop-breakpoint: 1280px;
 $padding-mobile: 1rem;
 
 @font-face {
-  font-family: IMFellEnglish, "Times New Roman", Times, serif;
+  font-family: "IMFellEnglish", "Times New Roman", Times, serif;
   src: url("../../assets/fonts/IMFellEnglish-Regular.ttf") format("ttf");
   font-weight: 400;
 }
 
 @font-face {
-  font-family: IMFellEnglish, "Times New Roman", Times, serif;
+  font-family: "IMFellEnglish", "Times New Roman", Times, serif;
   src: url("../../assets/fonts/IMFellEnglish-Italic.ttf") format("otf");
   font-weight: 400;
   font-style: italic;

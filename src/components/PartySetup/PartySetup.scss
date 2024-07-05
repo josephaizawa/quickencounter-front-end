@@ -1,0 +1,59 @@
+@use "../../styles/partials/resets" as *;
+@use "../../styles/partials/branding" as *;
+@use "../../styles/partials/mixins" as *;
+
+.app-window {
+  width: 70vw;
+  height: 70vh;
+  background-color: $window-grey;
+  border-radius: 8px;
+}
+
+.party-setup {
+  @include positioning(flex, column, center, center);
+  padding: 2rem;
+  &__title {
+    margin-top: 3rem;
+    color: $primary-brown;
+    @include regular;
+    font-weight: 700;
+  }
+  &__form {
+    // background-color: $secondary-tan;
+    margin: 2rem 0;
+  }
+  &__member {
+    margin: 1rem;
+  }
+
+  &__lable {
+    margin-right: 0.5rem;
+    color: $primary-brown;
+    @include regular;
+  }
+
+  &__input {
+    // margin-left: 0.5rem;
+    color: $primary-brown;
+    @include regular;
+  }
+
+  &__form-button-link {
+    @include positioning(flex, column, center, center);
+    //     height: 20rem;
+    //     width: 40rem;
+  }
+
+  &__form-button {
+    margin: 1rem;
+    @include positioning(flex, column, center, center);
+    background-color: $primary-red;
+    border-radius: 8px;
+    height: 5rem;
+    width: 10rem;
+
+    &-next {
+      color: $primary-white;
+    }
+  }
+}
