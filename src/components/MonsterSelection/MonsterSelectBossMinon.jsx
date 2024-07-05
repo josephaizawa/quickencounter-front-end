@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { calculateBoss, calculateMinion } from "../../utils/calculators";
 import { Link } from "react-router-dom";
+import deleteIcon from "../../assets/icons/delete_outline-24px.svg";
 
 function MonsterSelectionBossMinions() {
   const [monsterList, setMonsterList] = useState([]);
@@ -108,28 +109,28 @@ function MonsterSelectionBossMinions() {
     }
   };
 
-  //   let handleCRPlus = (i, e) => {
-  //     e.preventDefault();
-  //     e.stopPropagation();
-  //     let newMonsterListValues = [...selectedMonsterList];
-  //     newMonsterListValues[i] = {
-  //       ...newMonsterListValues[i],
-  //       cr: newMonsterListValues[i].cr + 1,
-  //     };
+  let handleCRPlus = (i, e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    let newMonsterListValues = [...selectedMonsterList];
+    newMonsterListValues[i] = {
+      ...newMonsterListValues[i],
+      cr: newMonsterListValues[i].cr + 1,
+    };
 
-  //     setSelectedMonsterList(newMonsterListValues);
-  //   };
-  //   let handleCRMinus = (i, e) => {
-  //     e.preventDefault();
-  //     e.stopPropagation();
-  //     let newMonsterListValues = [...selectedMonsterList];
-  //     newMonsterListValues[i] = {
-  //       ...newMonsterListValues[i],
-  //       cr: newMonsterListValues[i].cr - 1,
-  //     };
+    setSelectedMonsterList(newMonsterListValues);
+  };
+  let handleCRMinus = (i, e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    let newMonsterListValues = [...selectedMonsterList];
+    newMonsterListValues[i] = {
+      ...newMonsterListValues[i],
+      cr: newMonsterListValues[i].cr - 1,
+    };
 
-  //     setSelectedMonsterList(newMonsterListValues);
-  //   };
+    setSelectedMonsterList(newMonsterListValues);
+  };
 
   let removeSelectedMonster = (i) => {
     let newSelectedMonsterList = [...selectedMonsterList];
@@ -168,53 +169,70 @@ function MonsterSelectionBossMinions() {
         <section
           className="monster-selected__container" /*onSubmit={handleSubmit}*/
         >
-          {monsterList.map((element, index) => (
-            <div
-              className="monster-selected__card"
-              key={index}
-              onClick={() => handleClick(index)}
-            >
-              <h2 className="monster-selected__card-info bold">
-                {element.name}
-              </h2>
-              <p className="monster-selected__card-info">CR: {element.cr}</p>
-              <p className="monster-selected__card-info">
-                Environments: {element.environments.join(", ")}
-              </p>
-            </div>
-          ))}
+          {monsterList.map((element, index) => {
+            return (
+              <div
+                className="monster-selected__card"
+                key={index}
+                onClick={() => handleClick(index)}
+              >
+                <h2 className="monster-selected__card-info bold">
+                  {element.name}
+                </h2>
+                {/* <img
+                  className="monster-selected__card-image"
+                  src={element.img_main}
+                /> */}
+                <p className="monster-selected__card-info">CR: {element.cr}</p>
+                <p className="monster-selected__card-info">
+                  Environments: {element.environments.join(", ")}
+                </p>
+              </div>
+            );
+          })}
         </section>
         <section className="monster-lists">
-          <h1 className="monster-lists__title">Monster List</h1>
+          <h1 className="monster-lists__title">My Monster</h1>
 
           <div className="selected-monster">
             {selectedMonsterList.map((element, index) => (
-              <div
-                className="selected-monster__card"
-                key={index}
-                onClick={() => removeSelectedMonster(index)}
-              >
-                <h2 className="selected-monster__card-info bold">
-                  {element.name}
-                </h2>
-                <p className="selected-monster__card-info">CR: {element.cr}</p>
-                <p className="selected-monster__card-info">
-                  Environments: {element.environments.join(", ")}
-                </p>
-                {/* <button
-                className="monster-select__decrease-button"
-                type="submit"
-                onClick={(e) => handleCRMinus(index, e)}
-              >
-                -
-              </button>
-              <button
-                className="monster-select__increase-button"
-                type="submit"
-                onClick={(e) => handleCRPlus(index, e)}
-              >
-                +
-              </button> */}
+              <div className="selected-monster__card" key={index}>
+                <div className="selected-monster__card-body">
+                  <div className="selected-monster__card-info-main">
+                    <div className="selected-monster__card-info-block">
+                      <h2 className="selected-monster__card-info bold">
+                        {element.name}
+                      </h2>
+                      <p className="selected-monster__card-info">
+                        CR: {element.cr}
+                      </p>
+                      <p className="selected-monster__card-info">
+                        Environments: {element.environments.join(", ")}
+                      </p>
+                    </div>
+                    <img
+                      className="selected-monster__card-delete-button"
+                      src={deleteIcon}
+                      onClick={() => removeSelectedMonster(index)}
+                    />
+                  </div>
+                  <div className="selected-monster__card-buttons">
+                    <button
+                      className="monster-select__decrease-button"
+                      type="submit"
+                      onClick={(e) => handleCRMinus(index, e)}
+                    >
+                      -
+                    </button>
+                    <button
+                      className="monster-select__increase-button"
+                      type="submit"
+                      onClick={(e) => handleCRPlus(index, e)}
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
@@ -225,7 +243,7 @@ function MonsterSelectionBossMinions() {
           >
             <div className="monster-lists__button">
               <p className="monster-lists__button-select" type="submit">
-                Generate List
+                View Statblock
               </p>
             </div>
           </Link>

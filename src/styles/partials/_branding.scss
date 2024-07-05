@@ -13,14 +13,14 @@ $desktop-breakpoint: 1280px;
 $padding-mobile: 1rem;
 
 @font-face {
-  font-family: "IMFellEnglish", "Times New Roman", Times, serif;
-  src: url("../../assets/fonts/IMFellEnglish-Regular.ttf") format("ttf");
+  font-family: "IMFellEnglish";
+  src: url("../../assets/fonts/IMFellEnglish-Regular.ttf") format("truetype");
   font-weight: 400;
 }
 
 @font-face {
-  font-family: "IMFellEnglish", "Times New Roman", Times, serif;
-  src: url("../../assets/fonts/IMFellEnglish-Italic.ttf") format("otf");
+  font-family: "IMFellEnglish";
+  src: url("../../assets/fonts/IMFellEnglish-Italic.ttf") format("truetype");
   font-weight: 400;
   font-style: italic;
 }

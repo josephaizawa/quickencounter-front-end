@@ -8,6 +8,7 @@ import {
   calculateOne,
 } from "../../utils/calculators";
 import { Link } from "react-router-dom";
+import deleteIcon from "../../assets/icons/delete_outline-24px.svg";
 
 function MonsterSelectionOne() {
   const [monsterList, setMonsterList] = useState([]);
@@ -110,53 +111,70 @@ function MonsterSelectionOne() {
         <section
           className="monster-selected__container" /*onSubmit={handleSubmit}*/
         >
-          {monsterList.map((element, index) => (
-            <div
-              className="monster-selected__card"
-              key={index}
-              onClick={() => handleClick(index)}
-            >
-              <h2 className="monster-selected__card-info bold">
-                {element.name}
-              </h2>
-              <p className="monster-selected__card-info">CR: {element.cr}</p>
-              <p className="monster-selected__card-info">
-                Environments: {element.environments.join(", ")}
-              </p>
-            </div>
-          ))}
+          {monsterList.map((element, index) => {
+            return (
+              <div
+                className="monster-selected__card"
+                key={index}
+                onClick={() => handleClick(index)}
+              >
+                <h2 className="monster-selected__card-info bold">
+                  {element.name}
+                </h2>
+                {/* <img
+                  className="monster-selected__card-image"
+                  src={element.img_main}
+                /> */}
+                <p className="monster-selected__card-info">CR: {element.cr}</p>
+                <p className="monster-selected__card-info">
+                  Environments: {element.environments.join(", ")}
+                </p>
+              </div>
+            );
+          })}
         </section>
         <section className="monster-lists">
-          <h1 className="monster-lists__title">Monster List</h1>
+          <h1 className="monster-lists__title">My Monster</h1>
 
           <div className="selected-monster">
             {selectedMonsterList.map((element, index) => (
-              <div
-                className="selected-monster__card"
-                key={index}
-                onClick={() => removeSelectedMonster(index)}
-              >
-                <h2 className="selected-monster__card-info bold">
-                  {element.name}
-                </h2>
-                <p className="selected-monster__card-info">CR: {element.cr}</p>
-                <p className="selected-monster__card-info">
-                  Environments: {element.environments.join(", ")}
-                </p>
-                {/* <button
-              className="monster-select__decrease-button"
-              type="submit"
-              onClick={(e) => handleCRMinus(index, e)}
-            >
-              -
-            </button>
-            <button
-              className="monster-select__increase-button"
-              type="submit"
-              onClick={(e) => handleCRPlus(index, e)}
-            >
-              +
-            </button> */}
+              <div className="selected-monster__card" key={index}>
+                <div className="selected-monster__card-body">
+                  <div className="selected-monster__card-info-main">
+                    <div className="selected-monster__card-info-block">
+                      <h2 className="selected-monster__card-info bold">
+                        {element.name}
+                      </h2>
+                      <p className="selected-monster__card-info">
+                        CR: {element.cr}
+                      </p>
+                      <p className="selected-monster__card-info">
+                        Environments: {element.environments.join(", ")}
+                      </p>
+                    </div>
+                    <img
+                      className="selected-monster__card-delete-button"
+                      src={deleteIcon}
+                      onClick={() => removeSelectedMonster(index)}
+                    />
+                  </div>
+                  <div className="selected-monster__card-buttons">
+                    <button
+                      className="monster-select__decrease-button"
+                      type="submit"
+                      onClick={(e) => handleCRMinus(index, e)}
+                    >
+                      -
+                    </button>
+                    <button
+                      className="monster-select__increase-button"
+                      type="submit"
+                      onClick={(e) => handleCRPlus(index, e)}
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
@@ -167,7 +185,7 @@ function MonsterSelectionOne() {
           >
             <div className="monster-lists__button">
               <p className="monster-lists__button-select" type="submit">
-                Generate List
+                View Statblock
               </p>
             </div>
           </Link>

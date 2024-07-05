@@ -28,10 +28,19 @@
   &__card {
     border: 2px solid $primary-red;
     padding: 0.5rem;
+    margin: 2px;
+    // border-radius: 8px;
     &-info {
       color: $primary-red;
       @include regular;
       padding: 0.15rem;
+    }
+    &-image {
+      width: 15rem;
+      height: 10rem;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-top: 0.5rem;
     }
   }
 }
@@ -52,11 +61,13 @@
     @include positioning(flex, column, center, center);
     background-color: $primary-red;
     border-radius: 8px;
-    height: 3rem;
-    width: 5rem;
+    height: 2rem;
+    width: 7rem;
+    margin-top: 1rem;
 
     &-select {
       color: $primary-white;
+      @include regular;
     }
   }
   &__container {
@@ -76,10 +87,21 @@
     border: 2px solid $primary-red;
     padding: 0.5rem;
 
+    &-info-main {
+      @include positioning(flex, row, center, center);
+      position: relative;
+    }
+    &-info-block {
+    }
     &-info {
       color: $primary-red;
       @include regular;
       padding: 0.15rem;
+    }
+
+    &-delete-button {
+      position: absolute;
+      right: 1rem;
     }
   }
 }

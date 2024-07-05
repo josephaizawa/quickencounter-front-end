@@ -50,6 +50,7 @@ function PartySetupComponent() {
               <label className="party-setup__lable">
                 Name&nbsp;&nbsp;
                 <input
+                  className="party-setup__input"
                   type="text"
                   name="name"
                   value={element.name}

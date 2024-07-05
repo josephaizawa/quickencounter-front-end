@@ -49,6 +49,7 @@
     width: 10rem;
 
     &-start {
+      @include regular;
       color: $primary-white;
     }
   }

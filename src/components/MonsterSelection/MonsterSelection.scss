@@ -38,6 +38,7 @@
 
     &-next {
       color: $primary-white;
+      @include regular;
     }
   }
 }
