@@ -30,11 +30,12 @@ body * {
   @include positioning(flex, column, center, center);
 }
 .creature-image {
-  width: 15rem;
-  height: 10rem;
-  object-fit: cover;
+  width: 10rem;
+  height: 7rem;
+  object-fit: none;
   border-radius: 8px;
   margin-top: 0.5rem;
+  object-position: 50% 20%;
 }
 .stat-block {
   text-align: left;

@@ -13,12 +13,12 @@ const MonsterStatBlock = () => {
     const fetchMonsterInfo = async () => {
       try {
         const requests = selectedMonsterList.map(async (monster) => {
-          const monsterName = monster.name;
-          const response = await axios.get(
-            `https://www.dnd5eapi.co/api/monsters/${monsterName
-              .replace(/ /g, "-")
-              .toLowerCase()}`
+          const monsterName = { name: monster.name };
+          const response = await axios.post(
+            `http://localhost:8080/monsters/individual`,
+            monsterName
           );
+
           return response.data;
         });
 
@@ -32,52 +32,47 @@ const MonsterStatBlock = () => {
     fetchMonsterInfo();
   }, []);
 
-  useEffect(() => {
-    const findEditedCR = (array1) => {
-      const editedMonsters = [];
+  // useEffect(() => {
+  //   const findEditedCR = (array1) => {
+  //     const editedMonsters = [];
 
-      for (let i = 0; i < array1.length; i++) {
-        const selectedMonster = array1[i];
-        const monsterCR = selectedMonster.cr;
-        const monsterChallengeRating = selectedMonster.challenge_rating;
-        if (monsterCR.toString() !== monsterChallengeRating.toString()) {
-          editedMonsters.push(selectedMonster);
-        }
-      }
+  //     for (let i = 0; i < array1.length; i++) {
+  //       const selectedMonster = array1[i];
+  //       const monsterCR = selectedMonster.cr;
+  //       const monsterChallengeRating = selectedMonster.challenge_rating;
+  //       if (monsterCR.toString() !== monsterChallengeRating.toString()) {
+  //         editedMonsters.push(selectedMonster);
+  //       }
+  //     }
 
-      setEditedMonsterList(editedMonsters);
-    };
-    findEditedCR(selectedMonsterList);
-  }, []);
+  //     setEditedMonsterList(editedMonsters);
+  //   };
+  //   findEditedCR(selectedMonsterList);
+  // }, []);
 
-  useEffect(() => {
-    const fetchEditedMonsterInfo = async () => {
-      try {
-        const requests = editedMonsterList.map(async (monster) => {
-          const monsterName = monster.name;
-          const response = await axios.get(
-            `https://www.dnd5eapi.co/api/monsters/${monsterName
-              .replace(/ /g, "-")
-              .toLowerCase()}`
-          );
-          return response.data;
-        });
+  // useEffect(() => {
+  //   const fetchEditedMonsterInfo = async () => {
+  //     try {
+  //       const requests = editedMonsterList.map(async (monster) => {
+  //         const monsterName = monster.name;
+  //         const response = await axios.post(
+  //           `http://localhost:8080/monsters/individual`,
+  //           monsterName
+  //         );
+  //         return response.data;
+  //       });
 
-        const editedMonsters = await Promise.all(requests);
-        setEditedMonsterList(editedMonsters);
-      } catch (error) {
-        console.error("Error fetching monster data:", error);
-      }
-    };
+  //       const editedMonsters = await Promise.all(requests);
+  //       setEditedMonsterList(editedMonsters);
+  //     } catch (error) {
+  //       console.error("Error fetching monster data:", error);
+  //     }
+  //   };
 
-    if (editedMonsterList.length > 0) {
-      fetchEditedMonsterInfo();
-    }
-  }, []);
-
-  console.log(editedMonsterList);
-  console.log(detailedMonsterList);
-  console.log(selectedMonsterList);
+  //   if (editedMonsterList.length > 0) {
+  //     fetchEditedMonsterInfo();
+  //   }
+  // }, []);
 
   return (
     <>
@@ -87,16 +82,17 @@ const MonsterStatBlock = () => {
         </div>
         <section className="monster-list_container">
           {detailedMonsterList.map((e, i) => {
+            console.log(e.image);
             return (
               <div className="stat-block wide">
                 <hr className="orange-border" />
                 <div className="section-left">
                   <div className="creature-heading">
                     <div className="creature-image-block">
-                      {e.image && (
+                      {e.image.monsterImage && (
                         <img
                           className="creature-image"
-                          src={`https://www.dnd5eapi.co${e.image}`}
+                          src={e.image.monsterImage}
                         />
                       )}
                     </div>

@@ -33,7 +33,7 @@ function MonsterSelectionSwarm() {
           `http://localhost:8080/monsters/filtered`,
           formatedCR
         );
-        setMonsterList(response.data.results);
+        setMonsterList(response.data);
       } catch (e) {
         console.error("error getting item data:", e);
       }
@@ -52,7 +52,7 @@ function MonsterSelectionSwarm() {
           `http://localhost:8080/monsters/filtered`,
           formatedCR
         );
-        setMonsterList(response.data.results);
+        setMonsterList(response.data);
       } catch (e) {
         console.error("error getting item data:", e);
       }
@@ -71,7 +71,7 @@ function MonsterSelectionSwarm() {
           `http://localhost:8080/monsters/filtered`,
           formatedCR
         );
-        setMonsterList(response.data.results);
+        setMonsterList(response.data);
       } catch (e) {
         console.error("error getting item data:", e);
       }
@@ -100,7 +100,7 @@ function MonsterSelectionSwarm() {
             `http://localhost:8080/monsters/filtered`,
             formatedCR
           );
-          setMonsterList(response.data.results);
+          setMonsterList(response.data);
         } catch (e) {
           console.error("error getting item data:", e);
         }
@@ -151,7 +151,7 @@ function MonsterSelectionSwarm() {
             `http://localhost:8080/monsters/filtered`,
             formatedCR
           );
-          setMonsterList(response.data.results);
+          setMonsterList(response.data);
         } catch (e) {
           console.error("error getting item data:", e);
         }
