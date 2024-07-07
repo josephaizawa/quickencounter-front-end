@@ -7,6 +7,8 @@ import { Link } from "react-router-dom";
 import deleteIcon from "../../assets/icons/delete_outline-24px.svg";
 import fangsIcon from "../../assets/images/fangs.svg";
 import Loading from "../Loading/Loading";
+import BackButton from "../BackButton/BackButton";
+import RestartButton from "../RestartButton/RestartButton";
 
 function MonsterSelectionSwarm() {
   const [monsterList, setMonsterList] = useState([]);
@@ -46,25 +48,6 @@ function MonsterSelectionSwarm() {
     fetchMonster();
   }, []);
 
-  const handleOneMonsterSubmit = () => {
-    const formatedCR = {
-      cr: difficultCR,
-    };
-    console.log(formatedCR);
-    const fetchMonster = async () => {
-      try {
-        const response = await axios.post(
-          `http://localhost:8080/monsters/filtered`,
-          formatedCR
-        );
-        setMonsterList(response.data);
-      } catch (e) {
-        console.error("error getting item data:", e);
-      }
-    };
-    fetchMonster();
-  };
-
   const handleSwarmSubmit = () => {
     const formatedCR = {
       cr: swarmCR,
@@ -77,8 +60,10 @@ function MonsterSelectionSwarm() {
           formatedCR
         );
         setMonsterList(response.data);
+        setLoading(false);
       } catch (e) {
         console.error("error getting item data:", e);
+        setLoading(false);
       }
     };
     fetchMonster();
@@ -94,11 +79,13 @@ function MonsterSelectionSwarm() {
     const remainingCR = totalCRRemaining - selectedMonster.cr;
     console.log(remainingCR);
     if (remainingCR >= swarmCR) {
+      setLoading(true);
       handleSwarmSubmit();
     } else if (remainingCR > 0) {
       const formatedCR = {
         cr: remainingCR,
       };
+      setLoading(true);
       const fetchMonster = async () => {
         try {
           const response = await axios.post(
@@ -106,14 +93,16 @@ function MonsterSelectionSwarm() {
             formatedCR
           );
           setMonsterList(response.data);
+          setLoading(false);
         } catch (e) {
           console.error("error getting item data:", e);
+          setLoading(false);
         }
       };
       fetchMonster();
     }
   };
-
+  //------------ code for editing CR --------
   //   let handleCRPlus = (i, e) => {
   //     e.preventDefault();
   //     e.stopPropagation();
@@ -145,11 +134,13 @@ function MonsterSelectionSwarm() {
     const remainingCR = totalCRRemaining + newSelectedMonster.cr;
     console.log(remainingCR);
     if (remainingCR >= swarmCR) {
+      setLoading(true);
       handleSwarmSubmit();
     } else if (remainingCR > 0) {
       const formatedCR = {
         cr: remainingCR,
       };
+      setLoading(true);
       const fetchMonster = async () => {
         try {
           const response = await axios.post(
@@ -157,8 +148,10 @@ function MonsterSelectionSwarm() {
             formatedCR
           );
           setMonsterList(response.data);
+          setLoading(false);
         } catch (e) {
           console.error("error getting item data:", e);
+          setLoading(false);
         }
       };
       fetchMonster();
@@ -168,14 +161,13 @@ function MonsterSelectionSwarm() {
   return (
     <main className="app-window">
       <section className="monster-selected">
-        <h1 className="monster-selected__title">Select Monster</h1>
-        {loading && (
-          <div className="loading">
-            <p>Loading</p>
-            <Loading />
-          </div>
-        )}
+        <div className="monster-selected__header">
+          <BackButton />
+          <h1 className="monster-selected__title">Select Monster</h1>
+          <RestartButton />
+        </div>
         <section className="monster-selected__container">
+          {loading && <Loading />}
           {monsterList.map((element, index) => {
             return (
               <div
@@ -254,7 +246,7 @@ function MonsterSelectionSwarm() {
                       onClick={() => removeSelectedMonster(index)}
                     />
                   </div>
-                  {/* <div className="selected-monster__card-buttons">
+                  {/* <div className="selected-monster__card-buttons"> // For Editing CR
                     <button
                       className="monster-select__decrease-button"
                       type="submit"
@@ -281,7 +273,7 @@ function MonsterSelectionSwarm() {
           >
             <div className="monster-lists__button">
               <p className="monster-lists__button-select" type="submit">
-                View Statblock
+                View Statblocks
               </p>
             </div>
           </Link>

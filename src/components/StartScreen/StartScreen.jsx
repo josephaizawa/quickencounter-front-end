@@ -13,9 +13,7 @@ function StartScreenComponent() {
               The easy way to create a challenging D&D encounter on the fly!
             </p>
             <p className="start-screen__instruction">Click start to begin</p>
-            <section
-              className="start-screen__section" /*onSubmit={handleSubmit}*/
-            >
+            <section className="start-screen__section">
               <Link className="start-screen__button-link" to="/party">
                 <div className="start-screen__button">
                   <p className="start-screen__button-start">Start</p>

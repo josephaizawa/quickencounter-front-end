@@ -2,10 +2,15 @@ import "../MonsterStatBlock/MonsterStatBlock.scss";
 import { useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import fangsIcon from "../../assets/images/fangs.svg";
+import Loading from "../Loading/Loading";
+import BackButton from "../BackButton/BackButton";
+import RestartButton from "../RestartButton/RestartButton";
 
 const MonsterStatBlock = () => {
   const [detailedMonsterList, setDetailedMonsterList] = useState([]);
-  const [editedMonsterList, setEditedMonsterList] = useState([]);
+
+  const [loading, setLoading] = useState(true);
   const location = useLocation();
   const selectedMonsterList = location.state || {};
 
@@ -24,61 +29,26 @@ const MonsterStatBlock = () => {
 
         const detailedMonsters = await Promise.all(requests);
         setDetailedMonsterList(detailedMonsters);
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching monster data:", error);
+        setLoading(false);
       }
     };
 
     fetchMonsterInfo();
   }, []);
 
-  // useEffect(() => {
-  //   const findEditedCR = (array1) => {
-  //     const editedMonsters = [];
-
-  //     for (let i = 0; i < array1.length; i++) {
-  //       const selectedMonster = array1[i];
-  //       const monsterCR = selectedMonster.cr;
-  //       const monsterChallengeRating = selectedMonster.challenge_rating;
-  //       if (monsterCR.toString() !== monsterChallengeRating.toString()) {
-  //         editedMonsters.push(selectedMonster);
-  //       }
-  //     }
-
-  //     setEditedMonsterList(editedMonsters);
-  //   };
-  //   findEditedCR(selectedMonsterList);
-  // }, []);
-
-  // useEffect(() => {
-  //   const fetchEditedMonsterInfo = async () => {
-  //     try {
-  //       const requests = editedMonsterList.map(async (monster) => {
-  //         const monsterName = monster.name;
-  //         const response = await axios.post(
-  //           `http://localhost:8080/monsters/individual`,
-  //           monsterName
-  //         );
-  //         return response.data;
-  //       });
-
-  //       const editedMonsters = await Promise.all(requests);
-  //       setEditedMonsterList(editedMonsters);
-  //     } catch (error) {
-  //       console.error("Error fetching monster data:", error);
-  //     }
-  //   };
-
-  //   if (editedMonsterList.length > 0) {
-  //     fetchEditedMonsterInfo();
-  //   }
-  // }, []);
-
   return (
     <>
       <main className="monster-list">
         <div className="monster-list__title-container">
-          <h1 className="monster-list__title">Monsters</h1>
+          <div className="monster-list__header">
+            <BackButton />
+            <h1 className="monster-list__title">Monsters</h1>
+            <RestartButton />
+          </div>
+          {loading && <Loading />}
         </div>
         <section className="monster-list_container">
           {detailedMonsterList.map((e, i) => {
@@ -89,18 +59,24 @@ const MonsterStatBlock = () => {
                 <div className="section-left">
                   <div className="creature-heading">
                     <div className="creature-image-block">
-                      {e.image.monsterImage && (
+                      {e.image.monsterImage ? (
                         <img
                           className="creature-image"
                           src={e.image.monsterImage}
                         />
+                      ) : (
+                        <img
+                          className="creature-image-default"
+                          src={fangsIcon}
+                        />
                       )}
                     </div>
-
-                    <h1>{e.index}</h1>
-                    <h2>
-                      {e.size} {e.type}, {e.alignment}
-                    </h2>
+                    <div className="creature-name-block">
+                      <h1>{e.index}</h1>
+                      <h2>
+                        {e.size} {e.type}, {e.alignment}
+                      </h2>
+                    </div>
                   </div>
                   <svg height="5" width="100%" className="tapered-rule">
                     <polyline points="0,0 400,2.5 0,5"></polyline>
@@ -184,32 +160,7 @@ const MonsterStatBlock = () => {
                         ))}
                       </div>
                     )}
-                    {/* <div className="property-line first">
-                      <h4>Saving Throws</h4>
-                      <p>
-                        {e.proficiencies[0]?.proficiency.name ?? "N/A"}:&nbsp;
-                        {e.proficiencies[0]?.value ?? "N/A"}
-                      </p>
-                      <p>
-                        {e.proficiencies[1]?.proficiency.name ?? "N/A"}:&nbsp;
-                        {e.proficiencies[1]?.value ?? "N/A"}
-                      </p>
-                      <p>
-                        {e.proficiencies[2]?.proficiency.name ?? "N/A"}:&nbsp;
-                        {e.proficiencies[2]?.value ?? "N/A"}
-                      </p>
-                    </div>
-                    <div className="property-line">
-                      <h4>Skills</h4>
-                      <p>
-                        {e.proficiencies[3]?.proficiency.name ?? "N/A"}:&nbsp;
-                        {e.proficiencies[3]?.value ?? "N/A"}
-                      </p>
-                      <p>
-                        {e.proficiencies[4]?.proficiency.name ?? "N/A"}:&nbsp;
-                        {e.proficiencies[4]?.value ?? "N/A"}
-                      </p>
-                    </div> */}
+
                     {e.damage_vulnerabilities &&
                       e.damage_vulnerabilities.length > 0 && (
                         <div className="property-line">
@@ -245,25 +196,7 @@ const MonsterStatBlock = () => {
                           ))}
                         </div>
                       )}
-                    {/* <div className="property-line">
-                      <h4>Damage Vulnerabilities</h4>
-                      <p>{e.damage_vulnerabilities[0]?.value ?? "N/A"}</p>
-                      <p>{e.damage_vulnerabilities[1]?.value ?? "N/A"}</p>
-                    </div>
-                    <div className="property-line">
-                      <h4>Damage Resistances</h4>
-                      <p>{e.damage_resistances || "N/A"}</p>
-                    </div>
-                    <div className="property-line">
-                      <h4>Damage Immunities</h4>
-                      <p>{e.damage_immunities || "N/A"}</p>
-                    </div>
-                    <div className="property-line">
-                      <h4>Condition Immunities</h4>
-                      <p>{e.condition_immunities[0]?.name ?? "N/A"}</p>
-                      <p>{e.condition_immunities[1]?.name ?? "N/A"}</p>
-                      <p>{e.condition_immunities[2]?.name ?? "N/A"}</p>
-                    </div> */}
+
                     <div className="property-line">
                       <h4>Senses</h4>
                       {e.senses.blindsight && (
@@ -301,24 +234,6 @@ const MonsterStatBlock = () => {
                   ) : (
                     <p>No Actions Available</p>
                   )}
-                  {/* <div className="property-block">
-              <h4>Antimagic Suceptibility.</h4>
-              <p>
-                The armor is incapacitated while in the area of an{" "}
-                <i>antimagic field</i>. If targeted by <i>dispel magic</i>, the
-                armor must succeed on a Constitution saving throw against the
-                caster’s spell save DC or fall unconscious for 1 minute.
-              </p>
-            </div>{" "}
-            ock
-            <div className="property-block">
-              <h4>False Appearance.</h4>
-              <p>
-                While the armor remains motionless, it is indistinguishable from a
-                normal suit of armor.
-              </p>
-            </div>{" "}
-            ock */}
                 </div>
                 <div className="actions">
                   <div className="section-right">
@@ -333,18 +248,6 @@ const MonsterStatBlock = () => {
                     ) : (
                       <p>No Actions Available</p>
                     )}
-                    {/* <div className="property-block">
-                      <h4>Multiattack.</h4>
-                      <p>The armor makes two melee attacks.</p>
-                    </div>
-                    <div className="property-block">
-                      <h4>Slam.</h4>
-                      <p>
-                        <i>Melee Weapon Attack:</i> +4 to hit, reach 5 ft., one
-                        target.
-                        <i>Hit:</i> 5 (1d6 + 2) bludgeoning damage.
-                      </p>
-                    </div> */}
                   </div>
                   <div className="actions">
                     <h3>Legendary Actions</h3>
@@ -358,19 +261,6 @@ const MonsterStatBlock = () => {
                     ) : (
                       <p>No Legendary Actions Available</p>
                     )}
-
-                    {/* <div className="property-block">
-                      <h4>Multiattack.</h4>
-                      <p>The armor makes two melee attacks.</p>
-                    </div>
-                    <div className="property-block">
-                      <h4>Slam.</h4>
-                      <p>
-                        <i>Melee Weapon Attack:</i> +4 to hit, reach 5 ft., one
-                        target.
-                        <i>Hit:</i> 5 (1d6 + 2) bludgeoning damage.
-                      </p>
-                    </div> */}
                   </div>
                 </div>
                 <hr className="orange-border bottom" />

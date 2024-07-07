@@ -11,6 +11,8 @@ import { Link } from "react-router-dom";
 import deleteIcon from "../../assets/icons/delete_outline-24px.svg";
 import fangsIcon from "../../assets/images/fangs.svg";
 import Loading from "../Loading/Loading";
+import BackButton from "../BackButton/BackButton";
+import RestartButton from "../RestartButton/RestartButton";
 
 function MonsterSelectionOne() {
   const [monsterList, setMonsterList] = useState([]);
@@ -51,25 +53,6 @@ function MonsterSelectionOne() {
     fetchMonster();
   }, []);
 
-  const handleOneMonsterSubmit = () => {
-    const formatedCR = {
-      cr: difficultCR,
-    };
-    console.log(formatedCR);
-    const fetchMonster = async () => {
-      try {
-        const response = await axios.post(
-          `http://localhost:8080/monsters/filtered`,
-          formatedCR
-        );
-        setMonsterList(response.data);
-      } catch (e) {
-        console.error("error getting item data:", e);
-      }
-    };
-    fetchMonster();
-  };
-
   let handleClick = (index) => {
     if (totalCRRemaining <= 0) {
       return;
@@ -78,6 +61,7 @@ function MonsterSelectionOne() {
     setSelectedMonsterList([...selectedMonsterList, selectedMonster]);
   };
 
+  //------------ code for editing CR --------
   //   let handleCRPlus = (i, e) => {
   //     e.preventDefault();
   //     e.stopPropagation();
@@ -112,14 +96,13 @@ function MonsterSelectionOne() {
   return (
     <main className="app-window">
       <section className="monster-selected">
-        <h1 className="monster-selected__title">Select Monster</h1>
-        {loading && (
-          <div className="loading">
-            <p>Loading</p>
-            <Loading />
-          </div>
-        )}
+        <div className="monster-selected__header">
+          <BackButton />
+          <h1 className="monster-selected__title">Select Monster</h1>
+          <RestartButton />
+        </div>
         <section className="monster-selected__container">
+          {loading && <Loading />}
           {monsterList.map((element, index) => {
             return (
               <div
@@ -198,7 +181,7 @@ function MonsterSelectionOne() {
                       onClick={() => removeSelectedMonster(index)}
                     />
                   </div>
-                  {/* <div className="selected-monster__card-buttons">
+                  {/* <div className="selected-monster__card-buttons"> // for editing cr
                     <button
                       className="monster-select__decrease-button"
                       type="submit"

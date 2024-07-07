@@ -19,7 +19,6 @@
     font-weight: 700;
   }
   &__form {
-    // background-color: $secondary-tan;
     margin: 2rem 0;
   }
   &__member {
@@ -33,15 +32,12 @@
   }
 
   &__input {
-    // margin-left: 0.5rem;
     color: $primary-brown;
     @include regular;
   }
 
   &__form-button-link {
     @include positioning(flex, column, center, center);
-    //     height: 20rem;
-    //     width: 40rem;
   }
 
   &__form-button {

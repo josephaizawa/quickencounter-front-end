@@ -4,9 +4,15 @@
 
 .app-window {
   width: 70vw;
-  height: 70vh;
+  height: 80vh;
   background-color: $window-grey;
   border-radius: 8px;
+}
+
+.nav {
+  padding: 0.5rem 2rem;
+  width: 100%;
+  @include positioning(flex, row, space-between, center);
 }
 
 .monster-select {
@@ -47,3 +53,11 @@
   height: 4rem;
   width: 7rem;
 }
+
+// .footer {
+//   padding: 0 1rem;
+//   @include positioning(flex, row, space-between, end);
+//   // margin-top: 2.5rem;
+//   // height: auto;
+//   width: 100%;
+// }

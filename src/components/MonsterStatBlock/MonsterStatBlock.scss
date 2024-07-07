@@ -9,12 +9,16 @@ body {
 body * {
   box-sizing: border-box;
   max-width: 100%;
-  // font-family: "Noto Sans", "Myriad Pro", Calibri, Helvetica, Arial, sans-serif;
+
   @include regular;
 }
 
 .monster-list {
   margin-top: 3rem;
+  &__header {
+    padding: 1rem;
+    @include positioning(flex, row, space-between, start);
+  }
 
   &__title-container {
     border-radius: 8px;
@@ -26,6 +30,10 @@ body * {
     font-weight: 700;
   }
 }
+.creature-heading {
+  @include positioning(flex, row, space-between, center);
+  padding: 1rem;
+}
 .creature-image-block {
   @include positioning(flex, column, center, center);
 }
@@ -36,6 +44,17 @@ body * {
   border-radius: 8px;
   margin-top: 0.5rem;
   object-position: 50% 20%;
+  border: 1px solid $primary-red;
+  &-default {
+    width: 10rem;
+    height: 7rem;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-top: 0.5rem;
+
+    border: 1px solid $primary-red;
+    opacity: 0.75;
+  }
 }
 .stat-block {
   text-align: left;
@@ -106,9 +125,7 @@ body * {
 }
 .creature-heading h1 {
   @include regular;
-  // font-family: "Libre Baskerville", "Lora", "Calisto MT", "Bookman Old Style",
-  //   Bookman, "Goudy Old Style", Garamond, "Hoefler Text", "Bitstream Charter",
-  //   Georgia, serif;
+
   color: #922610;
   font-size: 23px;
   line-height: 1.2em;

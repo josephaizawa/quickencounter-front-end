@@ -44,7 +44,7 @@ function PartySetupComponent() {
       <section className="party-setup">
         <h1 className="party-setup__title">Adventuring Party</h1>
 
-        <form className="party-setup__form" /*onSubmit={handleSubmit}*/>
+        <form className="party-setup__form">
           {partyMembers.map((element, index) => (
             <div className="party-setup__member" key={index}>
               <label className="party-setup__lable">

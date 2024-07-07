@@ -4,15 +4,20 @@ import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { calculateBoss, calculateMinion } from "../../utils/calculators";
 import { Link } from "react-router-dom";
+import BackButton from "../BackButton/BackButton";
+import RestartButton from "../RestartButton/RestartButton";
+import Footer from "../Footer/Footer";
 
 function MonsterSelectionComponent() {
-  const [monsterList, setMonsterList] = useState([]);
-  const [selectedMonsterList, setSelectedMonsterList] = useState([]);
   const location = useLocation();
   const difficultCR = location.state || {};
 
   return (
     <main className="app-window">
+      <nav className="nav">
+        <BackButton />
+        <RestartButton />
+      </nav>
       <section className="monster-select">
         <h1 className="monster-select__title">Select Encounter Type</h1>
         <div className="monster-select__options">

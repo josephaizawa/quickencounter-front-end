@@ -1,0 +1,18 @@
+@use "../../styles/partials/resets" as *;
+@use "../../styles/partials/branding" as *;
+@use "../../styles/partials/mixins" as *;
+
+.footer-component {
+  @include positioning(flex, row, space-between, end);
+
+  &-by {
+    color: $primary-brown;
+    @include regular;
+    font-size: medium;
+  }
+  &-app {
+    color: $primary-brown;
+    @include regular;
+    font-size: large;
+  }
+}

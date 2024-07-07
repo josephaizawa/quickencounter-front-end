@@ -1,0 +1,16 @@
+@use "../../styles/partials/resets" as *;
+@use "../../styles/partials/branding" as *;
+@use "../../styles/partials/mixins" as *;
+
+.back-arrow {
+  @include positioning(flex, row, center, center);
+  &-icon {
+    height: 2rem;
+  }
+  &-text {
+    @include regular;
+    font-size: medium;
+    color: $primary-black;
+    margin-left: 0.25rem;
+  }
+}
