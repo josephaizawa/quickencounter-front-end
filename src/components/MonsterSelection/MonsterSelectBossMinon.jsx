@@ -5,10 +5,13 @@ import axios from "axios";
 import { calculateBoss, calculateMinion } from "../../utils/calculators";
 import { Link } from "react-router-dom";
 import deleteIcon from "../../assets/icons/delete_outline-24px.svg";
+import fangsIcon from "../../assets/images/fangs.svg";
+import Loading from "../Loading/Loading";
 
 function MonsterSelectionBossMinions() {
   const [monsterList, setMonsterList] = useState([]);
   const [selectedMonsterList, setSelectedMonsterList] = useState([]);
+  const [loading, setLoading] = useState(true);
   const location = useLocation();
   const difficultCR = location.state || {};
 
@@ -20,22 +23,23 @@ function MonsterSelectionBossMinions() {
   const bossCR = calculateBoss(difficultCR);
   const swarmCR = calculateMinion(difficultCR);
 
-  console.log(totalCRRemaining);
-
   useEffect(() => {
     const formatedCR = {
       cr: bossCR,
     };
-    console.log(formatedCR);
+
     const fetchMonster = async () => {
       try {
         const response = await axios.post(
           `http://localhost:8080/monsters/filtered`,
           formatedCR
         );
-        setMonsterList(response.data.results);
+
+        setMonsterList(response.data);
+        setLoading(false);
       } catch (e) {
         console.error("error getting item data:", e);
+        setLoading(false);
       }
     };
     fetchMonster();
@@ -52,7 +56,7 @@ function MonsterSelectionBossMinions() {
           `http://localhost:8080/monsters/filtered`,
           formatedCR
         );
-        setMonsterList(response.data.results);
+        setMonsterList(response.data);
       } catch (e) {
         console.error("error getting item data:", e);
       }
@@ -71,7 +75,7 @@ function MonsterSelectionBossMinions() {
           `http://localhost:8080/monsters/filtered`,
           formatedCR
         );
-        setMonsterList(response.data.results);
+        setMonsterList(response.data);
       } catch (e) {
         console.error("error getting item data:", e);
       }
@@ -100,7 +104,7 @@ function MonsterSelectionBossMinions() {
             `http://localhost:8080/monsters/filtered`,
             formatedCR
           );
-          setMonsterList(response.data.results);
+          setMonsterList(response.data);
         } catch (e) {
           console.error("error getting item data:", e);
         }
@@ -153,7 +157,7 @@ function MonsterSelectionBossMinions() {
             `http://localhost:8080/monsters/filtered`,
             formatedCR
           );
-          setMonsterList(response.data.results);
+          setMonsterList(response.data);
         } catch (e) {
           console.error("error getting item data:", e);
         }
@@ -166,9 +170,13 @@ function MonsterSelectionBossMinions() {
     <main className="app-window">
       <section className="monster-selected">
         <h1 className="monster-selected__title">Select Monster</h1>
-        <section
-          className="monster-selected__container" /*onSubmit={handleSubmit}*/
-        >
+        {loading && (
+          <div className="loading">
+            <p>Loading</p>
+            <Loading />
+          </div>
+        )}
+        <section className="monster-selected__container">
           {monsterList.map((element, index) => {
             return (
               <div
@@ -176,17 +184,32 @@ function MonsterSelectionBossMinions() {
                 key={index}
                 onClick={() => handleClick(index)}
               >
-                <h2 className="monster-selected__card-info bold">
-                  {element.name}
-                </h2>
-                {/* <img
-                  className="monster-selected__card-image"
-                  src={element.img_main}
-                /> */}
-                <p className="monster-selected__card-info">CR: {element.cr}</p>
-                <p className="monster-selected__card-info">
-                  Environments: {element.environments.join(", ")}
-                </p>
+                {element.image.monsterImage ? (
+                  <img
+                    className="monster-selected__card-image"
+                    src={element.image.monsterImage}
+                    alt={element.name}
+                  />
+                ) : (
+                  <img
+                    className="monster-selected__card-image-default"
+                    src={fangsIcon}
+                    alt="Default"
+                  />
+                )}
+
+                <div className="monster-selected__card-info-block">
+                  <h2 className="monster-selected__card-info bold">
+                    {element.name}
+                  </h2>
+                  <p className="monster-selected__card-info">
+                    CR: {element.cr}
+                  </p>
+                  <p className="monster-selected__card-info">Environments:</p>
+                  <p className="monster-selected__card-info">
+                    {element.environments.join(", ")}
+                  </p>
+                </div>
               </div>
             );
           })}
@@ -199,6 +222,19 @@ function MonsterSelectionBossMinions() {
               <div className="selected-monster__card" key={index}>
                 <div className="selected-monster__card-body">
                   <div className="selected-monster__card-info-main">
+                    {element.image.monsterImage ? (
+                      <img
+                        className="monster-selected__card-image"
+                        src={element.image.monsterImage}
+                        alt={element.name}
+                      />
+                    ) : (
+                      <img
+                        className="monster-selected__card-image-default"
+                        src={fangsIcon}
+                        alt="Default"
+                      />
+                    )}
                     <div className="selected-monster__card-info-block">
                       <h2 className="selected-monster__card-info bold">
                         {element.name}
@@ -206,8 +242,11 @@ function MonsterSelectionBossMinions() {
                       <p className="selected-monster__card-info">
                         CR: {element.cr}
                       </p>
-                      <p className="selected-monster__card-info">
-                        Environments: {element.environments.join(", ")}
+                      <p className="monster-selected__card-info">
+                        Environments:
+                      </p>
+                      <p className="monster-selected__card-info">
+                        {element.environments.join(", ")}
                       </p>
                     </div>
                     <img
@@ -216,22 +255,22 @@ function MonsterSelectionBossMinions() {
                       onClick={() => removeSelectedMonster(index)}
                     />
                   </div>
-                  <div className="selected-monster__card-buttons">
-                    <button
-                      className="monster-select__decrease-button"
-                      type="submit"
-                      onClick={(e) => handleCRMinus(index, e)}
-                    >
-                      -
-                    </button>
-                    <button
-                      className="monster-select__increase-button"
-                      type="submit"
-                      onClick={(e) => handleCRPlus(index, e)}
-                    >
-                      +
-                    </button>
-                  </div>
+                  {/* <div className="selected-monster__card-buttons">
+                  <button
+                    className="monster-select__decrease-button"
+                    type="submit"
+                    onClick={(e) => handleCRMinus(index, e)}
+                  >
+                    -
+                  </button>
+                  <button
+                    className="monster-select__increase-button"
+                    type="submit"
+                    onClick={(e) => handleCRPlus(index, e)}
+                  >
+                    +
+                  </button>
+                </div> */}
                 </div>
               </div>
             ))}

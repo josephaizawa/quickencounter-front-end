@@ -7,6 +7,16 @@
   height: 80vh;
   background-color: $window-grey;
   border-radius: 8px;
+  @include positioning(flex, column, center, center);
+}
+.loading {
+  @include positioning(flex, column, center, center);
+  font-size: 100px;
+  // position: absolute;
+  // top: 100px;
+  // left: 100px;
+  margin-left: 2rem;
+  margin-top: 30rem;
 }
 
 .monster-selected {
@@ -27,20 +37,41 @@
 
   &__card {
     border: 2px solid $primary-red;
-    padding: 0.5rem;
+    padding: 2rem;
     margin: 2px;
+    @include positioning(flex, row, start, center);
     // border-radius: 8px;
+    &-info-block {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: start;
+      margin-left: 3rem;
+      width: 16rem;
+    }
     &-info {
       color: $primary-red;
       @include regular;
       padding: 0.15rem;
     }
     &-image {
-      width: 15rem;
-      height: 10rem;
+      width: 10rem;
+      height: 7rem;
+      object-fit: none;
+      border-radius: 8px;
+      margin-top: 0.5rem;
+      object-position: 50% 20%;
+      border: 1px solid $primary-red;
+    }
+    &-image-default {
+      width: 10rem;
+      height: 7rem;
       object-fit: cover;
       border-radius: 8px;
       margin-top: 0.5rem;
+      // object-position: 50% 20%;
+      border: 1px solid $primary-red;
+      opacity: 0.75;
     }
   }
 }
@@ -88,10 +119,17 @@
     padding: 0.5rem;
 
     &-info-main {
-      @include positioning(flex, row, center, center);
+      padding: 2rem;
+      @include positioning(flex, row, start, center);
       position: relative;
     }
     &-info-block {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: start;
+      margin-left: 3rem;
+      width: 16rem;
     }
     &-info {
       color: $primary-red;
