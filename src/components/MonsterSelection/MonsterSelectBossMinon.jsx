@@ -10,6 +10,8 @@ import Loading from "../Loading/Loading";
 import BackButton from "../BackButton/BackButton";
 import RestartButton from "../RestartButton/RestartButton";
 
+const baseURL = import.meta.env.VITE_API_URL;
+
 function MonsterSelectionBossMinions() {
   const [monsterList, setMonsterList] = useState([]);
   const [selectedMonsterList, setSelectedMonsterList] = useState([]);
@@ -33,7 +35,7 @@ function MonsterSelectionBossMinions() {
     const fetchMonster = async () => {
       try {
         const response = await axios.post(
-          `http://localhost:8080/monsters/filtered`,
+          `${baseURL}monsters/filtered`,
           formatedCR
         );
 
