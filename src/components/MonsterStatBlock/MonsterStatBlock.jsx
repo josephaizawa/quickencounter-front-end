@@ -52,7 +52,6 @@ const MonsterStatBlock = () => {
         </div>
         <section className="monster-list_container">
           {detailedMonsterList.map((e, i) => {
-            console.log(e.image);
             return (
               <div className="stat-block wide">
                 <hr className="orange-border" />

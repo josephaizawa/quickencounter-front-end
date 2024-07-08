@@ -31,7 +31,6 @@ const MonsterStatBlockSimple = () => {
     fetchMonsterInfo();
   }, [selectedMonsterList]);
 
-  console.log(detailedMonsterList);
   return (
     <>
       <main className="monster-list">

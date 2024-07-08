@@ -51,7 +51,7 @@ function MonsterSelectionBossMinions() {
     const formatedCR = {
       cr: bossCR,
     };
-    console.log(formatedCR);
+
     const fetchMonster = async () => {
       try {
         const response = await axios.post(
@@ -72,7 +72,7 @@ function MonsterSelectionBossMinions() {
     const formatedCR = {
       cr: swarmCR,
     };
-    console.log(formatedCR);
+
     const fetchMonster = async () => {
       try {
         const response = await axios.post(
@@ -97,7 +97,7 @@ function MonsterSelectionBossMinions() {
     setSelectedMonsterList([...selectedMonsterList, selectedMonster]);
 
     const remainingCR = totalCRRemaining - selectedMonster.cr;
-    console.log(remainingCR);
+
     if (remainingCR >= swarmCR) {
       setLoading(true);
       handleSwarmSubmit();
@@ -153,7 +153,7 @@ function MonsterSelectionBossMinions() {
     setSelectedMonsterList(newSelectedMonsterList);
     let newSelectedMonster = selectedMonsterList[i];
     const remainingCR = totalCRRemaining + newSelectedMonster.cr;
-    console.log(remainingCR);
+
     if (remainingCR > swarmCR) {
       setLoading(true);
       handleBossAndMinionSubmit();

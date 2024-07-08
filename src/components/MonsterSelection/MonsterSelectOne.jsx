@@ -30,13 +30,11 @@ function MonsterSelectionOne() {
   const swarmCR = calculateMinion(difficultCR);
   const oneCR = calculateOne(difficultCR);
 
-  console.log(monsterList);
-
   useEffect(() => {
     const formatedCR = {
       cr: difficultCR,
     };
-    console.log(formatedCR);
+
     const fetchMonster = async () => {
       try {
         const response = await axios.post(

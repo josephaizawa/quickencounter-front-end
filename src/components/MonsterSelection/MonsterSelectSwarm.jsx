@@ -25,13 +25,11 @@ function MonsterSelectionSwarm() {
   const bossCR = calculateBoss(difficultCR);
   const swarmCR = calculateMinion(difficultCR);
 
-  console.log(monsterList);
-
   useEffect(() => {
     const formatedCR = {
       cr: swarmCR,
     };
-    console.log(formatedCR);
+
     const fetchMonster = async () => {
       try {
         const response = await axios.post(
@@ -52,7 +50,7 @@ function MonsterSelectionSwarm() {
     const formatedCR = {
       cr: swarmCR,
     };
-    console.log(formatedCR);
+
     const fetchMonster = async () => {
       try {
         const response = await axios.post(
@@ -77,7 +75,7 @@ function MonsterSelectionSwarm() {
     setSelectedMonsterList([...selectedMonsterList, selectedMonster]);
 
     const remainingCR = totalCRRemaining - selectedMonster.cr;
-    console.log(remainingCR);
+
     if (remainingCR >= swarmCR) {
       setLoading(true);
       handleSwarmSubmit();
@@ -132,7 +130,7 @@ function MonsterSelectionSwarm() {
     setSelectedMonsterList(newSelectedMonsterList);
     let newSelectedMonster = selectedMonsterList[i];
     const remainingCR = totalCRRemaining + newSelectedMonster.cr;
-    console.log(remainingCR);
+
     if (remainingCR >= swarmCR) {
       setLoading(true);
       handleSwarmSubmit();
