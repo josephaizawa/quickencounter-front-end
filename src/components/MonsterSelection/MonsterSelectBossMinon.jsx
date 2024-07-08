@@ -34,6 +34,7 @@ function MonsterSelectionBossMinions() {
 
     const fetchMonster = async () => {
       try {
+        console.log(`${baseURL}monsters/filtered`);
         const response = await axios.post(
           `${baseURL}monsters/filtered`,
           formatedCR
