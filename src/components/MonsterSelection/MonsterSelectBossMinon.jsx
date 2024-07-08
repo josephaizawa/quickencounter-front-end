@@ -57,7 +57,7 @@ function MonsterSelectionBossMinions() {
     const fetchMonster = async () => {
       try {
         const response = await axios.post(
-          `http://localhost:8080/monsters/filtered`,
+          `${baseURL}monsters/filtered`,
           formatedCR
         );
         setMonsterList(response.data);
@@ -78,7 +78,7 @@ function MonsterSelectionBossMinions() {
     const fetchMonster = async () => {
       try {
         const response = await axios.post(
-          `http://localhost:8080/monsters/filtered`,
+          `${baseURL}monsters/filtered`,
           formatedCR
         );
         setMonsterList(response.data);
@@ -111,7 +111,7 @@ function MonsterSelectionBossMinions() {
       const fetchMonster = async () => {
         try {
           const response = await axios.post(
-            `http://localhost:8080/monsters/filtered`,
+            `${baseURL}monsters/filtered`,
             formatedCR
           );
           setMonsterList(response.data);
