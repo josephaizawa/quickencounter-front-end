@@ -136,6 +136,7 @@ body * {
   text-transform: capitalize;
 }
 .creature-heading h2 {
+  @include regular;
   font-weight: normal;
   font-style: italic;
   font-size: 12px;
