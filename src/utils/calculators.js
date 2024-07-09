@@ -3,7 +3,7 @@ var roundNearQtr = function (number) {
 };
 
 var roundNearQtr = function (number) {
-  if (number < 1) {
+  if (number < 0.5) {
     return (Math.round(number * 4) / 4).toFixed(2);
   } else {
     return Math.round(number);
