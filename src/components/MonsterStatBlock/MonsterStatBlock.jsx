@@ -6,6 +6,7 @@ import fangsIcon from "../../assets/images/fangs.svg";
 import Loading from "../Loading/Loading";
 import BackButton from "../BackButton/BackButton";
 import RestartButton from "../RestartButton/RestartButton";
+const baseURL = import.meta.env.VITE_API_URL;
 
 const MonsterStatBlock = () => {
   const [detailedMonsterList, setDetailedMonsterList] = useState([]);
@@ -20,7 +21,7 @@ const MonsterStatBlock = () => {
         const requests = selectedMonsterList.map(async (monster) => {
           const monsterName = { name: monster.name };
           const response = await axios.post(
-            `http://localhost:8080/monsters/individual`,
+            `${baseURL}monsters/individual`,
             monsterName
           );
 
