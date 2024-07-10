@@ -26,24 +26,24 @@ function MonsterSelectionComponent() {
             to="/monsterselectboss"
             state={difficultCR}
           >
-            <p className="monster-select__button-next">Boss & Minions</p>
             <div className="monster-select__button boss"></div>
+            <p className="monster-select__button-next">Boss & Minions</p>
           </Link>
           <Link
             className="monster-select__button-link"
             to="/monsterselectswarm"
             state={difficultCR}
           >
-            <p className="monster-select__button-next">Swarm</p>
             <div className="monster-select__button swarm"></div>
+            <p className="monster-select__button-next">Swarm</p>
           </Link>
           <Link
             className="monster-select__button-link"
             to="/monsterselectone"
             state={difficultCR}
           >
-            <p className="monster-select__button-next">One Monster</p>
             <div className="monster-select__button oneMonster"></div>
+            <p className="monster-select__button-next">One Monster</p>
           </Link>
         </div>
       </section>

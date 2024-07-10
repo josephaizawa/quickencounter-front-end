@@ -44,6 +44,7 @@
     &-next {
       color: $primary-black;
       @include regular;
+      margin-bottom: 1rem;
     }
   }
 }
