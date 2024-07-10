@@ -36,20 +36,35 @@
 
   &__button {
     @include positioning(flex, column, center, center);
-    background-color: $primary-red;
     border-radius: 8px;
     height: 5rem;
     width: 10rem;
-    margin: 1rem;
+    margin: 0.5rem;
 
     &-next {
-      color: $primary-white;
+      color: $primary-black;
       @include regular;
     }
   }
 }
 
-.small-button {
-  height: 4rem;
-  width: 7rem;
+.boss {
+  background-image: url("../../assets/images/bossMinions.png");
+  background-size: cover;
+
+  border: 1px solid $primary-red;
+}
+
+.swarm {
+  background-image: url("../../assets/images/swarm.jpg");
+  background-size: contain;
+
+  border: 1px solid $primary-red;
+}
+
+.oneMonster {
+  background-image: url("../../assets/images/oneMonster.jpeg");
+  background-size: cover;
+  background-position-y: center;
+  border: 1px solid $primary-red;
 }
