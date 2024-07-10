@@ -223,7 +223,7 @@ const MonsterStatBlock = () => {
                   <svg height="5" width="100%" className="tapered-rule">
                     <polyline points="0,0 400,2.5 0,5"></polyline>
                   </svg>
-                  <h3>Special Abilities</h3>
+                  <h2 className="creature-heading-h2">Special Abilities</h2>
                   {e.special_abilities && e.special_abilities.length > 0 ? (
                     e.special_abilities.map((ability) => (
                       <div className="property-block">
@@ -246,7 +246,7 @@ const MonsterStatBlock = () => {
                         </div>
                       ))
                     ) : (
-                      <p>No Actions Available</p>
+                      <p className="property-block-p">No Actions Available</p>
                     )}
                   </div>
                   <div className="actions">
@@ -259,7 +259,9 @@ const MonsterStatBlock = () => {
                         </div>
                       ))
                     ) : (
-                      <p>No Legendary Actions Available</p>
+                      <p className="property-block-p">
+                        No Legendary Actions Available
+                      </p>
                     )}
                   </div>
                 </div>
