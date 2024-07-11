@@ -34,7 +34,10 @@ function PartySetupComponent() {
     return accumulator + partyMember.level;
   }, 0);
 
-  const difficultCR = calculateDifficultCR(totalPartyLevel);
+  const totalPartyMembers = partyMembers.length;
+  console.log(totalPartyMembers);
+
+  const difficultCR = calculateDifficultCR(totalPartyLevel, totalPartyMembers);
   console.log(difficultCR);
 
   let handlePartyMemberChange = (i, e) => {
@@ -45,20 +48,24 @@ function PartySetupComponent() {
     setPartyMembers(newPartyValues);
   };
 
-  // Left off here
-  let handlePartyInfoChange = (e) => {
+  let handlePartyNameChange = (e) => {
+    let newPartyValues = [...partyInfo];
+    newPartyValues[0][e.target.name] =
+      e.target.name === "level" ? parseInt(e.target.value, 10) : e.target.value;
+
+    setPartyInfo(newPartyValues);
+  };
+
+  let handlePartyLevelChange = (e) => {
     let newPartyValues = [...partyInfo];
     newPartyValues[0][e.target.name] =
       e.target.name === "level" ? parseInt(e.target.value, 10) : e.target.value;
 
     let updatedMembers = partyMembers.map((member) => {
-      // const memberLevel = e.target.value;
-      console.log(memberLevel);
       const updatedMemberDetails = {
         ...member,
-        level: e.target.value,
+        level: parseInt(e.target.value, 10),
       };
-      console.log(updatedMemberDetails);
 
       return updatedMemberDetails;
     });
@@ -102,7 +109,7 @@ function PartySetupComponent() {
                   type="text"
                   name="name"
                   value={element.name}
-                  onChange={(e) => handlePartyInfoChange(e)}
+                  onChange={(e) => handlePartyNameChange(e)}
                 />
               </label>
               <label className="party-setup__lable">
@@ -112,15 +119,18 @@ function PartySetupComponent() {
                   type="number"
                   name="level"
                   value={element.level}
-                  onChange={(e) => handlePartyInfoChange(e)}
+                  onChange={(e) => handlePartyLevelChange(e)}
                 />
               </label>
             </div>
           ))}
         </header>
-
+        <section className="party-setup-cr">
+          <p className="party-setup-cr__title">Total Challenge Rating:</p>
+          <p className="party-setup-cr__value">{difficultCR}</p>
+        </section>
         <form className="party-setup__form">
-          <h1 className="party-setup__title">Adventurers</h1>
+          <h2 className="party-setup__form-title">Adventurers</h2>
           {partyMembers.map((element, index) => (
             <div className="party-setup__member" key={index}>
               <label className="party-setup__lable">
@@ -164,7 +174,7 @@ function PartySetupComponent() {
           <Link
             className="party-setup__form-button-link"
             to="/monsterselect"
-            state={difficultCR}
+            state={{ difficultCR, totalPartyMembers }}
           >
             <div className="party-setup__form-button">
               <p className="party-setup__form-button-next">Next</p>

@@ -18,8 +18,30 @@
     @include regular;
     font-weight: 700;
   }
+
+  &-cr {
+    @include positioning(flex, row, center, baseline);
+
+    &__title {
+      color: $primary-brown;
+      @include regular;
+      margin: 1rem;
+    }
+
+    &__value {
+      color: $primary-brown;
+      @include regular;
+      font-size: x-large;
+    }
+  }
   &__form {
     margin: 2rem 0;
+
+    &-title {
+      color: $primary-brown;
+      @include regular;
+      font-weight: 700;
+    }
   }
   &__member {
     margin: 1rem;
@@ -34,6 +56,12 @@
   &__input {
     color: $primary-brown;
     @include regular;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: 1px solid $primary-red;
+    border-radius: 4px;
+    padding: 0.25rem;
   }
 
   &__form-button-link {
@@ -51,6 +79,16 @@
     &-next {
       color: $primary-white;
       @include regular;
+    }
+  }
+
+  &__buttons {
+    @include positioning(flex, row, center, center);
+    &__decrease-button {
+      margin: 0 0.5rem;
+    }
+    &__increase-button {
+      margin: 0 0.5rem;
     }
   }
 }

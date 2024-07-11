@@ -10,7 +10,10 @@ import Footer from "../Footer/Footer";
 
 function MonsterSelectionComponent() {
   const location = useLocation();
-  const difficultCR = location.state || {};
+  const { difficultCR, totalPartyMembers } = location.state || {};
+
+  console.log(difficultCR);
+  console.log(totalPartyMembers);
 
   return (
     <main className="app-window">
@@ -24,7 +27,7 @@ function MonsterSelectionComponent() {
           <Link
             className="monster-select__button-link"
             to="/monsterselectboss"
-            state={difficultCR}
+            state={{ difficultCR, totalPartyMembers }}
           >
             <div className="monster-select__button boss"></div>
             <p className="monster-select__button-next">Boss & Minions</p>
@@ -32,7 +35,7 @@ function MonsterSelectionComponent() {
           <Link
             className="monster-select__button-link"
             to="/monsterselectswarm"
-            state={difficultCR}
+            state={{ difficultCR, totalPartyMembers }}
           >
             <div className="monster-select__button swarm"></div>
             <p className="monster-select__button-next">Swarm</p>
@@ -40,7 +43,7 @@ function MonsterSelectionComponent() {
           <Link
             className="monster-select__button-link"
             to="/monsterselectone"
-            state={difficultCR}
+            state={{ difficultCR, totalPartyMembers }}
           >
             <div className="monster-select__button oneMonster"></div>
             <p className="monster-select__button-next">One Monster</p>

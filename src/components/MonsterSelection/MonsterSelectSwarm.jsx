@@ -17,7 +17,10 @@ function MonsterSelectionSwarm() {
   const [selectedMonsterList, setSelectedMonsterList] = useState([]);
   const [loading, setLoading] = useState(true);
   const location = useLocation();
-  const difficultCR = location.state || {};
+  const { difficultCR, totalPartyMembers } = location.state || {};
+
+  console.log(difficultCR);
+  console.log(totalPartyMembers);
 
   const totalCRRemaining =
     difficultCR -
@@ -25,8 +28,8 @@ function MonsterSelectionSwarm() {
       return accumulator + monster.cr;
     }, 0);
   const bossCR = calculateBoss(difficultCR);
-  const swarmCR = calculateMinion(difficultCR);
-
+  const swarmCR = calculateMinion(difficultCR, totalPartyMembers);
+  console.log(swarmCR);
   useEffect(() => {
     const formatedCR = {
       cr: swarmCR,

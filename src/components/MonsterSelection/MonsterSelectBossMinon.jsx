@@ -6,6 +6,7 @@ import { calculateBoss, calculateMinion } from "../../utils/calculators";
 import { Link } from "react-router-dom";
 import deleteIcon from "../../assets/icons/delete_outline-24px.svg";
 import fangsIcon from "../../assets/images/fangs.svg";
+import infoIcon from "../../assets/icons/infoicon.png";
 import Loading from "../Loading/Loading";
 import BackButton from "../BackButton/BackButton";
 import RestartButton from "../RestartButton/RestartButton";
@@ -17,7 +18,7 @@ function MonsterSelectionBossMinions() {
   const [selectedMonsterList, setSelectedMonsterList] = useState([]);
   const [loading, setLoading] = useState(true);
   const location = useLocation();
-  const difficultCR = location.state || {};
+  const { difficultCR, totalPartyMembers } = location.state || {};
 
   const totalCRRemaining =
     difficultCR -
@@ -25,7 +26,7 @@ function MonsterSelectionBossMinions() {
       return accumulator + monster.cr;
     }, 0);
   const bossCR = calculateBoss(difficultCR);
-  const swarmCR = calculateMinion(difficultCR);
+  const swarmCR = calculateMinion(difficultCR, totalPartyMembers);
 
   useEffect(() => {
     const formatedCR = {
@@ -266,11 +267,23 @@ function MonsterSelectionBossMinions() {
                         {element.environments.join(", ")}
                       </p>
                     </div>
-                    <img
-                      className="selected-monster__card-delete-button"
-                      src={deleteIcon}
-                      onClick={() => removeSelectedMonster(index)}
-                    />
+                    <div className="selected-monster__card-buttons">
+                      <img
+                        className="selected-monster__card-delete-button"
+                        src={deleteIcon}
+                        onClick={() => removeSelectedMonster(index)}
+                      />
+                      <Link
+                        className="monster-select__button-link"
+                        to="/monsterinfo"
+                        state={{ element }}
+                      >
+                        <img
+                          className="selected-monster__card-delete-button"
+                          src={infoIcon}
+                        />
+                      </Link>
+                    </div>
                   </div>
                   {/* <div className="selected-monster__card-buttons"> // for editing cr
                   <button

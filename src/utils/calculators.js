@@ -10,10 +10,10 @@ var roundNearQtr = function (number) {
   }
 };
 
-function calculateDifficultCR(partyLevel) {
-  if (partyLevel <= 16) {
+function calculateDifficultCR(partyLevel, partyMembers) {
+  if (partyLevel <= partyMembers * 4) {
     return roundNearQtr(partyLevel / 4);
-  } else if (partyLevel < 20) {
+  } else if (partyLevel < partyMembers * 5) {
     return roundNearQtr(partyLevel / 3);
   } else {
     return roundNearQtr(partyLevel / 2);
@@ -25,8 +25,10 @@ function calculateBoss(cr) {
   return boss;
 }
 
-function calculateMinion(cr) {
-  let minion = roundNearQtr(cr / 5);
+function calculateMinion(cr, party) {
+  let minion = roundNearQtr(cr / (party + 1));
+  console.log(minion);
+  console.log(party);
   return minion;
 }
 

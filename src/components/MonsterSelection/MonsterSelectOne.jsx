@@ -21,22 +21,25 @@ function MonsterSelectionOne() {
   const [selectedMonsterList, setSelectedMonsterList] = useState([]);
   const [loading, setLoading] = useState(true);
   const location = useLocation();
-  const difficultCR = location.state || {};
+  const { difficultCR, totalPartyMembers } = location.state || {};
+
+  console.log(difficultCR);
+  console.log(totalPartyMembers);
 
   const totalCRRemaining =
     difficultCR -
     selectedMonsterList.reduce((accumulator, monster) => {
       return accumulator + monster.cr;
     }, 0);
-  const bossCR = calculateBoss(difficultCR);
-  const swarmCR = calculateMinion(difficultCR);
-  const oneCR = calculateOne(difficultCR);
+  // const bossCR = calculateBoss(difficultCR);
+  // const swarmCR = calculateMinion(difficultCR);
+  // const oneCR = calculateOne(difficultCR);
 
   useEffect(() => {
     const formatedCR = {
       cr: difficultCR,
     };
-
+    console.log(formatedCR);
     const fetchMonster = async () => {
       try {
         const response = await axios.post(

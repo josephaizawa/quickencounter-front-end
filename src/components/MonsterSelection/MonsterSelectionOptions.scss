@@ -128,10 +128,14 @@
       @include regular;
       padding: 0.15rem;
     }
-
+    &-buttons {
+      height: 100%;
+      @include positioning(flex, column, space-evenly, center);
+    }
     &-delete-button {
-      position: absolute;
-      right: 1rem;
+      // position: absolute;
+      // right: 1rem;
+      height: 2rem;
     }
   }
 }
