@@ -30,19 +30,6 @@
   }
 
   &__card {
-    border: 2px solid $primary-red;
-    padding: 2rem;
-    margin: 2px;
-    @include positioning(flex, row, start, center);
-
-    &-info-block {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: start;
-      margin-left: 3rem;
-      width: 16rem;
-    }
     &-info {
       color: $primary-red;
       @include regular;
@@ -111,7 +98,7 @@
     padding: 0.5rem;
 
     &-info-main {
-      padding: 2rem;
+      padding: 1rem;
       @include positioning(flex, row, start, center);
       position: relative;
     }
@@ -131,6 +118,8 @@
     &-buttons {
       height: 100%;
       @include positioning(flex, column, space-evenly, center);
+      position: absolute;
+      right: 1rem;
     }
     &-delete-button {
       // position: absolute;

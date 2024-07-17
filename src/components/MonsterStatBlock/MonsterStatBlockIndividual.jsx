@@ -14,21 +14,16 @@ const MonsterStatBlockIndividual = () => {
   const [loading, setLoading] = useState(true);
   const location = useLocation();
   const element = location.state || {};
+  const monster = element.element;
 
   useEffect(() => {
-    const fetchMonsterInfo = async () => {
+    const fetchMonsterInfo = async (monster) => {
       try {
-        const request = async (element) => {
-          const monsterName = { name: element.name };
-          const response = await axios.post(
-            `${baseURL}monsters/individual`,
-            monsterName
-          );
+        const response = await axios.post(`${baseURL}monsters/individual`, {
+          name: monster.name,
+        });
 
-          return response.data;
-        };
-
-        const detailedMonsters = [request];
+        const detailedMonsters = [response.data];
         setDetailedMonsterList(detailedMonsters);
         setLoading(false);
       } catch (error) {
@@ -37,7 +32,7 @@ const MonsterStatBlockIndividual = () => {
       }
     };
 
-    fetchMonsterInfo();
+    fetchMonsterInfo(monster);
   }, []);
 
   return (

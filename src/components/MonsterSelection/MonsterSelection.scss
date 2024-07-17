@@ -58,8 +58,8 @@
 
 .swarm {
   background-image: url("../../assets/images/swarm.jpg");
-  background-size: contain;
-
+  background-size: cover;
+  background-position: center;
   border: 1px solid $primary-red;
 }
 

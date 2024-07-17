@@ -10,6 +10,7 @@ import {
 import { Link } from "react-router-dom";
 import deleteIcon from "../../assets/icons/delete_outline-24px.svg";
 import fangsIcon from "../../assets/images/fangs.svg";
+import infoIcon from "../../assets/icons/infoicon.png";
 import Loading from "../Loading/Loading";
 import BackButton from "../BackButton/BackButton";
 import RestartButton from "../RestartButton/RestartButton";
@@ -23,23 +24,17 @@ function MonsterSelectionOne() {
   const location = useLocation();
   const { difficultCR, totalPartyMembers } = location.state || {};
 
-  console.log(difficultCR);
-  console.log(totalPartyMembers);
-
   const totalCRRemaining =
     difficultCR -
     selectedMonsterList.reduce((accumulator, monster) => {
       return accumulator + monster.cr;
     }, 0);
-  // const bossCR = calculateBoss(difficultCR);
-  // const swarmCR = calculateMinion(difficultCR);
-  // const oneCR = calculateOne(difficultCR);
 
   useEffect(() => {
     const formatedCR = {
       cr: difficultCR,
     };
-    console.log(formatedCR);
+
     const fetchMonster = async () => {
       try {
         const response = await axios.post(
@@ -109,46 +104,10 @@ function MonsterSelectionOne() {
           {monsterList.map((element, index) => {
             return (
               <div
-                className="monster-selected__card"
+                className="selected-monster__card"
                 key={index}
                 onClick={() => handleClick(index)}
               >
-                {element.image.monsterImage ? (
-                  <img
-                    className="monster-selected__card-image"
-                    src={element.image.monsterImage}
-                    alt={element.name}
-                  />
-                ) : (
-                  <img
-                    className="monster-selected__card-image-default"
-                    src={fangsIcon}
-                    alt="Default"
-                  />
-                )}
-
-                <div className="monster-selected__card-info-block">
-                  <h2 className="monster-selected__card-info bold">
-                    {element.name}
-                  </h2>
-                  <p className="monster-selected__card-info">
-                    CR: {element.cr}
-                  </p>
-                  <p className="monster-selected__card-info">Environments:</p>
-                  <p className="monster-selected__card-info">
-                    {element.environments.join(", ")}
-                  </p>
-                </div>
-              </div>
-            );
-          })}
-        </section>
-        <section className="monster-lists">
-          <h1 className="monster-lists__title">My Monster</h1>
-
-          <div className="selected-monster">
-            {selectedMonsterList.map((element, index) => (
-              <div className="selected-monster__card" key={index}>
                 <div className="selected-monster__card-body">
                   <div className="selected-monster__card-info-main">
                     {element.image.monsterImage ? (
@@ -178,11 +137,18 @@ function MonsterSelectionOne() {
                         {element.environments.join(", ")}
                       </p>
                     </div>
-                    <img
-                      className="selected-monster__card-delete-button"
-                      src={deleteIcon}
-                      onClick={() => removeSelectedMonster(index)}
-                    />
+                    <div className="selected-monster__card-buttons">
+                      <Link
+                        className="monster-select__button-link"
+                        to="/monsterinfo"
+                        state={{ element }}
+                      >
+                        <img
+                          className="selected-monster__card-delete-button"
+                          src={infoIcon}
+                        />
+                      </Link>
+                    </div>
                   </div>
                   {/* <div className="selected-monster__card-buttons"> // for editing cr
                     <button
@@ -202,7 +168,84 @@ function MonsterSelectionOne() {
                   </div> */}
                 </div>
               </div>
-            ))}
+            );
+          })}
+        </section>
+        <section className="monster-lists">
+          <h1 className="monster-lists__title">My Monster</h1>
+
+          <div className="selected-monster">
+            {selectedMonsterList.map((element, index) => {
+              console.log(element);
+              return (
+                <div className="selected-monster__card" key={index}>
+                  <div className="selected-monster__card-body">
+                    <div className="selected-monster__card-info-main">
+                      {element.image.monsterImage ? (
+                        <img
+                          className="monster-selected__card-image"
+                          src={element.image.monsterImage}
+                          alt={element.name}
+                        />
+                      ) : (
+                        <img
+                          className="monster-selected__card-image-default"
+                          src={fangsIcon}
+                          alt="Default"
+                        />
+                      )}
+                      <div className="selected-monster__card-info-block">
+                        <h2 className="selected-monster__card-info bold">
+                          {element.name}
+                        </h2>
+                        <p className="selected-monster__card-info">
+                          CR: {element.cr}
+                        </p>
+                        <p className="monster-selected__card-info">
+                          Environments:
+                        </p>
+                        <p className="monster-selected__card-info">
+                          {element.environments.join(", ")}
+                        </p>
+                      </div>
+                      <div className="selected-monster__card-buttons">
+                        <Link
+                          className="monster-select__button-link"
+                          to="/monsterinfo"
+                          state={{ element }}
+                        >
+                          <img
+                            className="selected-monster__card-delete-button"
+                            src={infoIcon}
+                          />
+                        </Link>
+                        <img
+                          className="selected-monster__card-delete-button"
+                          src={deleteIcon}
+                          onClick={() => removeSelectedMonster(index)}
+                        />
+                      </div>
+                    </div>
+                    {/* <div className="selected-monster__card-buttons"> // for editing cr
+                    <button
+                      className="monster-select__decrease-button"
+                      type="submit"
+                      onClick={(e) => handleCRMinus(index, e)}
+                    >
+                      -
+                    </button>
+                    <button
+                      className="monster-select__increase-button"
+                      type="submit"
+                      onClick={(e) => handleCRPlus(index, e)}
+                    >
+                      +
+                    </button>
+                  </div> */}
+                  </div>
+                </div>
+              );
+            })}
           </div>
           <Link
             className="monster-lists__button-link"
@@ -211,7 +254,7 @@ function MonsterSelectionOne() {
           >
             <div className="monster-lists__button">
               <p className="monster-lists__button-select" type="submit">
-                View Statblock
+                View Statblocks
               </p>
             </div>
           </Link>
