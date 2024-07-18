@@ -41,7 +41,7 @@ const MonsterStatBlockIndividual = () => {
         <div className="monster-list__title-container">
           <div className="monster-list__header">
             <BackButton />
-            <h1 className="monster-list__title">Monsters</h1>
+            <h1 className="monster-list__title">Monster Stats</h1>
             <RestartButton />
           </div>
           {loading && <Loading />}

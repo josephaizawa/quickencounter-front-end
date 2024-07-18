@@ -164,7 +164,7 @@ function MonsterSelectionSwarm() {
       <section className="monster-selected">
         <div className="monster-selected__header">
           <BackButton />
-          <h1 className="monster-selected__title">Select Monster</h1>
+          <h1 className="monster-selected__title">Select Monsters</h1>
           <RestartButton />
         </div>
         <section className="monster-selected__container">
@@ -240,7 +240,7 @@ function MonsterSelectionSwarm() {
           })}
         </section>
         <section className="monster-lists">
-          <h1 className="monster-lists__title">My Monster</h1>
+          <h1 className="monster-lists__title">My Monsters</h1>
 
           <div className="selected-monster">
             {selectedMonsterList.map((element, index) => {
