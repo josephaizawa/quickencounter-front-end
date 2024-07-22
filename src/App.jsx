@@ -8,6 +8,7 @@ import MonsterSelectionBossMinions from "./components/MonsterSelection/MonsterSe
 import MonsterSelectionSwarm from "./components/MonsterSelection/MonsterSelectSwarm";
 import MonsterSelectionOne from "./components/MonsterSelection/MonsterSelectOne";
 import MonsterStatBlockIndividual from "./components/MonsterStatBlock/MonsterStatBlockIndividual";
+import SignIn from "./components/SignIn/SignIn";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
           <Route path="/monsterselectone" element={<MonsterSelectionOne />} />
           <Route path="/monsterlist" element={<MonsterStatBlock />} />
           <Route path="/monsterinfo" element={<MonsterStatBlockIndividual />} />
+          <Route path="/signin" element={<SignIn />} />
         </Routes>
       </BrowserRouter>
     </>
