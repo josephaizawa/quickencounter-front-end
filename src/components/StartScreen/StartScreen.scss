@@ -10,6 +10,7 @@
 }
 .start-screen {
   padding-top: 4rem;
+  @include positioning(flex, column, center, center);
 
   &__title {
     margin-top: 3rem;

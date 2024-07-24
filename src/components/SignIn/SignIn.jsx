@@ -2,27 +2,27 @@ import "../SignIn/SignIn.scss";
 // import useNotifications from "../Notifications/PasswordValidation";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { notification } from "antd";
+// import { notification } from "antd";
+import React from "react";
 
 function SignInComponent() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   // const [openNotification, contextHolder] = useNotifications();
+  // const [api, contextHolder] = notification.useNotification();
 
-  const [api, contextHolder] = notification.useNotification();
-
-  const openNotification = () => {
-    api.open({
-      message: "Notification Title",
-      description:
-        "This is the content of the notification. This is the content of the notification. This is the content of the notification.",
-      className: "custom-class",
-      style: {
-        width: 600,
-      },
-    });
-  };
+  // const openNotification = () => {
+  //   api.open({
+  //     message: "Notification Title",
+  //     description:
+  //       "This is the content of the notification. This is the content of the notification. This is the content of the notification.",
+  //     className: "custom-class",
+  //     style: {
+  //       width: 600,
+  //     },
+  //   });
+  // };
 
   console.log(email);
   console.log(password);
@@ -42,7 +42,7 @@ function SignInComponent() {
     // TO DO: Check if the password is too short
 
     if (password.length < 8) {
-      openNotification("success", true);
+      // openNotification("success", true);
       return false;
     }
 
@@ -76,7 +76,7 @@ function SignInComponent() {
         "_"
       )
     ) {
-      openNotification("success", true);
+      // openNotification("success", true);
       return false;
     }
 
@@ -85,7 +85,7 @@ function SignInComponent() {
 
   const isConfirmPasswordValid = () => {
     // TO DO: Add logic to check if the PWs match.
-    if (!confirmPassword == password) {
+    if (confirmPassword !== password) {
       return false;
     }
     return true;
@@ -116,7 +116,8 @@ function SignInComponent() {
       // to our backend to add the user to our database.
       alert("Signed up successfully");
     } else {
-      openNotification();
+      console.log(openNotification);
+      // openNotification();
       alert("Failed to sign up, you have errors in your form");
     }
   };
@@ -126,6 +127,7 @@ function SignInComponent() {
       {contextHolder}
       <section className="app-background">
         <main className="app-window">
+          <h1 className="signup-form__title">Sign Up</h1>
           <form className="signup-form" onSubmit={handleSubmit}>
             <label className="signup-form__lable">
               Email&nbsp;&nbsp;
@@ -162,26 +164,12 @@ function SignInComponent() {
             <button
               className="signup-form__submint"
               type="submit"
-              onClick={openNotification}
-              // disabled={!isFormValid()}
+              // onClick={openNotification}
+              disabled={!isFormValid()}
             >
               Sign up
             </button>
           </form>
-          {/* <div className="start-screen">
-            <h1 className="start-screen__title">Welcome to QuickEncounter</h1>
-            <p className="start-screen__description">
-              The easy way to create a challenging D&D encounter on the fly!
-            </p>
-            <p className="start-screen__instruction">Click start to begin</p>
-            <section className="start-screen__section">
-              <Link className="start-screen__button-link" to="/party">
-                <div className="start-screen__button">
-                  <p className="start-screen__button-start">Start</p>
-                </div>
-              </Link>
-            </section>
-          </div> */}
         </main>
       </section>
     </>

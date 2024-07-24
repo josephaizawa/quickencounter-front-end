@@ -1,7 +1,7 @@
 import "../Notifications/PasswordValidation.scss";
 import { notification } from "antd";
 
-const useNotification = () => {
+const useNotifications = () => {
   const [api, contextHolder] = notification.useNotification();
 
   const openNotification = (type, pauseOnHover) => () => {
@@ -21,4 +21,4 @@ const useNotification = () => {
   return [openNotification, contextHolder];
 };
 
-export default useNotification;
+export default useNotifications;

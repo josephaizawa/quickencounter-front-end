@@ -1,19 +1,20 @@
 @use "../../styles/partials/resets" as *;
 @use "../../styles/partials/branding" as *;
 @use "../../styles/partials/mixins" as *;
-body {
-  text-align: center;
-  font-size: 13.5px;
-  line-height: 1.2em;
-}
-body * {
-  box-sizing: border-box;
-  max-width: 100%;
+// body {
+//   text-align: center;
+//   font-size: 13.5px;
+//   line-height: 1.2em;
+// }
+// body * {
+//   box-sizing: border-box;
+//   max-width: 100%;
 
-  @include regular;
-}
+//   @include regular;
+// }
 
 .monster-list {
+  @include regular;
   margin-top: 3rem;
   &__header {
     padding: 1rem;
