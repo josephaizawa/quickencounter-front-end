@@ -1,13 +1,5 @@
-@use "../../styles/partials/resets" as *;
 @use "../../styles/partials/branding" as *;
 @use "../../styles/partials/mixins" as *;
-
-.app-window {
-  width: 70vw;
-  height: 70vh;
-  background-color: $window-grey;
-  border-radius: 8px;
-}
 
 .signup-form {
   padding: 1rem;

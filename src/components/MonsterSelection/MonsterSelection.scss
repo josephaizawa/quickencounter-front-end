@@ -1,13 +1,15 @@
-@use "../../styles/partials/resets" as *;
 @use "../../styles/partials/branding" as *;
 @use "../../styles/partials/mixins" as *;
 
-// .app-window {
-//   width: 70vw;
-//   height: 80vh;
-//   background-color: $window-grey;
-//   border-radius: 8px;
-// }
+.encounter-background {
+  width: 100vw;
+  height: 100vh;
+  background-image: url("../../assets/images/encounter.jpg");
+  background-size: cover;
+  //   position: absolute;
+  //   overflow: visible;
+  @include positioning(flex, column, center, center);
+}
 
 .nav {
   padding: 0.5rem 2rem;

@@ -96,93 +96,95 @@ function PartySetupComponent() {
   };
 
   return (
-    <main className="app-window">
-      <section className="party-setup">
-        <header className="party-setup__header">
-          <h1 className="party-setup__title">Adventuring Party</h1>
-          {partyInfo.map((element) => (
-            <div className="party-setup__info">
-              <label className="party-setup__lable">
-                Name&nbsp;&nbsp;
-                <input
-                  className="party-setup__input"
-                  type="text"
-                  name="name"
-                  value={element.name}
-                  onChange={(e) => handlePartyNameChange(e)}
-                />
-              </label>
-              <label className="party-setup__lable">
-                Level&nbsp;&nbsp;
-                <input
-                  className="party-setup__input"
-                  type="number"
-                  name="level"
-                  value={element.level}
-                  onChange={(e) => handlePartyLevelChange(e)}
-                />
-              </label>
+    <div className="party-background">
+      <main className="party-setup__app-window">
+        <section className="party-setup">
+          <header className="party-setup__header">
+            <h1 className="party-setup__title">Adventuring Party</h1>
+            {partyInfo.map((element) => (
+              <div className="party-setup__info">
+                <label className="party-setup__lable">
+                  Name&nbsp;&nbsp;
+                  <input
+                    className="party-setup__input"
+                    type="text"
+                    name="name"
+                    value={element.name}
+                    onChange={(e) => handlePartyNameChange(e)}
+                  />
+                </label>
+                <label className="party-setup__lable">
+                  Level&nbsp;&nbsp;
+                  <input
+                    className="party-setup__input"
+                    type="number"
+                    name="level"
+                    value={element.level}
+                    onChange={(e) => handlePartyLevelChange(e)}
+                  />
+                </label>
+              </div>
+            ))}
+          </header>
+          <section className="party-setup-cr">
+            <p className="party-setup-cr__title">Total Challenge Rating:</p>
+            <p className="party-setup-cr__value">{difficultCR}</p>
+          </section>
+          <form className="party-setup__form">
+            <h2 className="party-setup__form-title">Adventurers</h2>
+            {partyMembers.map((element, index) => (
+              <div className="party-setup__member" key={index}>
+                <label className="party-setup__lable">
+                  Name&nbsp;&nbsp;
+                  <input
+                    className="party-setup__input"
+                    type="text"
+                    name="name"
+                    value={element.name}
+                    onChange={(e) => handlePartyMemberChange(index, e)}
+                  />
+                </label>
+                <label className="party-setup__lable">
+                  Level&nbsp;&nbsp;
+                  <input
+                    className="party-setup__input"
+                    type="number"
+                    name="level"
+                    value={element.level}
+                    onChange={(e) => handlePartyMemberChange(index, e)}
+                  />
+                </label>
+              </div>
+            ))}
+            <div className="party-setup__buttons">
+              <button
+                className="party-setup__decrease-button"
+                type="submit"
+                onClick={(e) => handleMinusClick(e)}
+              >
+                -
+              </button>
+              <button
+                className="party-setup__increase-button"
+                type="submit"
+                onClick={(e) => handleAddClick(e)}
+              >
+                +
+              </button>
             </div>
-          ))}
-        </header>
-        <section className="party-setup-cr">
-          <p className="party-setup-cr__title">Total Challenge Rating:</p>
-          <p className="party-setup-cr__value">{difficultCR}</p>
+            <Link
+              className="party-setup__form-button-link"
+              to="/monsterselect"
+              state={{ difficultCR, totalPartyMembers }}
+            >
+              <div className="party-setup__form-button">
+                <p className="party-setup__form-button-next">Next</p>
+              </div>
+            </Link>
+          </form>
         </section>
-        <form className="party-setup__form">
-          <h2 className="party-setup__form-title">Adventurers</h2>
-          {partyMembers.map((element, index) => (
-            <div className="party-setup__member" key={index}>
-              <label className="party-setup__lable">
-                Name&nbsp;&nbsp;
-                <input
-                  className="party-setup__input"
-                  type="text"
-                  name="name"
-                  value={element.name}
-                  onChange={(e) => handlePartyMemberChange(index, e)}
-                />
-              </label>
-              <label className="party-setup__lable">
-                Level&nbsp;&nbsp;
-                <input
-                  className="party-setup__input"
-                  type="number"
-                  name="level"
-                  value={element.level}
-                  onChange={(e) => handlePartyMemberChange(index, e)}
-                />
-              </label>
-            </div>
-          ))}
-          <div className="party-setup__buttons">
-            <button
-              className="party-setup__decrease-button"
-              type="submit"
-              onClick={(e) => handleMinusClick(e)}
-            >
-              -
-            </button>
-            <button
-              className="party-setup__increase-button"
-              type="submit"
-              onClick={(e) => handleAddClick(e)}
-            >
-              +
-            </button>
-          </div>
-          <Link
-            className="party-setup__form-button-link"
-            to="/monsterselect"
-            state={{ difficultCR, totalPartyMembers }}
-          >
-            <div className="party-setup__form-button">
-              <p className="party-setup__form-button-next">Next</p>
-            </div>
-          </Link>
-        </form>
-      </section>
-    </main>
+      </main>
+    </div>
   );
 }
 

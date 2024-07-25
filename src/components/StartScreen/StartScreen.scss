@@ -1,13 +1,6 @@
-@use "../../styles/partials/resets" as *;
 @use "../../styles/partials/branding" as *;
 @use "../../styles/partials/mixins" as *;
 
-.app-window {
-  width: 70vw;
-  height: 70vh;
-  background-color: $window-grey;
-  border-radius: 8px;
-}
 .start-screen {
   padding-top: 4rem;
   @include positioning(flex, column, center, center);
@@ -15,21 +8,22 @@
   &__title {
     margin-top: 3rem;
     color: $primary-brown;
-    @include regular;
+    @include mobile-page-header;
+    // @include regular;
     font-weight: 700;
   }
 
   &__description {
     margin-top: 1rem;
     color: $primary-brown;
-    @include regular;
+    @include mobile-subheader;
   }
 
   &__instruction {
     margin-top: 2rem;
     margin-bottom: 1rem;
     color: $primary-brown;
-    @include regular;
+    @include mobile-body-copy;
   }
   &__section {
     width: 100%;
@@ -44,10 +38,11 @@
     background-color: $primary-red;
     border-radius: 8px;
     height: 5rem;
-    width: 10rem;
+    width: 100%;
+    margin-top: 1rem;
 
     &-start {
-      @include regular;
+      @include mobile-labels-buttons;
       color: $primary-white;
     }
   }

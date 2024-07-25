@@ -2,15 +2,29 @@ import "../SignIn/SignIn.scss";
 // import useNotifications from "../Notifications/PasswordValidation";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-// import { notification } from "antd";
-import React from "react";
+import { notification } from "antd";
+// import React from "react";
 
 function SignInComponent() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   // const [openNotification, contextHolder] = useNotifications();
-  // const [api, contextHolder] = notification.useNotification();
+  const [api, contextHolder] = notification.useNotification();
+
+  const openNotification = (type) => () => {
+    api[type]({
+      message: "Notification Title",
+      description:
+        "This is the content of the notification. This is the content of the notification. This is the content of the notification.",
+      showProgress: true,
+      pauseOnHover,
+      className: "custom-class",
+      style: {
+        width: 600,
+      },
+    });
+  };
 
   // const openNotification = () => {
   //   api.open({
@@ -116,9 +130,8 @@ function SignInComponent() {
       // to our backend to add the user to our database.
       alert("Signed up successfully");
     } else {
-      console.log(openNotification);
-      // openNotification();
-      alert("Failed to sign up, you have errors in your form");
+      openNotification("error");
+      // alert("Failed to sign up, you have errors in your form");
     }
   };
 
@@ -165,7 +178,7 @@ function SignInComponent() {
               className="signup-form__submint"
               type="submit"
               // onClick={openNotification}
-              disabled={!isFormValid()}
+              // disabled={!isFormValid()}
             >
               Sign up
             </button>

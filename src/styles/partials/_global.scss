@@ -1,0 +1,11 @@
+@use "../../styles/partials/branding" as *;
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/resets" as *;
+
+.app-window {
+  width: 85vw;
+  height: 80vh;
+  background-color: $window-grey;
+  border-radius: 8px;
+  padding: 1rem;
+}

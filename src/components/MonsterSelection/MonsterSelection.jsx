@@ -16,41 +16,43 @@ function MonsterSelectionComponent() {
   console.log(totalPartyMembers);
 
   return (
-    <main className="app-window">
-      <nav className="nav">
-        <BackButton />
-        <RestartButton />
-      </nav>
-      <section className="monster-select">
-        <h1 className="monster-select__title">Select Encounter Type</h1>
-        <div className="monster-select__options">
-          <Link
-            className="monster-select__button-link"
-            to="/monsterselectboss"
-            state={{ difficultCR, totalPartyMembers }}
-          >
-            <div className="monster-select__button boss"></div>
-            <p className="monster-select__button-next">Boss & Minions</p>
-          </Link>
-          <Link
-            className="monster-select__button-link"
-            to="/monsterselectswarm"
-            state={{ difficultCR, totalPartyMembers }}
-          >
-            <div className="monster-select__button swarm"></div>
-            <p className="monster-select__button-next">Swarm</p>
-          </Link>
-          <Link
-            className="monster-select__button-link"
-            to="/monsterselectone"
-            state={{ difficultCR, totalPartyMembers }}
-          >
-            <div className="monster-select__button oneMonster"></div>
-            <p className="monster-select__button-next">One Monster</p>
-          </Link>
-        </div>
-      </section>
-    </main>
+    <div className="encounter-background">
+      <main className="app-window">
+        <nav className="nav">
+          <BackButton />
+          <RestartButton />
+        </nav>
+        <section className="monster-select">
+          <h1 className="monster-select__title">Select Encounter Type</h1>
+          <div className="monster-select__options">
+            <Link
+              className="monster-select__button-link"
+              to="/monsterselectboss"
+              state={{ difficultCR, totalPartyMembers }}
+            >
+              <div className="monster-select__button boss"></div>
+              <p className="monster-select__button-next">Boss & Minions</p>
+            </Link>
+            <Link
+              className="monster-select__button-link"
+              to="/monsterselectswarm"
+              state={{ difficultCR, totalPartyMembers }}
+            >
+              <div className="monster-select__button swarm"></div>
+              <p className="monster-select__button-next">Swarm</p>
+            </Link>
+            <Link
+              className="monster-select__button-link"
+              to="/monsterselectone"
+              state={{ difficultCR, totalPartyMembers }}
+            >
+              <div className="monster-select__button oneMonster"></div>
+              <p className="monster-select__button-next">One Monster</p>
+            </Link>
+          </div>
+        </section>
+      </main>
+    </div>
   );
 }
 

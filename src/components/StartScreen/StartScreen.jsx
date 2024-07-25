@@ -19,12 +19,12 @@ function StartScreenComponent() {
                   <p className="start-screen__button-start">Start</p>
                 </div>
               </Link>
+              <Link className="start-screen__button-link" to="/signin">
+                <div className="start-screen__button">
+                  <p className="start-screen__button-start">Sign In</p>
+                </div>
+              </Link>
             </section>
-            <Link className="start-screen__button-link" to="/signin">
-              <div className="start-screen__button">
-                <p className="start-screen__button-start">Sign In</p>
-              </div>
-            </Link>
           </div>
         </main>
       </section>
