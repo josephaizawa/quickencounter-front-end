@@ -23,11 +23,13 @@
   &__title-container {
     border-radius: 8px;
     background-color: $grey-80;
+    padding: 1rem;
   }
   &__title {
     color: $primary-red;
     @include regular;
     font-weight: 700;
+    text-align: center;
   }
 
   &__container {
@@ -35,8 +37,8 @@
   }
 }
 .creature-heading {
-  @include positioning(flex, row, flex-start, center);
-  padding: 1rem;
+  @include positioning(flex, column, center, start);
+  padding: 0.5rem;
 }
 .creature-image-block {
   @include positioning(flex, column, center, center);
@@ -62,7 +64,7 @@
 }
 
 .creature-name-block {
-  margin-left: 2rem;
+  // margin-left: 2rem;
 }
 .stat-block {
   text-align: left;

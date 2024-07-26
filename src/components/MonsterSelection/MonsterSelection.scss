@@ -11,21 +11,31 @@
   @include positioning(flex, column, center, center);
 }
 
+.encounter__app-window {
+  width: 85vw;
+  height: max-content;
+  background-color: $grey-80;
+  border-radius: 8px;
+  padding: 1rem;
+  margin: 2rem;
+}
+
 .nav {
-  padding: 0.5rem 2rem;
+  // padding: 0.5rem 2rem;
   width: 100%;
   @include positioning(flex, row, space-between, center);
 }
 
 .monster-select {
-  padding: 2rem;
+  // padding: 2rem;
   @include positioning(flex, column, center, center);
 
   &__title {
     color: $primary-brown;
     @include mobile-page-header;
     font-weight: 700;
-    // margin-top: 3rem;
+    margin: 1rem 0;
+    text-align: center;
   }
 
   &__options {

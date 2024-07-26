@@ -17,7 +17,7 @@ function MonsterSelectionComponent() {
 
   return (
     <div className="encounter-background">
-      <main className="app-window">
+      <main className="encounter__app-window">
         <nav className="nav">
           <BackButton />
           <RestartButton />

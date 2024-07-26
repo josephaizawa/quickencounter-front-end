@@ -40,12 +40,11 @@ const MonsterStatBlockIndividual = () => {
       <div className="stats-background">
         <main className="monster-stats">
           <div className="monster-stats__title-container">
-            <div className="monster-stats__header">
+            <nav className="nav">
               <BackButton />
-              <h1 className="monster-stats__title">Monsters</h1>
               <RestartButton />
-            </div>
-            {loading && <Loading />}
+            </nav>
+            <h1 className="monster-stats__title">Monsters</h1>
           </div>
           <section className="monster-stats__container">
             {detailedMonsterList.map((e, i) => {

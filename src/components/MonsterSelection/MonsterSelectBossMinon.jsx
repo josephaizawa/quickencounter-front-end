@@ -189,11 +189,13 @@ function MonsterSelectionBossMinions() {
     <div className="selection-background">
       <main className="selection-app-window">
         <section className="monster-select">
-          <div className="monster-select__header">
+          <nav className="nav">
             <BackButton />
-            <h1 className="monster-select__title">Select Monsters</h1>
             <RestartButton />
-          </div>
+          </nav>
+
+          <h1 className="monster-select__title">Select Monsters</h1>
+
           <section className="select-monster__container">
             {loading && <Loading />}
             {monsterList.map((element, index) => {

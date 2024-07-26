@@ -11,12 +11,14 @@
     @include mobile-page-header;
     // @include regular;
     font-weight: 700;
+    text-align: center;
   }
 
   &__description {
     margin-top: 1rem;
     color: $primary-brown;
     @include mobile-subheader;
+    text-align: center;
   }
 
   &__instruction {

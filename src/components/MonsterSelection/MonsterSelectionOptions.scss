@@ -21,7 +21,7 @@
 }
 
 .monster-select {
-  padding: 1rem;
+  // padding: 1rem;
 
   &__header {
     width: 100%;
@@ -37,6 +37,7 @@
 }
 
 .monster-list {
+  width: 100%;
   @include positioning(flex, column, center, center);
   &__title {
     color: $primary-brown;
@@ -59,7 +60,7 @@
 
     &-select {
       color: $primary-white;
-      @include regular;
+      @include mobile-labels-buttons;
     }
   }
 }
@@ -82,8 +83,8 @@
     background-color: $black-60;
 
     &-info-main {
-      padding: 1rem;
-      @include positioning(flex, row, start, center);
+      // padding: 1rem;
+      @include positioning(flex, column, start, center);
       position: relative;
     }
     &-info-block {
@@ -91,8 +92,8 @@
       flex-direction: column;
       justify-content: center;
       align-items: start;
-      margin: 0 3rem;
-      width: 16rem;
+      margin: 1rem 0;
+      // width: 16rem;
     }
     &-info {
       color: $secondary-tan;
@@ -105,7 +106,7 @@
       height: 7rem;
       object-fit: none;
       border-radius: 8px;
-      margin-top: 0.5rem;
+      // margin-top: 0.5rem;
       object-position: 50% 20%;
       border: 2px solid $secondary-tan;
     }
@@ -114,16 +115,17 @@
       height: 7rem;
       object-fit: cover;
       border-radius: 8px;
-      margin-top: 0.5rem;
+      // margin-top: 0.5rem;
 
       border: 2px solid $secondary-tan;
       opacity: 0.75;
     }
     &-buttons {
-      height: 100%;
-      @include positioning(flex, column, space-evenly, center);
-      position: absolute;
-      right: 1rem;
+      // height: 100%;
+      // @include positioning(flex, column, space-evenly, center);
+      // position: absolute;
+      // right: 0rem;
+      // top: 0;
     }
     &-delete-button {
       // position: absolute;
@@ -152,17 +154,17 @@
     background-color: $black-60;
 
     &-info-main {
-      padding: 1rem;
-      @include positioning(flex, row, start, center);
-      position: relative;
+      // padding: 1rem;
+      @include positioning(flex, column, start, center);
+      // position: relative;
     }
     &-info-block {
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: start;
-      margin: 0 3rem;
-      width: 16rem;
+      margin: 1rem 0;
+      // width: 16rem;
     }
     &-info {
       color: $secondary-tan;
@@ -175,7 +177,7 @@
       height: 7rem;
       object-fit: none;
       border-radius: 8px;
-      margin-top: 0.5rem;
+      // margin-top: 0.5rem;
       object-position: 50% 20%;
       border: 2px solid $secondary-tan;
     }
@@ -184,16 +186,18 @@
       height: 7rem;
       object-fit: cover;
       border-radius: 8px;
-      margin-top: 0.5rem;
+      // margin-top: 0.5rem;
 
       border: 2px solid $secondary-tan;
       opacity: 0.75;
     }
     &-buttons {
-      height: 100%;
-      @include positioning(flex, column, space-evenly, center);
-      position: absolute;
-      right: 1rem;
+      // height: 100%;
+      @include positioning(flex, row, space-between, center);
+      // position: absolute;
+      // right: 0rem;
+      // top: 0;
+      width: 100%;
     }
     &-delete-button {
       // position: absolute;
