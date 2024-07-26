@@ -156,7 +156,7 @@
     &-info-main {
       // padding: 1rem;
       @include positioning(flex, column, start, center);
-      // position: relative;
+      position: relative;
     }
     &-info-block {
       display: flex;
