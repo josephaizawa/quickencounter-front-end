@@ -1,70 +1,60 @@
 @use "../../styles/partials/branding" as *;
 @use "../../styles/partials/mixins" as *;
 
-.monster-selected {
+.selection-background {
+  width: 100vw;
+  height: max-content;
+  background-image: url("../../assets/images/selection.jpg");
+  background-size: cover;
+  //   position: absolute;
+  //   overflow: visible;
+  @include positioning(flex, column, center, center);
+}
+
+.selection-app-window {
+  width: 85vw;
+  height: max-content;
+  background-color: $grey-80;
+  border-radius: 8px;
+  padding: 1rem;
+  margin: 2rem;
+}
+
+.monster-select {
   padding: 1rem;
 
   &__header {
+    width: 100%;
+    margin-bottom: 1rem;
     @include positioning(flex, row, space-between, start);
   }
 
   &__title {
     color: $primary-brown;
-    @include regular;
+    @include mobile-page-header;
     font-weight: 700;
-  }
-
-  &__container {
-    height: 28vh;
-
-    overflow-x: hidden;
-    overflow-y: auto;
-  }
-
-  &__card {
-    &-info {
-      color: $primary-red;
-      @include regular;
-      padding: 0.15rem;
-    }
-    &-image {
-      width: 10rem;
-      height: 7rem;
-      object-fit: none;
-      border-radius: 8px;
-      margin-top: 0.5rem;
-      object-position: 50% 20%;
-      border: 1px solid $primary-red;
-    }
-    &-image-default {
-      width: 10rem;
-      height: 7rem;
-      object-fit: cover;
-      border-radius: 8px;
-      margin-top: 0.5rem;
-
-      border: 1px solid $primary-red;
-      opacity: 0.75;
-    }
   }
 }
 
-.monster-lists {
+.monster-list {
+  @include positioning(flex, column, center, center);
   &__title {
     color: $primary-brown;
-    @include regular;
+    @include mobile-page-header;
     font-weight: 700;
+    margin: 2rem 0;
   }
 
   &__button-link {
+    width: 100%;
     @include positioning(flex, column, center, center);
   }
   &__button {
     @include positioning(flex, column, center, center);
     background-color: $primary-red;
     border-radius: 8px;
-    height: 2rem;
-    width: 7rem;
+    height: 5rem;
+    width: 100%;
     margin-top: 1rem;
 
     &-select {
@@ -72,22 +62,24 @@
       @include regular;
     }
   }
-  &__container {
-    height: 28vh;
-
-    overflow-x: hidden;
-    overflow-y: auto;
-  }
 }
-.selected-monster {
-  height: 28vh;
+.select-monster {
+  height: max-content;
 
   overflow-x: hidden;
   overflow-y: auto;
 
+  &__container {
+    height: 40vh;
+
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
   &__card {
-    border: 2px solid $primary-red;
+    border: 2px solid $secondary-tan;
     padding: 0.5rem;
+    background-color: $black-60;
 
     &-info-main {
       padding: 1rem;
@@ -99,13 +91,103 @@
       flex-direction: column;
       justify-content: center;
       align-items: start;
-      margin-left: 3rem;
+      margin: 0 3rem;
       width: 16rem;
     }
     &-info {
-      color: $primary-red;
-      @include regular;
+      color: $secondary-tan;
+      @include mobile-body-copy;
       padding: 0.15rem;
+    }
+
+    &-image {
+      width: 10rem;
+      height: 7rem;
+      object-fit: none;
+      border-radius: 8px;
+      margin-top: 0.5rem;
+      object-position: 50% 20%;
+      border: 2px solid $secondary-tan;
+    }
+    &-image-default {
+      width: 10rem;
+      height: 7rem;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-top: 0.5rem;
+
+      border: 2px solid $secondary-tan;
+      opacity: 0.75;
+    }
+    &-buttons {
+      height: 100%;
+      @include positioning(flex, column, space-evenly, center);
+      position: absolute;
+      right: 1rem;
+    }
+    &-delete-button {
+      // position: absolute;
+      // right: 1rem;
+      height: 2rem;
+    }
+  }
+}
+
+.selected-monster {
+  height: max-content;
+
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  &__container {
+    height: 40vh;
+
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  &__card {
+    border: 2px solid $secondary-tan;
+    padding: 0.5rem;
+    background-color: $black-60;
+
+    &-info-main {
+      padding: 1rem;
+      @include positioning(flex, row, start, center);
+      position: relative;
+    }
+    &-info-block {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: start;
+      margin: 0 3rem;
+      width: 16rem;
+    }
+    &-info {
+      color: $secondary-tan;
+      @include mobile-body-copy;
+      padding: 0.15rem;
+    }
+
+    &-image {
+      width: 10rem;
+      height: 7rem;
+      object-fit: none;
+      border-radius: 8px;
+      margin-top: 0.5rem;
+      object-position: 50% 20%;
+      border: 2px solid $secondary-tan;
+    }
+    &-image-default {
+      width: 10rem;
+      height: 7rem;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-top: 0.5rem;
+
+      border: 2px solid $secondary-tan;
+      opacity: 0.75;
     }
     &-buttons {
       height: 100%;
@@ -122,5 +204,6 @@
 }
 
 .bold {
+  @include mobile-page-header;
   font-weight: 700;
 }

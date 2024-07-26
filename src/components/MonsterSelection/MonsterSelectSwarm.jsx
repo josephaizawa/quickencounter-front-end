@@ -160,141 +160,66 @@ function MonsterSelectionSwarm() {
   };
 
   return (
-    <main className="app-window">
-      <section className="monster-selected">
-        <div className="monster-selected__header">
-          <BackButton />
-          <h1 className="monster-selected__title">Select Monsters</h1>
-          <RestartButton />
-        </div>
-        <section className="monster-selected__container">
-          {loading && <Loading />}
-          {monsterList.map((element, index) => {
-            return (
-              <div
-                className="selected-monster__card"
-                key={index}
-                onClick={() => handleClick(index)}
-              >
-                <div className="selected-monster__card-body">
-                  <div className="selected-monster__card-info-main">
-                    {element.image.monsterImage ? (
-                      <img
-                        className="monster-selected__card-image"
-                        src={element.image.monsterImage}
-                        alt={element.name}
-                      />
-                    ) : (
-                      <img
-                        className="monster-selected__card-image-default"
-                        src={fangsIcon}
-                        alt="Default"
-                      />
-                    )}
-                    <div className="selected-monster__card-info-block">
-                      <h2 className="selected-monster__card-info bold">
-                        {element.name}
-                      </h2>
-                      <p className="selected-monster__card-info">
-                        CR: {element.cr}
-                      </p>
-                      <p className="monster-selected__card-info">
-                        Environments:
-                      </p>
-                      <p className="monster-selected__card-info">
-                        {element.environments.join(", ")}
-                      </p>
-                    </div>
-                    <div className="selected-monster__card-buttons">
-                      <Link
-                        className="monster-select__button-link"
-                        to="/monsterinfo"
-                        state={{ element }}
-                      >
-                        <img
-                          className="selected-monster__card-delete-button"
-                          src={infoIcon}
-                        />
-                      </Link>
-                    </div>
-                  </div>
-                  {/* <div className="selected-monster__card-buttons"> // for editing cr
-                    <button
-                      className="monster-select__decrease-button"
-                      type="submit"
-                      onClick={(e) => handleCRMinus(index, e)}
-                    >
-                      -
-                    </button>
-                    <button
-                      className="monster-select__increase-button"
-                      type="submit"
-                      onClick={(e) => handleCRPlus(index, e)}
-                    >
-                      +
-                    </button>
-                  </div> */}
-                </div>
-              </div>
-            );
-          })}
-        </section>
-        <section className="monster-lists">
-          <h1 className="monster-lists__title">My Monsters</h1>
-
-          <div className="selected-monster">
-            {selectedMonsterList.map((element, index) => {
-              console.log(element);
+    <div className="selection-background">
+      <main className="selection-app-window">
+        <section className="monster-select">
+          <div className="monster-select__header">
+            <BackButton />
+            <h1 className="monster-select__title">Select Monsters</h1>
+            <RestartButton />
+          </div>
+          <section className="select-monster__container">
+            {loading && <Loading />}
+            {monsterList.map((element, index) => {
               return (
-                <div className="selected-monster__card" key={index}>
-                  <div className="selected-monster__card-body">
-                    <div className="selected-monster__card-info-main">
+                <div
+                  className="select-monster__card"
+                  key={index}
+                  onClick={() => handleClick(index)}
+                >
+                  <div className="select-monster__card-body">
+                    <div className="select-monster__card-info-main">
                       {element.image.monsterImage ? (
                         <img
-                          className="monster-selected__card-image"
+                          className="select-monster__card-image"
                           src={element.image.monsterImage}
                           alt={element.name}
                         />
                       ) : (
                         <img
-                          className="monster-selected__card-image-default"
+                          className="select-monster__card-image-default"
                           src={fangsIcon}
                           alt="Default"
                         />
                       )}
-                      <div className="selected-monster__card-info-block">
-                        <h2 className="selected-monster__card-info bold">
+                      <div className="select-monster__card-info-block">
+                        <h2 className="select-monster__card-info bold">
                           {element.name}
                         </h2>
-                        <p className="selected-monster__card-info">
+                        <p className="select-monster__card-info">
                           CR: {element.cr}
                         </p>
-                        <p className="monster-selected__card-info">
+                        <p className="select-monster__card-info">
                           Environments:
                         </p>
-                        <p className="monster-selected__card-info">
+                        <p className="select-monster__card-info">
                           {element.environments.join(", ")}
                         </p>
                       </div>
-                      <div className="selected-monster__card-buttons">
+                      <div className="select-monster__card-buttons">
                         <Link
-                          className="monster-select__button-link"
+                          className="select-monster__button-link"
                           to="/monsterinfo"
                           state={{ element }}
                         >
                           <img
-                            className="selected-monster__card-delete-button"
+                            className="select-monster__card-delete-button"
                             src={infoIcon}
                           />
                         </Link>
-                        <img
-                          className="selected-monster__card-delete-button"
-                          src={deleteIcon}
-                          onClick={() => removeSelectedMonster(index)}
-                        />
                       </div>
                     </div>
-                    {/* <div className="selected-monster__card-buttons"> // for editing cr
+                    {/* <div className="select-monster__card-buttons"> // for editing cr
                     <button
                       className="monster-select__decrease-button"
                       type="submit"
@@ -314,21 +239,98 @@ function MonsterSelectionSwarm() {
                 </div>
               );
             })}
-          </div>
-          <Link
-            className="monster-lists__button-link"
-            to="/monsterlist"
-            state={selectedMonsterList}
-          >
-            <div className="monster-lists__button">
-              <p className="monster-lists__button-select" type="submit">
-                View Statblocks
-              </p>
+          </section>
+          <section className="monster-list">
+            <h1 className="monster-list__title">My Monsters</h1>
+
+            <div className="selected-monster">
+              {selectedMonsterList.map((element, index) => {
+                console.log(element);
+                return (
+                  <div className="selected-monster__card" key={index}>
+                    <div className="selected-monster__card-body">
+                      <div className="selected-monster__card-info-main">
+                        {element.image.monsterImage ? (
+                          <img
+                            className="selected-monster__card-image"
+                            src={element.image.monsterImage}
+                            alt={element.name}
+                          />
+                        ) : (
+                          <img
+                            className="selected-monster__card-image-default"
+                            src={fangsIcon}
+                            alt="Default"
+                          />
+                        )}
+                        <div className="selected-monster__card-info-block">
+                          <h2 className="selected-monster__card-info bold">
+                            {element.name}
+                          </h2>
+                          <p className="selected-monster__card-info">
+                            CR: {element.cr}
+                          </p>
+                          <p className="selected-monster__card-info">
+                            Environments:
+                          </p>
+                          <p className="selected-monster__card-info">
+                            {element.environments.join(", ")}
+                          </p>
+                        </div>
+                        <div className="selected-monster__card-buttons">
+                          <Link
+                            className="selected-monster__button-link"
+                            to="/monsterinfo"
+                            state={{ element }}
+                          >
+                            <img
+                              className="selected-monster__card-delete-button"
+                              src={infoIcon}
+                            />
+                          </Link>
+                          <img
+                            className="selected-monster__card-delete-button"
+                            src={deleteIcon}
+                            onClick={() => removeSelectedMonster(index)}
+                          />
+                        </div>
+                      </div>
+                      {/* <div className="selected-monster__card-buttons"> // for editing cr
+                    <button
+                      className="monster-selected__decrease-button"
+                      type="submit"
+                      onClick={(e) => handleCRMinus(index, e)}
+                    >
+                      -
+                    </button>
+                    <button
+                      className="monster-selected__increase-button"
+                      type="submit"
+                      onClick={(e) => handleCRPlus(index, e)}
+                    >
+                      +
+                    </button>
+                  </div> */}
+                    </div>
+                  </div>
+                );
+              })}
             </div>
-          </Link>
+            <Link
+              className="monster-list__button-link"
+              to="/monsterlist"
+              state={selectedMonsterList}
+            >
+              <div className="monster-list__button">
+                <p className="monster-list__button-select" type="submit">
+                  View Statblocks
+                </p>
+              </div>
+            </Link>
+          </section>
         </section>
-      </section>
-    </main>
+      </main>
+    </div>
   );
 }
 

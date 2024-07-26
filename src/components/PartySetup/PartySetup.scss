@@ -3,7 +3,7 @@
 
 .party-background {
   width: 100vw;
-  height: 100vh;
+  height: max-content;
   background-image: url("../../assets/images/adventuring-party.jpg");
   background-size: cover;
   //   position: absolute;
@@ -18,9 +18,10 @@
   &__app-window {
     width: 85vw;
     height: max-content;
-    background-color: $window-grey;
+    background-color: $grey-80;
     border-radius: 8px;
     padding: 1rem;
+    margin: 2rem;
   }
 
   &__header {
@@ -109,10 +110,17 @@
     // margin: 0 0.5rem;
     height: 5rem;
     width: 100%;
+    border-radius: 8px;
+    border: none;
+    box-shadow: none;
+    margin-right: 0.5rem;
   }
   &__increase-button {
     // margin: 0 0.5rem;
     height: 5rem;
     width: 100%;
+    border-radius: 8px;
+    border: none;
+    box-shadow: none;
   }
 }

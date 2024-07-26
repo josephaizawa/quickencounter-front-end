@@ -19,10 +19,11 @@
 
 .monster-select {
   padding: 2rem;
+  @include positioning(flex, column, center, center);
 
   &__title {
     color: $primary-brown;
-    @include regular;
+    @include mobile-page-header;
     font-weight: 700;
     // margin-top: 3rem;
   }
@@ -30,22 +31,24 @@
   &__options {
     @include positioning(flex, column, center, center);
     margin-top: 2rem;
+    width: 100%;
   }
 
   &__button-link {
     @include positioning(flex, column, center, center);
+    width: 100%;
   }
 
   &__button {
     @include positioning(flex, column, center, center);
     border-radius: 8px;
-    height: 5rem;
-    width: 10rem;
+    height: 9rem;
+    width: 100%;
     margin: 0.5rem;
 
     &-next {
       color: $primary-black;
-      @include regular;
+      @include mobile-subheader;
       margin-bottom: 1rem;
     }
   }
@@ -54,7 +57,6 @@
 .boss {
   background-image: url("../../assets/images/bossMinions.png");
   background-size: cover;
-
   border: 1px solid $primary-red;
 }
 

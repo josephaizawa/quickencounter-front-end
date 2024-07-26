@@ -1,20 +1,20 @@
 @use "../../styles/partials/branding" as *;
 @use "../../styles/partials/mixins" as *;
-// body {
-//   text-align: center;
-//   font-size: 13.5px;
-//   line-height: 1.2em;
-// }
-// body * {
-//   box-sizing: border-box;
-//   max-width: 100%;
 
-//   @include regular;
-// }
-
-.monster-list {
+.stats-background {
+  width: 100vw;
+  height: max-content;
+  background-image: url("../../assets/images/stats.jpg");
+  background-size: cover;
+  //   position: absolute;
+  //   overflow: visible;
+  @include positioning(flex, column, center, center);
+}
+.monster-stats {
   @include regular;
   margin-top: 3rem;
+  width: 80vw;
+
   &__header {
     padding: 1rem;
     @include positioning(flex, row, space-between, start);
@@ -22,16 +22,20 @@
 
   &__title-container {
     border-radius: 8px;
-    background-color: $window-grey;
+    background-color: $grey-80;
   }
   &__title {
     color: $primary-red;
     @include regular;
     font-weight: 700;
   }
+
+  &__container {
+    @include positioning(flex, column, center, center);
+  }
 }
 .creature-heading {
-  @include positioning(flex, row, space-between, center);
+  @include positioning(flex, row, flex-start, center);
   padding: 1rem;
 }
 .creature-image-block {
@@ -56,6 +60,10 @@
     opacity: 0.75;
   }
 }
+
+.creature-name-block {
+  margin-left: 2rem;
+}
 .stat-block {
   text-align: left;
   margin: 20px;
@@ -68,9 +76,9 @@
   box-shadow: 0 0 1.5em #867453;
 }
 .stat-block.wide {
-  width: 46.5%;
-  min-width: 560px;
-  text-align: center;
+  width: 100%;
+  // min-width: 560px;
+  // text-align: center;
 }
 .stat-block.wide .section-left,
 .stat-block.wide .section-right {
