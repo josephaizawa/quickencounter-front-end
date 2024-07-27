@@ -196,7 +196,7 @@ function MonsterSelectionBossMinions() {
           </nav>
           <h1 className="monster-select__title">Select Monsters</h1>
           <section className="select-monster__container">
-            {loading && <AntLoading />}
+            {loading && <Loading />}
             {monsterList.map((element, index) => {
               return (
                 <div
