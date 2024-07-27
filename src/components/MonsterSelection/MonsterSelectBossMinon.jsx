@@ -10,6 +10,7 @@ import infoIcon from "../../assets/icons/infoicon.png";
 import Loading from "../Loading/Loading";
 import BackButton from "../BackButton/BackButton";
 import RestartButton from "../RestartButton/RestartButton";
+import AntLoading from "../AntLoading/AntLoading";
 
 const baseURL = import.meta.env.VITE_API_URL;
 
@@ -193,11 +194,9 @@ function MonsterSelectionBossMinions() {
             <BackButton />
             <RestartButton />
           </nav>
-
           <h1 className="monster-select__title">Select Monsters</h1>
-
           <section className="select-monster__container">
-            {loading && <Loading />}
+            {loading && <AntLoading />}
             {monsterList.map((element, index) => {
               return (
                 <div
