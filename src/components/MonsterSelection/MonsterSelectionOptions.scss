@@ -66,18 +66,20 @@
 }
 .select-monster {
   height: max-content;
-
+  // width: 100%;
   overflow-x: hidden;
   overflow-y: auto;
 
   &__container {
     height: 40vh;
-    // width: 100%;
+    width: 100%;
     overflow-x: hidden;
     overflow-y: auto;
+    @include positioning(flex, column, start, center);
   }
 
   &__card {
+    width: 100%;
     border: 2px solid $secondary-tan;
     padding: 0.5rem;
     background-color: $black-60;
