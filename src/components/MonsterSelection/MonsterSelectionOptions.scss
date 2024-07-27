@@ -6,8 +6,6 @@
   height: max-content;
   background-image: url("../../assets/images/selection.jpg");
   background-size: cover;
-  //   position: absolute;
-  //   overflow: visible;
   @include positioning(flex, column, center, center);
 }
 
