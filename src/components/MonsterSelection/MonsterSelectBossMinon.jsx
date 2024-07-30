@@ -272,7 +272,6 @@ function MonsterSelectionBossMinions() {
 
             <div className="selected-monster">
               {selectedMonsterList.map((element, index) => {
-                console.log(element);
                 return (
                   <div className="selected-monster__card" key={index}>
                     <div className="selected-monster__card-body">

@@ -12,9 +12,6 @@ function MonsterSelectionComponent() {
   const location = useLocation();
   const { difficultCR, totalPartyMembers } = location.state || {};
 
-  console.log(difficultCR);
-  console.log(totalPartyMembers);
-
   return (
     <div className="encounter-background">
       <main className="encounter__app-window">

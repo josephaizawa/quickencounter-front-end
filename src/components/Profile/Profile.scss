@@ -1,7 +1,7 @@
 @use "../../styles/partials/branding" as *;
 @use "../../styles/partials/mixins" as *;
 
-.signup-background {
+.profile-background {
   width: 100vw;
   height: 100vh;
   background-image: url("../../assets/images/signin.jpg");
@@ -11,7 +11,7 @@
   @include positioning(flex, column, center, center);
 }
 
-.signup__app-window {
+.profile__app-window {
   width: 85vw;
   height: 80vh;
   background-color: $grey-80;
@@ -27,7 +27,7 @@
   @include positioning(flex, row, space-between, center);
 }
 
-.signup-form {
+.profile {
   padding: 1rem;
   @include regular;
   @include positioning(flex, column, center, center);
@@ -62,7 +62,7 @@
     margin-top: 0.25rem;
   }
 
-  &__submit {
+  &__logout {
     margin-top: 2rem;
     background-color: $primary-red;
     border-radius: 8px;

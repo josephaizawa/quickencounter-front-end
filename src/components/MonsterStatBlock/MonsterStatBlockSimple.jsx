@@ -185,24 +185,6 @@ const MonsterStatBlockSimple = () => {
                     <p>{ability.desc || "N/A"}</p>
                   </div>
                 ))}
-                {/* <div className="property-block">
-            <h4>Antimagic Suceptibility.</h4>
-            <p>
-              The armor is incapacitated while in the area of an{" "}
-              <i>antimagic field</i>. If targeted by <i>dispel magic</i>, the
-              armor must succeed on a Constitution saving throw against the
-              caster’s spell save DC or fall unconscious for 1 minute.
-            </p>
-          </div>{" "}
-          ock
-          <div className="property-block">
-            <h4>False Appearance.</h4>
-            <p>
-              While the armor remains motionless, it is indistinguishable from a
-              normal suit of armor.
-            </p>
-          </div>{" "}
-          ock */}
               </div>
               <div className="section-right">
                 <div className="actions">

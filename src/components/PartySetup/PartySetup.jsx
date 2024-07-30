@@ -35,10 +35,8 @@ function PartySetupComponent() {
   }, 0);
 
   const totalPartyMembers = partyMembers.length;
-  console.log(totalPartyMembers);
 
   const difficultCR = calculateDifficultCR(totalPartyLevel, totalPartyMembers);
-  console.log(difficultCR);
 
   let handlePartyMemberChange = (i, e) => {
     let newPartyValues = [...partyMembers];

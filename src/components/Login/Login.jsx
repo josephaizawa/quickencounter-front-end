@@ -1,28 +1,27 @@
-import "../SignIn/SignIn.scss";
+import "../Login/Login.scss";
 // import useNotifications from "../Notifications/PasswordValidation";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { notification } from "antd";
 // import React from "react";
 import BackButton from "../BackButton/BackButton";
 import RestartButton from "../RestartButton/RestartButton";
 import axios from "axios";
-import LoginComponent from "../Login/Login";
 
-function SignInComponent() {
+function LoginComponent() {
   const [isSignedUp, setIsSignedUp] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
   // const [openNotification, contextHolder] = useNotifications();
   const [api, contextHolder] = notification.useNotification();
+
+  const navigate = useNavigate();
 
   const blankFieldNotification = (type) => {
     api[type]({
       message: "Field Blank",
-      description:
-        "Please make sure you've added an Email, Password, and Password Confirmation.",
+      description: "Please make sure you've added an Email and Password.",
     });
   };
 
@@ -31,14 +30,6 @@ function SignInComponent() {
       message: "Password Error",
       description:
         "Please make sure your password is at least 8 characters long and contains a special character.",
-    });
-  };
-
-  const confirmPasswordNotification = (type) => {
-    api[type]({
-      message: "Passwords Do Not Match",
-      description:
-        "Please make sure your password and confirmation password matches.",
     });
   };
 
@@ -56,44 +47,14 @@ function SignInComponent() {
     });
   };
 
-  // const openNotification = (type) => () => {
-  //   api[type]({
-  //     message: "Notification Title",
-  //     description:
-  //       "This is the content of the notification. This is the content of the notification. This is the content of the notification.",
-  //     showProgress: true,
-  //     pauseOnHover,
-  //     className: "custom-class",
-  //     style: {
-  //       width: 600,
-  //     },
-  //   });
-  // };
-
-  // const openNotification = () => {
-  //   api.open({
-  //     message: "Notification Title",
-  //     description:
-  //       "This is the content of the notification. This is the content of the notification. This is the content of the notification.",
-  //     className: "custom-class",
-  //     style: {
-  //       width: 600,
-  //     },
-  //   });
-  // };
-
   console.log(email);
   console.log(password);
-  console.log(confirmPassword);
 
   const handleChangeEmail = (e) => {
     setEmail(e.target.value);
   };
   const handleChangePassword = (e) => {
     setPassword(e.target.value);
-  };
-  const handleChangeConfirmPassword = (e) => {
-    setConfirmPassword(e.target.value);
   };
 
   const isFormValid = () => {
@@ -149,16 +110,8 @@ function SignInComponent() {
       return true;
     };
 
-    const isConfirmPasswordValid = () => {
-      // TO DO: Add logic to check if the PWs match.
-      if (confirmPassword !== password) {
-        confirmPasswordNotification("error");
-        return false;
-      }
-      return true;
-    };
     // TO DO: Check if the fields are all filled
-    if (!email || !password || !confirmPassword) {
+    if (!email || !password) {
       blankFieldNotification("error");
       return false;
     }
@@ -167,11 +120,7 @@ function SignInComponent() {
     if (!isPasswordValid()) {
       return false;
     }
-    // Check if the confirm password field is valid
-    if (!isConfirmPasswordValid()) {
-      // openNotificationWithIcon("error");
-      return false;
-    }
+
     if (!isEmailValid()) {
       // openNotificationWithIcon("error");
       return false;
@@ -183,24 +132,24 @@ function SignInComponent() {
     e.preventDefault();
     // Here send a POST request to signupUrl with username, name and password data
     if (isFormValid()) {
-      successNotification("success");
       try {
-        const response = await axios.post(
-          "http://localhost:8080/users/signup",
-          {
-            email: email,
-            password: password,
-          }
-        );
-        console.log(response.data);
-        setIsSignedUp(true);
+        const response = await axios.post("http://localhost:8080/users/login", {
+          email: email,
+          password: password,
+        });
+
+        sessionStorage.setItem("token", response.data.token);
+        console.log(response.data.token);
+        setIsLoggedIn(true);
+        successNotification("success");
+        navigate("/profile");
       } catch (error) {
         console.error(error);
       }
     }
   };
 
-  const renderSignUp = () => (
+  return (
     <>
       {contextHolder}
       <div className="signup-background">
@@ -209,7 +158,7 @@ function SignInComponent() {
             <BackButton />
             <RestartButton />
           </nav>
-          <h1 className="signup-form__title">Sign Up</h1>
+          <h1 className="signup-form__title">Log In</h1>
           <form className="signup-form" onSubmit={handleSubmit}>
             <section className="signup-form__fields">
               <label className="signup-form__lable">
@@ -232,16 +181,6 @@ function SignInComponent() {
                   value={password}
                 />
               </label>
-              <label className="signup-form__lable">
-                Confirm Password&nbsp;&nbsp;
-                <input
-                  className="signup-form__input"
-                  type="password"
-                  name="confirmPassword"
-                  onChange={handleChangeConfirmPassword}
-                  value={confirmPassword}
-                />
-              </label>
             </section>
             <button
               className="signup-form__submit"
@@ -249,28 +188,13 @@ function SignInComponent() {
               // onClick={openNotification}
               // disabled={!isFormValid()}
             >
-              Sign up
+              Log In
             </button>
           </form>
         </main>
       </div>
     </>
   );
-
-  const renderLogin = () => (
-    <div>
-      <LoginComponent />
-    </div>
-  );
-
-  if (!isSignedUp) return renderSignUp();
-  if (!isLoggedIn) return renderLogin();
-
-  return (
-    <div className="App">
-      <HomePage />
-    </div>
-  );
 }
 
-export default SignInComponent;
+export default LoginComponent;

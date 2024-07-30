@@ -9,6 +9,8 @@ import MonsterSelectionSwarm from "./components/MonsterSelection/MonsterSelectSw
 import MonsterSelectionOne from "./components/MonsterSelection/MonsterSelectOne";
 import MonsterStatBlockIndividual from "./components/MonsterStatBlock/MonsterStatBlockIndividual";
 import SignIn from "./components/SignIn/SignIn";
+import ProfileComponent from "./components/Profile/Profile";
+import LoginComponent from "./components/Login/Login";
 
 function App() {
   return (
@@ -34,6 +36,8 @@ function App() {
           <Route path="/monsterlist" element={<MonsterStatBlock />} />
           <Route path="/monsterinfo" element={<MonsterStatBlockIndividual />} />
           <Route path="/signin" element={<SignIn />} />
+          <Route path="/login" element={<LoginComponent />} />
+          <Route path="/profile" element={<ProfileComponent />} />
         </Routes>
       </BrowserRouter>
     </>
