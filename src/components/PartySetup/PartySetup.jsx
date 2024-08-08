@@ -55,19 +55,18 @@ function PartySetupComponent() {
       try {
         const response1 = await axios.post(
           "http://localhost:8080/party/individual",
-          userId
+          { id: userId }
         );
+
         const party = response1.data; // Assuming response contains the party data
+
         const response2 = await axios.post(
           "http://localhost:8080/party/members",
-          party.id
+          { id: party.id } // Wrap party.id in an object with a descriptive key
         );
         const members = response2.data; // Assuming response contains the party members
 
-        setPartyInfo({
-          name: party.name,
-          level: party.level,
-        });
+        setPartyInfo(party);
         setPartyMembers(members);
       } catch (error) {
         console.error("Error fetching party data:", error);
@@ -86,28 +85,25 @@ function PartySetupComponent() {
   };
 
   let handlePartyNameChange = (e) => {
-    let newPartyValues = [...partyInfo];
-    newPartyValues[0][e.target.name] =
-      e.target.name === "level" ? parseInt(e.target.value, 10) : e.target.value;
-
-    setPartyInfo(newPartyValues);
+    setPartyInfo((prevPartyInfo) => ({
+      ...prevPartyInfo,
+      [e.target.name]: e.target.value,
+    }));
   };
 
   let handlePartyLevelChange = (e) => {
-    let newPartyValues = [...partyInfo];
-    newPartyValues[0][e.target.name] =
-      e.target.name === "level" ? parseInt(e.target.value, 10) : e.target.value;
+    const newLevel = parseInt(e.target.value, 10);
 
-    let updatedMembers = partyMembers.map((member) => {
-      const updatedMemberDetails = {
-        ...member,
-        level: parseInt(e.target.value, 10),
-      };
+    setPartyInfo((prevPartyInfo) => ({
+      ...prevPartyInfo,
+      [e.target.name]: newLevel,
+    }));
 
-      return updatedMemberDetails;
-    });
+    const updatedMembers = partyMembers.map((member) => ({
+      ...member,
+      level: newLevel,
+    }));
 
-    setPartyInfo(newPartyValues);
     setPartyMembers(updatedMembers);
   };
 
@@ -133,8 +129,7 @@ function PartySetupComponent() {
   };
 
   const isFormValid = () => {
-    const party = partyInfo[0]; // Access the first element of the partyInfo array
-    if (!party.name || !party.level) {
+    if (!partyInfo.name || !partyInfo.level) {
       blankFieldNotification("error");
       return false;
     }
@@ -151,16 +146,15 @@ function PartySetupComponent() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("button clicked");
+
     const userId = sessionStorage.getItem("userId");
 
     // Create a new party object including userId
     const newParty = {
       user_id: userId, // Add the user ID here
-      ...partyInfo[0], // Spread the first element of partyInfo
+      ...partyInfo, // Spread the first element of partyInfo
       members: partyMembers, // Include the party members
     };
-    console.log(newParty);
 
     if (isFormValid()) {
       try {
@@ -182,30 +176,29 @@ function PartySetupComponent() {
           <form className="party-setup" onSubmit={handleSubmit}>
             <header className="party-setup__header">
               <h1 className="party-setup__title">Adventuring Party</h1>
-              {partyInfo.map((element) => (
-                <div className="party-setup__info">
-                  <label className="party-setup__lable">
-                    Name&nbsp;&nbsp;
-                    <input
-                      className="party-setup__input"
-                      type="text"
-                      name="name"
-                      value={element.name}
-                      onChange={(e) => handlePartyNameChange(e)}
-                    />
-                  </label>
-                  <label className="party-setup__lable">
-                    Level&nbsp;&nbsp;
-                    <input
-                      className="party-setup__input"
-                      type="number"
-                      name="level"
-                      value={element.level}
-                      onChange={(e) => handlePartyLevelChange(e)}
-                    />
-                  </label>
-                </div>
-              ))}
+
+              <div className="party-setup__info">
+                <label className="party-setup__lable">
+                  Name&nbsp;&nbsp;
+                  <input
+                    className="party-setup__input"
+                    type="text"
+                    name="name"
+                    value={partyInfo.name}
+                    onChange={(e) => handlePartyNameChange(e)}
+                  />
+                </label>
+                <label className="party-setup__lable">
+                  Level&nbsp;&nbsp;
+                  <input
+                    className="party-setup__input"
+                    type="number"
+                    name="level"
+                    value={partyInfo.level}
+                    onChange={(e) => handlePartyLevelChange(e)}
+                  />
+                </label>
+              </div>
             </header>
             <section className="party-setup-cr">
               <p className="party-setup-cr__title">Total Challenge Rating:</p>
