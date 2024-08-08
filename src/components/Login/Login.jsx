@@ -139,7 +139,8 @@ function LoginComponent() {
         });
 
         sessionStorage.setItem("token", response.data.token);
-        console.log(response.data.token);
+        sessionStorage.setItem("userId", response.data.userId);
+        console.log(response.data.userId);
         setIsLoggedIn(true);
         successNotification("success");
         navigate("/profile");
