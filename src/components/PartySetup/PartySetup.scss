@@ -10,10 +10,15 @@
   //   overflow: visible;
   @include positioning(flex, column, center, center);
 }
+// .nav {
+//   // padding: 0.5rem 2rem;
+//   width: 100%;
+//   @include positioning(flex, row, space-between, center);
+// }
 
 .party-setup {
   @include positioning(flex, column, center, center);
-  // padding: 2rem;
+  margin-top: 1rem;
 
   &__app-window {
     width: 85vw;
@@ -85,6 +90,18 @@
   &__form-button-link {
     width: 100%;
     @include positioning(flex, column, center, center);
+    text-decoration: none;
+  }
+  &__form-save-button {
+    margin: 1rem;
+    @include positioning(flex, column, center, center);
+    background-color: $primary-red;
+    border-radius: 8px;
+    height: 5rem;
+    width: 100%;
+    border: none;
+    color: $primary-white;
+    @include mobile-labels-buttons;
   }
 
   &__form-button {

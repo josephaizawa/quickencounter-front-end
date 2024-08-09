@@ -47,6 +47,7 @@
   &__button-link {
     @include positioning(flex, column, center, center);
     width: 100%;
+    text-decoration: none;
   }
 
   &__button {

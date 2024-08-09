@@ -6,7 +6,7 @@ function StartScreenComponent() {
   return (
     <>
       <section className="app-background">
-        <main className="app-window">
+        <main className="start-screen__app-window">
           <div className="start-screen">
             <h1 className="start-screen__title">Welcome to QuickEncounter</h1>
             <p className="start-screen__description">
@@ -19,11 +19,28 @@ function StartScreenComponent() {
                   <p className="start-screen__button-start">Start</p>
                 </div>
               </Link>
-              <Link className="start-screen__button-link" to="/signin">
-                <div className="start-screen__button">
-                  <p className="start-screen__button-start">Sign In</p>
+              <div className="signin-options">
+                <div className="signin-options__container">
+                  <h2 className="signin-options__title">
+                    Don't have an account?
+                  </h2>
+                  <Link className="signin-options__button-link" to="/signin">
+                    <div className="signin-options__button">
+                      <p className="signin-options__button-start">Sign In</p>
+                    </div>
+                  </Link>
                 </div>
-              </Link>
+                <div className="signin-options__container">
+                  <h2 className="signin-options__title">
+                    Already have an account?
+                  </h2>
+                  <Link className="signin-options__button-link" to="/login">
+                    <div className="signin-options__button">
+                      <p className="signin-options__button-start">Log in</p>
+                    </div>
+                  </Link>
+                </div>
+              </div>
             </section>
           </div>
         </main>

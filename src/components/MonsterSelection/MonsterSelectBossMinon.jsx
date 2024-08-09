@@ -10,7 +10,7 @@ import infoIcon from "../../assets/icons/infoicon.png";
 import Loading from "../Loading/Loading";
 import BackButton from "../BackButton/BackButton";
 import RestartButton from "../RestartButton/RestartButton";
-import AntLoading from "../AntLoading/AntLoading";
+import ProfileButton from "../ProfileButton/ProfileButton";
 
 const baseURL = import.meta.env.VITE_API_URL;
 
@@ -98,7 +98,13 @@ function MonsterSelectionBossMinions() {
       return;
     }
     let selectedMonster = monsterList[index];
-    setSelectedMonsterList([...selectedMonsterList, selectedMonster]);
+    let monsterToAdd = {
+      name: selectedMonster.name,
+      image: selectedMonster.image,
+      cr: selectedMonster.cr,
+      environments: selectedMonster.environments,
+    };
+    setSelectedMonsterList([...selectedMonsterList, monsterToAdd]);
 
     const remainingCR = totalCRRemaining - selectedMonster.cr;
 
@@ -126,30 +132,6 @@ function MonsterSelectionBossMinions() {
       fetchMonster();
     }
   };
-
-  //------------ code for editing CR --------
-  // let handleCRPlus = (i, e) => {
-  //   e.preventDefault();
-  //   e.stopPropagation();
-  //   let newMonsterListValues = [...selectedMonsterList];
-  //   newMonsterListValues[i] = {
-  //     ...newMonsterListValues[i],
-  //     cr: newMonsterListValues[i].cr + 1,
-  //   };
-
-  //   setSelectedMonsterList(newMonsterListValues);
-  // };
-  // let handleCRMinus = (i, e) => {
-  //   e.preventDefault();
-  //   e.stopPropagation();
-  //   let newMonsterListValues = [...selectedMonsterList];
-  //   newMonsterListValues[i] = {
-  //     ...newMonsterListValues[i],
-  //     cr: newMonsterListValues[i].cr - 1,
-  //   };
-
-  //   setSelectedMonsterList(newMonsterListValues);
-  // };
 
   let removeSelectedMonster = (i) => {
     let newSelectedMonsterList = [...selectedMonsterList];
@@ -192,6 +174,7 @@ function MonsterSelectionBossMinions() {
         <section className="monster-select">
           <nav className="nav">
             <BackButton />
+            <ProfileButton />
             <RestartButton />
           </nav>
           <h1 className="monster-select__title">Select Monsters</h1>
@@ -246,22 +229,6 @@ function MonsterSelectionBossMinions() {
                         </Link>
                       </div>
                     </div>
-                    {/* <div className="select-monster__card-buttons"> // for editing cr
-                    <button
-                      className="monster-select__decrease-button"
-                      type="submit"
-                      onClick={(e) => handleCRMinus(index, e)}
-                    >
-                      -
-                    </button>
-                    <button
-                      className="monster-select__increase-button"
-                      type="submit"
-                      onClick={(e) => handleCRPlus(index, e)}
-                    >
-                      +
-                    </button>
-                  </div> */}
                   </div>
                 </div>
               );
@@ -321,22 +288,6 @@ function MonsterSelectionBossMinions() {
                           />
                         </div>
                       </div>
-                      {/* <div className="selected-monster__card-buttons"> // for editing cr
-                    <button
-                      className="monster-selected__decrease-button"
-                      type="submit"
-                      onClick={(e) => handleCRMinus(index, e)}
-                    >
-                      -
-                    </button>
-                    <button
-                      className="monster-selected__increase-button"
-                      type="submit"
-                      onClick={(e) => handleCRPlus(index, e)}
-                    >
-                      +
-                    </button>
-                  </div> */}
                     </div>
                   </div>
                 );

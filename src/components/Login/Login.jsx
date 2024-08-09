@@ -1,9 +1,9 @@
 import "../Login/Login.scss";
-// import useNotifications from "../Notifications/PasswordValidation";
+
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { notification } from "antd";
-// import React from "react";
+
 import BackButton from "../BackButton/BackButton";
 import RestartButton from "../RestartButton/RestartButton";
 import axios from "axios";
@@ -13,7 +13,7 @@ function LoginComponent() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // const [openNotification, contextHolder] = useNotifications();
+
   const [api, contextHolder] = notification.useNotification();
 
   const navigate = useNavigate();
@@ -47,9 +47,6 @@ function LoginComponent() {
     });
   };
 
-  console.log(email);
-  console.log(password);
-
   const handleChangeEmail = (e) => {
     setEmail(e.target.value);
   };
@@ -70,39 +67,14 @@ function LoginComponent() {
       }
     };
     const isPasswordValid = () => {
+      const specialCharacters = /[!#$%&()*+,-./:;<=>?@[\\\]^_]/;
+
       if (password.length < 8) {
         passwordNotification("error");
         return false;
       }
 
-      if (
-        !password.includes(
-          "!",
-          "#",
-          "$",
-          "%",
-          ",&",
-          "(",
-          ")",
-          "*",
-          "+",
-          ",",
-          "-",
-          ".",
-          "/",
-          ":",
-          ";",
-          "<",
-          "=",
-          ">",
-          "?",
-          "@",
-          "[",
-          "]",
-          "^",
-          "_"
-        )
-      ) {
+      if (!specialCharacters.test(password)) {
         passwordNotification("error");
         return false;
       }
@@ -110,19 +82,16 @@ function LoginComponent() {
       return true;
     };
 
-    // TO DO: Check if the fields are all filled
     if (!email || !password) {
       blankFieldNotification("error");
       return false;
     }
 
-    // Check if the password field is valid
     if (!isPasswordValid()) {
       return false;
     }
 
     if (!isEmailValid()) {
-      // openNotificationWithIcon("error");
       return false;
     }
     return true;
@@ -130,7 +99,7 @@ function LoginComponent() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Here send a POST request to signupUrl with username, name and password data
+
     if (isFormValid()) {
       try {
         const response = await axios.post("http://localhost:8080/users/login", {
@@ -140,7 +109,7 @@ function LoginComponent() {
 
         sessionStorage.setItem("token", response.data.token);
         sessionStorage.setItem("userId", response.data.userId);
-        console.log(response.data.userId);
+
         setIsLoggedIn(true);
         successNotification("success");
         navigate("/profile");
@@ -183,12 +152,7 @@ function LoginComponent() {
                 />
               </label>
             </section>
-            <button
-              className="signup-form__submit"
-              type="submit"
-              // onClick={openNotification}
-              // disabled={!isFormValid()}
-            >
+            <button className="signup-form__submit" type="submit">
               Log In
             </button>
           </form>

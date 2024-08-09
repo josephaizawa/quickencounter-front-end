@@ -35,6 +35,16 @@
   &__container {
     @include positioning(flex, column, center, center);
   }
+
+  &__save-button {
+    @include positioning(flex, column, center, center);
+    background-color: $primary-red;
+    border-radius: 8px;
+    height: 2rem;
+    width: 100%;
+    margin-top: 1rem;
+    color: $primary-white;
+  }
 }
 .creature-heading {
   @include positioning(flex, column, center, start);

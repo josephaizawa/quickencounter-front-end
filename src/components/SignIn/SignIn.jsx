@@ -1,9 +1,9 @@
 import "../SignIn/SignIn.scss";
-// import useNotifications from "../Notifications/PasswordValidation";
+
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { notification } from "antd";
-// import React from "react";
+
 import BackButton from "../BackButton/BackButton";
 import RestartButton from "../RestartButton/RestartButton";
 import axios from "axios";
@@ -15,7 +15,7 @@ function SignInComponent() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  // const [openNotification, contextHolder] = useNotifications();
+
   const [api, contextHolder] = notification.useNotification();
 
   const blankFieldNotification = (type) => {
@@ -56,36 +56,6 @@ function SignInComponent() {
     });
   };
 
-  // const openNotification = (type) => () => {
-  //   api[type]({
-  //     message: "Notification Title",
-  //     description:
-  //       "This is the content of the notification. This is the content of the notification. This is the content of the notification.",
-  //     showProgress: true,
-  //     pauseOnHover,
-  //     className: "custom-class",
-  //     style: {
-  //       width: 600,
-  //     },
-  //   });
-  // };
-
-  // const openNotification = () => {
-  //   api.open({
-  //     message: "Notification Title",
-  //     description:
-  //       "This is the content of the notification. This is the content of the notification. This is the content of the notification.",
-  //     className: "custom-class",
-  //     style: {
-  //       width: 600,
-  //     },
-  //   });
-  // };
-
-  console.log(email);
-  console.log(password);
-  console.log(confirmPassword);
-
   const handleChangeEmail = (e) => {
     setEmail(e.target.value);
   };
@@ -109,39 +79,14 @@ function SignInComponent() {
       }
     };
     const isPasswordValid = () => {
+      const specialCharacters = /[!#$%&()*+,-./:;<=>?@[\\\]^_]/;
+
       if (password.length < 8) {
         passwordNotification("error");
         return false;
       }
 
-      if (
-        !password.includes(
-          "!",
-          "#",
-          "$",
-          "%",
-          ",&",
-          "(",
-          ")",
-          "*",
-          "+",
-          ",",
-          "-",
-          ".",
-          "/",
-          ":",
-          ";",
-          "<",
-          "=",
-          ">",
-          "?",
-          "@",
-          "[",
-          "]",
-          "^",
-          "_"
-        )
-      ) {
+      if (!specialCharacters.test(password)) {
         passwordNotification("error");
         return false;
       }
@@ -150,30 +95,26 @@ function SignInComponent() {
     };
 
     const isConfirmPasswordValid = () => {
-      // TO DO: Add logic to check if the PWs match.
       if (confirmPassword !== password) {
         confirmPasswordNotification("error");
         return false;
       }
       return true;
     };
-    // TO DO: Check if the fields are all filled
+
     if (!email || !password || !confirmPassword) {
       blankFieldNotification("error");
       return false;
     }
 
-    // Check if the password field is valid
     if (!isPasswordValid()) {
       return false;
     }
-    // Check if the confirm password field is valid
+
     if (!isConfirmPasswordValid()) {
-      // openNotificationWithIcon("error");
       return false;
     }
     if (!isEmailValid()) {
-      // openNotificationWithIcon("error");
       return false;
     }
     return true;
@@ -181,7 +122,7 @@ function SignInComponent() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Here send a POST request to signupUrl with username, name and password data
+
     if (isFormValid()) {
       successNotification("success");
       try {
@@ -192,7 +133,7 @@ function SignInComponent() {
             password: password,
           }
         );
-        console.log(response.data);
+
         setIsSignedUp(true);
       } catch (error) {
         console.error(error);
@@ -243,12 +184,7 @@ function SignInComponent() {
                 />
               </label>
             </section>
-            <button
-              className="signup-form__submit"
-              type="submit"
-              // onClick={openNotification}
-              // disabled={!isFormValid()}
-            >
+            <button className="signup-form__submit" type="submit">
               Sign up
             </button>
           </form>

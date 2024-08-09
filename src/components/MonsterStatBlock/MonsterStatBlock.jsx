@@ -6,6 +6,7 @@ import fangsIcon from "../../assets/images/fangs.svg";
 import Loading from "../Loading/Loading";
 import BackButton from "../BackButton/BackButton";
 import RestartButton from "../RestartButton/RestartButton";
+import ProfileButton from "../ProfileButton/ProfileButton";
 const baseURL = import.meta.env.VITE_API_URL;
 
 const MonsterStatBlock = () => {
@@ -40,6 +41,25 @@ const MonsterStatBlock = () => {
     fetchMonsterInfo();
   }, []);
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const partyId = sessionStorage.getItem("partyId");
+    const monsterData = {
+      party_id: partyId,
+      monsters: selectedMonsterList,
+    };
+
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/monsters/save",
+        monsterData
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <>
       <div className="stats-background">
@@ -47,9 +67,13 @@ const MonsterStatBlock = () => {
           <div className="monster-stats__title-container">
             <nav className="nav">
               <BackButton />
+              <ProfileButton />
               <RestartButton />
             </nav>
             <h1 className="monster-stats__title">Monsters</h1>
+            <div className="monster-stats__save-button" onClick={handleSubmit}>
+              Save
+            </div>
           </div>
           <section className="monster-stats__container">
             {loading && <Loading />}

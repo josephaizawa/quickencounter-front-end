@@ -6,6 +6,7 @@ import fangsIcon from "../../assets/images/fangs.svg";
 import Loading from "../Loading/Loading";
 import BackButton from "../BackButton/BackButton";
 import RestartButton from "../RestartButton/RestartButton";
+import ProfileButton from "../ProfileButton/ProfileButton";
 const baseURL = import.meta.env.VITE_API_URL;
 
 const MonsterStatBlockIndividual = () => {
@@ -42,11 +43,13 @@ const MonsterStatBlockIndividual = () => {
           <div className="monster-stats__title-container">
             <nav className="nav">
               <BackButton />
+              <ProfileButton />
               <RestartButton />
             </nav>
             <h1 className="monster-stats__title">Monsters</h1>
           </div>
           <section className="monster-stats__container">
+            {loading && <Loading />}
             {detailedMonsterList.map((e, i) => {
               return (
                 <div className="stat-block wide">

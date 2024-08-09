@@ -1,6 +1,6 @@
 import "../MonsterSelection/MonsterSelectionOptions.scss";
 import { useState, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import axios from "axios";
 import { calculateBoss, calculateMinion } from "../../utils/calculators";
 import { Link } from "react-router-dom";
@@ -10,6 +10,7 @@ import infoIcon from "../../assets/icons/infoicon.png";
 import Loading from "../Loading/Loading";
 import BackButton from "../BackButton/BackButton";
 import RestartButton from "../RestartButton/RestartButton";
+import ProfileButton from "../ProfileButton/ProfileButton";
 
 const baseURL = import.meta.env.VITE_API_URL;
 
@@ -103,29 +104,6 @@ function MonsterSelectionSwarm() {
       fetchMonster();
     }
   };
-  //------------ code for editing CR --------
-  //   let handleCRPlus = (i, e) => {
-  //     e.preventDefault();
-  //     e.stopPropagation();
-  //     let newMonsterListValues = [...selectedMonsterList];
-  //     newMonsterListValues[i] = {
-  //       ...newMonsterListValues[i],
-  //       cr: newMonsterListValues[i].cr + 1, // Increment the cr value
-  //     };
-
-  //     setSelectedMonsterList(newMonsterListValues);
-  //   };
-  //   let handleCRMinus = (i, e) => {
-  //     e.preventDefault();
-  //     e.stopPropagation();
-  //     let newMonsterListValues = [...selectedMonsterList];
-  //     newMonsterListValues[i] = {
-  //       ...newMonsterListValues[i],
-  //       cr: newMonsterListValues[i].cr - 1, // Increment the cr value
-  //     };
-
-  //     setSelectedMonsterList(newMonsterListValues);
-  //   };
 
   let removeSelectedMonster = (i) => {
     let newSelectedMonsterList = [...selectedMonsterList];
@@ -163,11 +141,12 @@ function MonsterSelectionSwarm() {
     <div className="selection-background">
       <main className="selection-app-window">
         <section className="monster-select">
-          <div className="monster-select__header">
+          <nav className="nav">
             <BackButton />
-            <h1 className="monster-select__title">Select Monsters</h1>
+            <ProfileButton />
             <RestartButton />
-          </div>
+          </nav>
+          <h1 className="monster-select__title">Select Monsters</h1>
           <section className="select-monster__container">
             {loading && <Loading />}
             {monsterList.map((element, index) => {
@@ -219,22 +198,6 @@ function MonsterSelectionSwarm() {
                         </Link>
                       </div>
                     </div>
-                    {/* <div className="select-monster__card-buttons"> // for editing cr
-                    <button
-                      className="monster-select__decrease-button"
-                      type="submit"
-                      onClick={(e) => handleCRMinus(index, e)}
-                    >
-                      -
-                    </button>
-                    <button
-                      className="monster-select__increase-button"
-                      type="submit"
-                      onClick={(e) => handleCRPlus(index, e)}
-                    >
-                      +
-                    </button>
-                  </div> */}
                   </div>
                 </div>
               );
@@ -294,22 +257,6 @@ function MonsterSelectionSwarm() {
                           />
                         </div>
                       </div>
-                      {/* <div className="selected-monster__card-buttons"> // for editing cr
-                    <button
-                      className="monster-selected__decrease-button"
-                      type="submit"
-                      onClick={(e) => handleCRMinus(index, e)}
-                    >
-                      -
-                    </button>
-                    <button
-                      className="monster-selected__increase-button"
-                      type="submit"
-                      onClick={(e) => handleCRPlus(index, e)}
-                    >
-                      +
-                    </button>
-                  </div> */}
                     </div>
                   </div>
                 );

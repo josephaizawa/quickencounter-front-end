@@ -43,7 +43,6 @@ const EditProfile = ({ setIsEditing }) => {
       ...prevUser,
       [name]: value,
     }));
-    console.log(user);
   };
 
   const isFormValid = () => {
@@ -59,13 +58,11 @@ const EditProfile = ({ setIsEditing }) => {
       }
     };
 
-    // TO DO: Check if the fields are all filled
     if (!user.email) {
       blankFieldNotification("error");
       return false;
     }
     if (!isEmailValid()) {
-      // openNotificationWithIcon("error");
       return false;
     }
     return true;
@@ -76,7 +73,6 @@ const EditProfile = ({ setIsEditing }) => {
       const token = sessionStorage.getItem("token");
 
       try {
-        // Get the data from the API
         const { data } = await axios.get(
           "http://localhost:8080/users/profile",
           {
@@ -87,7 +83,7 @@ const EditProfile = ({ setIsEditing }) => {
         );
         setUser(data);
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     };
     loadData();
@@ -95,10 +91,8 @@ const EditProfile = ({ setIsEditing }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("button clicked");
-    // Here send a POST request to signupUrl with username, name and password data
+
     if (isFormValid()) {
-      console.log(user);
       try {
         const response = await axios.put(
           "http://localhost:8080/users/edituser",

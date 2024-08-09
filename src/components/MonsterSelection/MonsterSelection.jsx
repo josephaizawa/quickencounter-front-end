@@ -1,12 +1,11 @@
 import "../MonsterSelection/MonsterSelection.scss";
-import { useState, useEffect } from "react";
+
 import { useLocation, useNavigate } from "react-router-dom";
-import axios from "axios";
-import { calculateBoss, calculateMinion } from "../../utils/calculators";
+
 import { Link } from "react-router-dom";
 import BackButton from "../BackButton/BackButton";
 import RestartButton from "../RestartButton/RestartButton";
-import Footer from "../Footer/Footer";
+import ProfileButton from "../ProfileButton/ProfileButton";
 
 function MonsterSelectionComponent() {
   const location = useLocation();
@@ -17,6 +16,7 @@ function MonsterSelectionComponent() {
       <main className="encounter__app-window">
         <nav className="nav">
           <BackButton />
+          <ProfileButton />
           <RestartButton />
         </nav>
         <section className="monster-select">

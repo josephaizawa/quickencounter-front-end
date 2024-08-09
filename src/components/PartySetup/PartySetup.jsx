@@ -4,6 +4,9 @@ import { calculateDifficultCR } from "../../utils/calculators";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { notification } from "antd";
+import BackButton from "../BackButton/BackButton";
+import RestartButton from "../RestartButton/RestartButton";
+import ProfileButton from "../ProfileButton/ProfileButton";
 
 function PartySetupComponent() {
   const [partyMembers, setPartyMembers] = useState([
@@ -24,12 +27,10 @@ function PartySetupComponent() {
       level: 1,
     },
   ]);
-  const [partyInfo, setPartyInfo] = useState([
-    {
-      name: "Party Name",
-      level: 1,
-    },
-  ]);
+  const [partyInfo, setPartyInfo] = useState({
+    name: "Party Name",
+    level: 1,
+  });
   const [api, contextHolder] = notification.useNotification();
 
   const blankFieldNotification = (type) => {
@@ -50,7 +51,14 @@ function PartySetupComponent() {
 
   useEffect(() => {
     const fetchPartyData = async () => {
-      const userId = sessionStorage.getItem("userId"); // Get user ID from session storage
+      const userId = sessionStorage.getItem("userId");
+      const partyId = sessionStorage.getItem("partyId");
+
+      if (!partyId) {
+        setPartyInfo(null);
+        setPartyMembers([]);
+        return;
+      }
 
       try {
         const response1 = await axios.post(
@@ -58,16 +66,23 @@ function PartySetupComponent() {
           { id: userId }
         );
 
-        const party = response1.data; // Assuming response contains the party data
+        const party = response1.data;
 
-        const response2 = await axios.post(
-          "http://localhost:8080/party/members",
-          { id: party.id } // Wrap party.id in an object with a descriptive key
-        );
-        const members = response2.data; // Assuming response contains the party members
+        if (party && party.id) {
+          const response2 = await axios.post(
+            "http://localhost:8080/party/members",
+            { id: party.id }
+          );
+          const members = response2.data;
 
-        setPartyInfo(party);
-        setPartyMembers(members);
+          setPartyInfo(party);
+          setPartyMembers(members);
+
+          sessionStorage.setItem("partyId", party.id);
+        } else {
+          setPartyInfo(null);
+          setPartyMembers([]);
+        }
       } catch (error) {
         console.error("Error fetching party data:", error);
       }
@@ -149,11 +164,10 @@ function PartySetupComponent() {
 
     const userId = sessionStorage.getItem("userId");
 
-    // Create a new party object including userId
     const newParty = {
-      user_id: userId, // Add the user ID here
-      ...partyInfo, // Spread the first element of partyInfo
-      members: partyMembers, // Include the party members
+      user_id: userId,
+      ...partyInfo,
+      members: partyMembers,
     };
 
     if (isFormValid()) {
@@ -162,6 +176,10 @@ function PartySetupComponent() {
           "http://localhost:8080/party/addparty",
           newParty
         );
+
+        const party = response.data;
+
+        sessionStorage.setItem("partyId", party.id);
       } catch (error) {
         console.error(error);
       }
@@ -173,6 +191,11 @@ function PartySetupComponent() {
       {contextHolder}
       <div className="party-background">
         <main className="party-setup__app-window">
+          <nav className="nav">
+            <BackButton />
+            <ProfileButton />
+            <RestartButton />
+          </nav>
           <form className="party-setup" onSubmit={handleSubmit}>
             <header className="party-setup__header">
               <h1 className="party-setup__title">Adventuring Party</h1>
@@ -246,6 +269,9 @@ function PartySetupComponent() {
                   +
                 </button>
               </div>
+              <button className="party-setup__form-save-button" type="submit">
+                Save
+              </button>
               <Link
                 className="party-setup__form-button-link"
                 to="/monsterselect"
@@ -256,9 +282,6 @@ function PartySetupComponent() {
                 </div>
               </Link>
             </section>
-            <button className="party-setup__form-button" type="submit">
-              Save
-            </button>
           </form>
         </main>
       </div>

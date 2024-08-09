@@ -2,8 +2,17 @@
 @use "../../styles/partials/mixins" as *;
 
 .start-screen {
-  padding-top: 4rem;
+  // padding-top: 4rem;
   @include positioning(flex, column, center, center);
+
+  &__app-window {
+    width: 85vw;
+    height: max-content;
+    background-color: $grey-80;
+    border-radius: 8px;
+    padding: 1rem;
+    margin: 2rem;
+  }
 
   &__title {
     margin-top: 3rem;
@@ -40,6 +49,42 @@
     background-color: $primary-red;
     border-radius: 8px;
     height: 5rem;
+    width: 100%;
+    margin-top: 1rem;
+
+    &-start {
+      @include mobile-labels-buttons;
+      color: $primary-white;
+    }
+  }
+}
+
+.signin-options {
+  width: 100%;
+  margin-top: 3rem;
+  @include positioning(flex, column, center, center);
+
+  &__container {
+    @include positioning(flex, column, center, center);
+  }
+
+  &__title {
+    color: $primary-brown;
+    @include mobile-section-header;
+    margin-top: 1rem;
+  }
+
+  &__button-link {
+    @include positioning(flex, column, center, center);
+    width: 10rem;
+    // margin-left: 1rem;
+    text-decoration: none;
+  }
+  &__button {
+    @include positioning(flex, column, center, center);
+    background-color: $primary-red;
+    border-radius: 8px;
+    height: 2rem;
     width: 100%;
     margin-top: 1rem;
 

@@ -1,8 +1,8 @@
 import "../MonsterSelection/MonsterSelectionOptions.scss";
 import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
-
+import { calculateBoss, calculateMinion } from "../../utils/calculators";
 import { Link } from "react-router-dom";
 import deleteIcon from "../../assets/icons/delete_outline-24px.svg";
 import fangsIcon from "../../assets/images/fangs.svg";
@@ -14,7 +14,7 @@ import ProfileButton from "../ProfileButton/ProfileButton";
 
 const baseURL = import.meta.env.VITE_API_URL;
 
-function MonsterSelectionOne() {
+function MonsterSelectionBossMinions() {
   const [monsterList, setMonsterList] = useState([]);
   const [selectedMonsterList, setSelectedMonsterList] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -26,10 +26,34 @@ function MonsterSelectionOne() {
     selectedMonsterList.reduce((accumulator, monster) => {
       return accumulator + monster.cr;
     }, 0);
+  const bossCR = calculateBoss(difficultCR);
+  const swarmCR = calculateMinion(difficultCR, totalPartyMembers);
 
   useEffect(() => {
     const formatedCR = {
-      cr: difficultCR,
+      cr: bossCR,
+    };
+
+    const fetchMonster = async () => {
+      try {
+        const response = await axios.post(
+          `${baseURL}monsters/filtered`,
+          formatedCR
+        );
+
+        setMonsterList(response.data);
+        setLoading(false);
+      } catch (e) {
+        console.error("error getting item data:", e);
+        setLoading(false);
+      }
+    };
+    fetchMonster();
+  }, []);
+
+  const handleBossAndMinionSubmit = () => {
+    const formatedCR = {
+      cr: bossCR,
     };
 
     const fetchMonster = async () => {
@@ -46,15 +70,92 @@ function MonsterSelectionOne() {
       }
     };
     fetchMonster();
-  }, []);
+  };
+
+  const handleSwarmSubmit = () => {
+    const formatedCR = {
+      cr: swarmCR,
+    };
+
+    const fetchMonster = async () => {
+      try {
+        const response = await axios.post(
+          `${baseURL}monsters/filtered`,
+          formatedCR
+        );
+        setMonsterList(response.data);
+        setLoading(false);
+      } catch (e) {
+        console.error("error getting item data:", e);
+        setLoading(false);
+      }
+    };
+    fetchMonster();
+  };
 
   let handleClick = (index) => {
     if (totalCRRemaining <= 0) {
       return;
     }
     let selectedMonster = monsterList[index];
-    setSelectedMonsterList([...selectedMonsterList, selectedMonster]);
+    let monsterToAdd = {
+      name: selectedMonster.name,
+      image: selectedMonster.image,
+      cr: selectedMonster.cr,
+      environments: selectedMonster.environments,
+    };
+    setSelectedMonsterList([...selectedMonsterList, monsterToAdd]);
+
+    const remainingCR = totalCRRemaining - selectedMonster.cr;
+
+    if (remainingCR >= swarmCR) {
+      setLoading(true);
+      handleSwarmSubmit();
+    } else if (remainingCR > 0) {
+      const formatedCR = {
+        cr: remainingCR,
+      };
+      setLoading(true);
+      const fetchMonster = async () => {
+        try {
+          const response = await axios.post(
+            `${baseURL}monsters/filtered`,
+            formatedCR
+          );
+          setMonsterList(response.data);
+          setLoading(false);
+        } catch (e) {
+          console.error("error getting item data:", e);
+          setLoading(false);
+        }
+      };
+      fetchMonster();
+    }
   };
+
+  //------------ code for editing CR --------
+  // let handleCRPlus = (i, e) => {
+  //   e.preventDefault();
+  //   e.stopPropagation();
+  //   let newMonsterListValues = [...selectedMonsterList];
+  //   newMonsterListValues[i] = {
+  //     ...newMonsterListValues[i],
+  //     cr: newMonsterListValues[i].cr + 1,
+  //   };
+
+  //   setSelectedMonsterList(newMonsterListValues);
+  // };
+  // let handleCRMinus = (i, e) => {
+  //   e.preventDefault();
+  //   e.stopPropagation();
+  //   let newMonsterListValues = [...selectedMonsterList];
+  //   newMonsterListValues[i] = {
+  //     ...newMonsterListValues[i],
+  //     cr: newMonsterListValues[i].cr - 1,
+  //   };
+
+  //   setSelectedMonsterList(newMonsterListValues);
+  // };
 
   let removeSelectedMonster = (i) => {
     let newSelectedMonsterList = [...selectedMonsterList];
@@ -62,6 +163,33 @@ function MonsterSelectionOne() {
     setSelectedMonsterList(newSelectedMonsterList);
     let newSelectedMonster = selectedMonsterList[i];
     const remainingCR = totalCRRemaining + newSelectedMonster.cr;
+
+    if (remainingCR > swarmCR) {
+      setLoading(true);
+      handleBossAndMinionSubmit();
+    } else if (remainingCR >= swarmCR) {
+      setLoading(true);
+      handleSwarmSubmit();
+    } else if (remainingCR > 0) {
+      const formatedCR = {
+        cr: remainingCR,
+      };
+      setLoading(true);
+      const fetchMonster = async () => {
+        try {
+          const response = await axios.post(
+            `http://localhost:8080/monsters/filtered`,
+            formatedCR
+          );
+          setMonsterList(response.data);
+          setLoading(false);
+        } catch (e) {
+          console.error("error getting item data:", e);
+          setLoading(false);
+        }
+      };
+      fetchMonster();
+    }
   };
 
   return (
@@ -73,7 +201,7 @@ function MonsterSelectionOne() {
             <ProfileButton />
             <RestartButton />
           </nav>
-          <h1 className="monster-select__title">Select Monster</h1>
+          <h1 className="monster-select__title">Select Monsters</h1>
           <section className="select-monster__container">
             {loading && <Loading />}
             {monsterList.map((element, index) => {
@@ -125,13 +253,29 @@ function MonsterSelectionOne() {
                         </Link>
                       </div>
                     </div>
+                    {/* <div className="select-monster__card-buttons"> // for editing cr
+                    <button
+                      className="monster-select__decrease-button"
+                      type="submit"
+                      onClick={(e) => handleCRMinus(index, e)}
+                    >
+                      -
+                    </button>
+                    <button
+                      className="monster-select__increase-button"
+                      type="submit"
+                      onClick={(e) => handleCRPlus(index, e)}
+                    >
+                      +
+                    </button>
+                  </div> */}
                   </div>
                 </div>
               );
             })}
           </section>
           <section className="monster-list">
-            <h1 className="monster-list__title">My Monster</h1>
+            <h1 className="monster-list__title">My Monsters</h1>
 
             <div className="selected-monster">
               {selectedMonsterList.map((element, index) => {
@@ -184,6 +328,22 @@ function MonsterSelectionOne() {
                           />
                         </div>
                       </div>
+                      {/* <div className="selected-monster__card-buttons"> // for editing cr
+                    <button
+                      className="monster-selected__decrease-button"
+                      type="submit"
+                      onClick={(e) => handleCRMinus(index, e)}
+                    >
+                      -
+                    </button>
+                    <button
+                      className="monster-selected__increase-button"
+                      type="submit"
+                      onClick={(e) => handleCRPlus(index, e)}
+                    >
+                      +
+                    </button>
+                  </div> */}
                     </div>
                   </div>
                 );
@@ -196,7 +356,7 @@ function MonsterSelectionOne() {
             >
               <div className="monster-list__button">
                 <p className="monster-list__button-select" type="submit">
-                  View Statblock
+                  View Statblocks
                 </p>
               </div>
             </Link>
@@ -207,4 +367,4 @@ function MonsterSelectionOne() {
   );
 }
 
-export default MonsterSelectionOne;
+export default MonsterSelectionBossMinions;

@@ -1,9 +1,9 @@
 import "../Profile/Profile.scss";
-// import useNotifications from "../Notifications/PasswordValidation";
+
 import { useState, useEffect } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { notification } from "antd";
-// import React from "react";
+
 import BackButton from "../BackButton/BackButton";
 import RestartButton from "../RestartButton/RestartButton";
 import editButton from "../../assets/icons/edit-24px.svg";
@@ -13,73 +13,20 @@ import EditProfile from "../EditProfile/EditProfile";
 function ProfileComponent() {
   const [user, setUser] = useState(null);
   const [failedAuth, setFailedAuth] = useState(false);
-  const [email, setEmail] = useState("");
+
   const [isEditing, setIsEditing] = useState(false);
+  const [selectedMonsterList, setSelectedMonsterList] = useState([]);
 
-  const [api, contextHolder] = notification.useNotification();
-
-  const blankFieldNotification = (type) => {
-    api[type]({
-      message: "Field Blank",
-      description: "Please make sure you've added an Email.",
-    });
-  };
-
-  const emailNotification = (type) => {
-    api[type]({
-      message: "Not a valid email",
-      description: "Please enter a valid email address.",
-    });
-  };
-
-  const successNotification = (type) => {
-    api[type]({
-      message: "Welcome to QuickEncounter",
-      description: "You have signed up successfully.",
-    });
-  };
-
-  const handleChangeEmail = (e) => {
-    setEmail(e.target.value);
-
-    const isFormValid = () => {
-      const emailPattern =
-        /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
-
-      const isEmailValid = () => {
-        if (emailPattern.test(email)) {
-          return true;
-        } else {
-          emailNotification("error");
-          return false;
-        }
-        return true;
-      };
-
-      // TO DO: Check if the fields are all filled
-      if (!email) {
-        blankFieldNotification("error");
-        return false;
-      }
-      if (!isEmailValid()) {
-        // openNotificationWithIcon("error");
-        return false;
-      }
-      return true;
-    };
-  };
   useEffect(() => {
     const loadData = async () => {
       const token = sessionStorage.getItem("token");
+      const userId = sessionStorage.getItem("userId");
 
       if (!token) {
         return setFailedAuth(true);
       }
 
-      console.log(token);
-
       try {
-        // Get the data from the API
         const { data } = await axios.get(
           "http://localhost:8080/users/profile",
           {
@@ -88,10 +35,36 @@ function ProfileComponent() {
             },
           }
         );
-        console.log(data);
+
         setUser(data);
+
+        try {
+          const response1 = await axios.post(
+            "http://localhost:8080/party/individual",
+            { id: userId }
+          );
+          const party = response1.data;
+
+          if (party && party.id) {
+            sessionStorage.setItem("partyId", party.id);
+            const partyId = sessionStorage.getItem("partyId");
+
+            const response = await axios.post(
+              "http://localhost:8080/monsters/savedMonsters",
+              { id: partyId }
+            );
+
+            setSelectedMonsterList(response.data);
+          } else {
+            setSelectedMonsterList([]);
+          }
+        } catch (partyError) {
+          console.error("Error fetching party data:", partyError);
+
+          setSelectedMonsterList([]);
+        }
       } catch (error) {
-        console.log(error);
+        console.error("Error fetching user profile:", error);
         setFailedAuth(true);
       }
     };
@@ -107,20 +80,37 @@ function ProfileComponent() {
   if (failedAuth) {
     return (
       <>
-        <div className="signup-background">
-          <main className="signup__app-window">
+        <div className="profile-background">
+          <main className="profile__app-window">
             <nav className="nav">
               <BackButton />
               <RestartButton />
             </nav>
-            <h1 className="signup-form__title">
-              You must be logged in to see this page.
+            <h1 className="profile__title">
+              Log in to see profile info and saved encounters.
             </h1>
-            <Link className="start-screen__button-link" to="/login">
-              <div className="start-screen__button">
-                <p className="start-screen__button-start">Log In</p>
+            <div className="signin-options">
+              <div className="signin-options__container">
+                <h2 className="signin-options__title">
+                  Don't have an account?
+                </h2>
+                <Link className="signin-options__button-link" to="/signin">
+                  <div className="signin-options__button">
+                    <p className="signin-options__button-start">Sign In</p>
+                  </div>
+                </Link>
               </div>
-            </Link>
+              <div className="signin-options__container">
+                <h2 className="signin-options__title">
+                  Already have an account?
+                </h2>
+                <Link className="signin-options__button-link" to="/login">
+                  <div className="signin-options__button">
+                    <p className="signin-options__button-start">Log in</p>
+                  </div>
+                </Link>
+              </div>
+            </div>
           </main>
         </div>
       </>
@@ -135,29 +125,7 @@ function ProfileComponent() {
     );
   }
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    // Here send a POST request to signupUrl with username, name and password data
-    if (isFormValid()) {
-      successNotification("success");
-      try {
-        const response = await axios.post(
-          "http://localhost:8080/users/signup",
-          {
-            email: email,
-            password: password,
-          }
-        );
-        console.log(response.data);
-        setIsSignedUp(true);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-  };
-
   const handleEdit = () => {
-    console.log("button clicked");
     setIsEditing(true);
   };
 
@@ -175,14 +143,18 @@ function ProfileComponent() {
             <BackButton />
             <RestartButton />
           </nav>
-          <h1 className="profile__title">Profile</h1>
-          <main className="profile">
+
+          <section className="profile">
             <h2 className="profile__welcome">
               Welcome back, {user.first_name} {user.last_name}
             </h2>
             <div className="profile__info-header">
-              <h2 className="profile__title">My Profile</h2>
-              <img src={editButton} onClick={handleEdit} />
+              <h2 className="profile__title">Profile</h2>
+              <img
+                className="profile__edit-button"
+                src={editButton}
+                onClick={handleEdit}
+              />
             </div>
             <section className="profile__fields">
               <p className="profile__lable">First Name: {user.first_name}</p>
@@ -192,10 +164,33 @@ function ProfileComponent() {
               <p className="profile__lable">Address: {user.address}</p>
               <p className="profile__lable">You are a {user.role} </p>
             </section>
-            <button className="profile__logout" onClick={handleLogout}>
-              Log out
-            </button>
-          </main>
+          </section>
+          <section className="profile-monster-save">
+            <Link
+              className="profile-monster-save__button-link"
+              to="/monsterlist"
+              state={selectedMonsterList}
+            >
+              <div className="profile-monster-save__container">
+                <h2 className="profile-monster-save__title">Monster Save</h2>
+                <p className="profile-monster-save__instructions">
+                  click to load
+                </p>
+                <ul className="profile-monster-save__list">
+                  {selectedMonsterList.map((monster) => {
+                    return (
+                      <li className="profile-monster-save__item">
+                        {monster.name}, cr: {monster.cr}
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            </Link>
+          </section>
+          <button className="profile__logout" onClick={handleLogout}>
+            Log out
+          </button>
         </main>
       </div>
     </>

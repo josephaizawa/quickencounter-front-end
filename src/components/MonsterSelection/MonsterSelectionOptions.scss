@@ -47,6 +47,7 @@
   &__button-link {
     width: 100%;
     @include positioning(flex, column, center, center);
+    text-decoration: none;
   }
   &__button {
     @include positioning(flex, column, center, center);
@@ -64,14 +65,16 @@
 }
 .select-monster {
   height: max-content;
-  overflow-x: hidden;
-  overflow-y: auto;
+  // overflow-x: hidden;
+  // overflow-y: auto;
 
   &__container {
     height: 40vh;
     width: 100%;
     overflow-x: hidden;
     overflow-y: auto;
+    scrollbar-color: $primary-red $primary-white;
+    scrollbar-width: auto;
     @include positioning(flex, column, start, center);
   }
 
