@@ -1,19 +1,16 @@
 import "../Profile/Profile.scss";
-
 import { useState, useEffect } from "react";
 import { Link, Navigate } from "react-router-dom";
-import { notification } from "antd";
-
 import BackButton from "../BackButton/BackButton";
 import RestartButton from "../RestartButton/RestartButton";
 import editButton from "../../assets/icons/edit-24px.svg";
 import axios from "axios";
 import EditProfile from "../EditProfile/EditProfile";
+const baseURL = import.meta.env.VITE_API_URL;
 
 function ProfileComponent() {
   const [user, setUser] = useState(null);
   const [failedAuth, setFailedAuth] = useState(false);
-
   const [isEditing, setIsEditing] = useState(false);
   const [selectedMonsterList, setSelectedMonsterList] = useState([]);
 
@@ -27,22 +24,18 @@ function ProfileComponent() {
       }
 
       try {
-        const { data } = await axios.get(
-          "http://localhost:8080/users/profile",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        const { data } = await axios.get(`${baseURL}users/profile`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
         setUser(data);
 
         try {
-          const response1 = await axios.post(
-            "http://localhost:8080/party/individual",
-            { id: userId }
-          );
+          const response1 = await axios.post(`${baseURL}party/individual`, {
+            id: userId,
+          });
           const party = response1.data;
 
           if (party && party.id) {
@@ -50,7 +43,7 @@ function ProfileComponent() {
             const partyId = sessionStorage.getItem("partyId");
 
             const response = await axios.post(
-              "http://localhost:8080/monsters/savedMonsters",
+              `${baseURL}monsters/savedMonsters`,
               { id: partyId }
             );
 

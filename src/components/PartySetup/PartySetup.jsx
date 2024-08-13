@@ -7,6 +7,7 @@ import { notification } from "antd";
 import BackButton from "../BackButton/BackButton";
 import RestartButton from "../RestartButton/RestartButton";
 import ProfileButton from "../ProfileButton/ProfileButton";
+const baseURL = import.meta.env.VITE_API_URL;
 
 function PartySetupComponent() {
   const [partyMembers, setPartyMembers] = useState([
@@ -59,18 +60,16 @@ function PartySetupComponent() {
       }
 
       try {
-        const response1 = await axios.post(
-          "http://localhost:8080/party/individual",
-          { id: userId }
-        );
+        const response1 = await axios.post(`${baseURL}party/individual`, {
+          id: userId,
+        });
 
         const party = response1.data;
 
         if (party && party.id) {
-          const response2 = await axios.post(
-            "http://localhost:8080/party/members",
-            { id: party.id }
-          );
+          const response2 = await axios.post(`${baseURL}party/members`, {
+            id: party.id,
+          });
           const members = response2.data;
 
           setPartyInfo(party);
@@ -170,10 +169,7 @@ function PartySetupComponent() {
 
     if (isFormValid()) {
       try {
-        const response = await axios.post(
-          "http://localhost:8080/party/addparty",
-          newParty
-        );
+        const response = await axios.post(`${baseURL}party/addparty`, newParty);
 
         const party = response.data;
         console.log(party);

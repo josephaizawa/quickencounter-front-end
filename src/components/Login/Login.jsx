@@ -1,12 +1,11 @@
 import "../Login/Login.scss";
-
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { notification } from "antd";
-
 import BackButton from "../BackButton/BackButton";
 import RestartButton from "../RestartButton/RestartButton";
 import axios from "axios";
+const baseURL = import.meta.env.VITE_API_URL;
 
 function LoginComponent() {
   const [isSignedUp, setIsSignedUp] = useState(false);
@@ -102,7 +101,7 @@ function LoginComponent() {
 
     if (isFormValid()) {
       try {
-        const response = await axios.post("http://localhost:8080/users/login", {
+        const response = await axios.post(`${baseURL}users/login`, {
           email: email,
           password: password,
         });

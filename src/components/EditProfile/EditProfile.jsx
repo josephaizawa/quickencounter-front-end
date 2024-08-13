@@ -1,14 +1,12 @@
 import React from "react";
 import "../EditProfile/EditProfile.scss";
-
 import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { notification } from "antd";
-
 import BackButton from "../BackButton/BackButton";
 import RestartButton from "../RestartButton/RestartButton";
-
 import axios from "axios";
+const baseURL = import.meta.env.VITE_API_URL;
 
 const EditProfile = ({ setIsEditing }) => {
   const [user, setUser] = useState({
@@ -73,14 +71,11 @@ const EditProfile = ({ setIsEditing }) => {
       const token = sessionStorage.getItem("token");
 
       try {
-        const { data } = await axios.get(
-          "http://localhost:8080/users/profile",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        const { data } = await axios.get(`${baseURL}users/profile`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         setUser(data);
       } catch (error) {
         console.error(error);
@@ -94,10 +89,7 @@ const EditProfile = ({ setIsEditing }) => {
 
     if (isFormValid()) {
       try {
-        const response = await axios.put(
-          "http://localhost:8080/users/edituser",
-          user
-        );
+        const response = await axios.put(`${baseURL}users/edituser`, user);
         setIsEditing(false);
       } catch (error) {
         console.error(error);

@@ -1,13 +1,12 @@
 import "../SignIn/SignIn.scss";
-
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { notification } from "antd";
-
 import BackButton from "../BackButton/BackButton";
 import RestartButton from "../RestartButton/RestartButton";
 import axios from "axios";
 import LoginComponent from "../Login/Login";
+const baseURL = import.meta.env.VITE_API_URL;
 
 function SignInComponent() {
   const [isSignedUp, setIsSignedUp] = useState(false);
@@ -126,13 +125,10 @@ function SignInComponent() {
     if (isFormValid()) {
       successNotification("success");
       try {
-        const response = await axios.post(
-          "http://localhost:8080/users/signup",
-          {
-            email: email,
-            password: password,
-          }
-        );
+        const response = await axios.post(`${baseURL}users/signup`, {
+          email: email,
+          password: password,
+        });
 
         setIsSignedUp(true);
       } catch (error) {
