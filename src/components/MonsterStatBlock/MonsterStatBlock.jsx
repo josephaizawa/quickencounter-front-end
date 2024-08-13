@@ -11,9 +11,10 @@ const baseURL = import.meta.env.VITE_API_URL;
 
 const MonsterStatBlock = () => {
   const [detailedMonsterList, setDetailedMonsterList] = useState([]);
-
   const [loading, setLoading] = useState(true);
+  const [encounterPrompt, setEncounterPrompt] = useState("");
   const location = useLocation();
+
   const selectedMonsterList = location.state || {};
 
   useEffect(() => {
@@ -38,7 +39,28 @@ const MonsterStatBlock = () => {
       }
     };
 
+    const fetchEncounterPrompt = async () => {
+      const monsterNames = [];
+      selectedMonsterList.map((monster) => {
+        monsterNames.push(monster.name);
+      });
+
+      try {
+        const response = await axios.post(
+          `${baseURL}/prompt/encounter`,
+          monsterNames
+        );
+
+        const prompt = response.data;
+
+        setEncounterPrompt(prompt);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
     fetchMonsterInfo();
+    fetchEncounterPrompt();
   }, []);
 
   const handleSubmit = async (e) => {
@@ -70,6 +92,12 @@ const MonsterStatBlock = () => {
             <h1 className="monster-stats__title">Monsters</h1>
             <div className="monster-stats__save-button" onClick={handleSubmit}>
               Save
+            </div>
+            <div className="monster-stats__prompt-container">
+              <h2 className="monster-stats__prompt-title">
+                Encounter Description
+              </h2>
+              <p className="monster-stats__prompt">{encounterPrompt}</p>
             </div>
           </div>
           <section className="monster-stats__container">

@@ -45,6 +45,27 @@
     margin-top: 1rem;
     color: $primary-white;
   }
+
+  &__prompt-container {
+    @include positioning(flex, column, center, center);
+    margin-top: 1rem;
+    width: 100%;
+    border-radius: 8px;
+    border: 2px solid $secondary-tan;
+    padding: 1rem;
+    background-color: $black-60;
+  }
+  &__prompt-title {
+    color: $primary-brown;
+    @include mobile-page-header;
+    color: $secondary-tan;
+  }
+
+  &__prompt {
+    margin-top: 0.5rem;
+    color: $secondary-tan;
+    @include mobile-body-copy;
+  }
 }
 .creature-heading {
   @include positioning(flex, column, center, start);
