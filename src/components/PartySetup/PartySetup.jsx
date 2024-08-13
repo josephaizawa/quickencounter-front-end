@@ -55,8 +55,6 @@ function PartySetupComponent() {
       const partyId = sessionStorage.getItem("partyId");
 
       if (!partyId) {
-        setPartyInfo(null);
-        setPartyMembers([]);
         return;
       }
 
@@ -178,8 +176,9 @@ function PartySetupComponent() {
         );
 
         const party = response.data;
+        console.log(party);
 
-        sessionStorage.setItem("partyId", party.id);
+        sessionStorage.setItem("partyId", party.partyId);
       } catch (error) {
         console.error(error);
       }

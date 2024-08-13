@@ -107,6 +107,8 @@ function LoginComponent() {
           password: password,
         });
 
+        console.log(response.data);
+
         sessionStorage.setItem("token", response.data.token);
         sessionStorage.setItem("userId", response.data.userId);
 
