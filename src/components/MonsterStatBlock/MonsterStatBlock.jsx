@@ -47,7 +47,7 @@ const MonsterStatBlock = () => {
 
       try {
         const response = await axios.post(
-          `${baseURL}/prompt/encounter`,
+          `${baseURL}prompt/encounter`,
           monsterNames
         );
 
