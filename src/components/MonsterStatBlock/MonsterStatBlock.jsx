@@ -51,10 +51,7 @@ const MonsterStatBlock = () => {
     };
 
     try {
-      const response = await axios.post(
-        "http://localhost:8080/monsters/save",
-        monsterData
-      );
+      const response = await axios.post(`${baseURL}monsters/save`, monsterData);
     } catch (error) {
       console.error(error);
     }
