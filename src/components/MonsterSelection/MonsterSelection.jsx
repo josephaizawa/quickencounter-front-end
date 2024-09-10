@@ -1,11 +1,10 @@
 import "../MonsterSelection/MonsterSelection.scss";
-
 import { useLocation, useNavigate } from "react-router-dom";
-
 import { Link } from "react-router-dom";
 import BackButton from "../BackButton/BackButton";
 import RestartButton from "../RestartButton/RestartButton";
 import ProfileButton from "../ProfileButton/ProfileButton";
+import Footer from "../Footer/Footer";
 
 function MonsterSelectionComponent() {
   const location = useLocation();
@@ -48,6 +47,7 @@ function MonsterSelectionComponent() {
             </Link>
           </div>
         </section>
+        <Footer />
       </main>
     </div>
   );

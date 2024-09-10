@@ -1,6 +1,7 @@
 import "../StartScreen/StartScreen.scss";
 
 import { Link } from "react-router-dom";
+import Footer from "../Footer/Footer";
 
 function StartScreenComponent() {
   return (
@@ -43,6 +44,7 @@ function StartScreenComponent() {
               </div>
             </section>
           </div>
+          <Footer />
         </main>
       </section>
     </>

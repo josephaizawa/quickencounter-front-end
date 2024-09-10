@@ -7,6 +7,7 @@ import { notification } from "antd";
 import BackButton from "../BackButton/BackButton";
 import RestartButton from "../RestartButton/RestartButton";
 import ProfileButton from "../ProfileButton/ProfileButton";
+import Footer from "../Footer/Footer";
 const baseURL = import.meta.env.VITE_API_URL;
 
 function PartySetupComponent() {
@@ -278,6 +279,7 @@ function PartySetupComponent() {
               </Link>
             </section>
           </form>
+          <Footer />
         </main>
       </div>
     </>

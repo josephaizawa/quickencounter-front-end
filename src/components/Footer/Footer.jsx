@@ -4,7 +4,9 @@ import "../Footer/Footer.scss";
 const Footer = () => {
   return (
     <div className="footer-component">
-      <p className="footer-component-by">by Joseph Aizawa</p>
+      <a className="footer-component-by" href="https://github.com/josephaizawa">
+        by Joseph Aizawa
+      </a>
       <p className="footer-component-app">QuickEncounter</p>
     </div>
   );

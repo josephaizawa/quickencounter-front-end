@@ -6,14 +6,13 @@
   height: 100vh;
   background-image: url("../../assets/images/signin.jpg");
   background-size: cover;
-  //   position: absolute;
-  //   overflow: visible;
+
   @include positioning(flex, column, center, center);
 }
 
 .profile__app-window {
   width: 85vw;
-  height: 80vh;
+  height: max-content;
   background-color: $grey-80;
   border-radius: 8px;
   padding: 1rem;
@@ -22,7 +21,6 @@
 }
 
 .nav {
-  // padding: 0.5rem 2rem;
   width: 100%;
   @include positioning(flex, row, space-between, center);
 }
@@ -34,7 +32,7 @@
 
   &__welcome {
     @include mobile-page-header;
-    // margin-top: 2rem;
+
     color: $primary-brown;
   }
   &__info-header {

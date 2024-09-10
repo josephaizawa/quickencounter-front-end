@@ -6,6 +6,7 @@ import RestartButton from "../RestartButton/RestartButton";
 import editButton from "../../assets/icons/edit-24px.svg";
 import axios from "axios";
 import EditProfile from "../EditProfile/EditProfile";
+import Footer from "../Footer/Footer";
 const baseURL = import.meta.env.VITE_API_URL;
 
 function ProfileComponent() {
@@ -184,6 +185,7 @@ function ProfileComponent() {
           <button className="profile__logout" onClick={handleLogout}>
             Log out
           </button>
+          <Footer />
         </main>
       </div>
     </>

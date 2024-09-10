@@ -11,6 +11,7 @@ import Loading from "../Loading/Loading";
 import BackButton from "../BackButton/BackButton";
 import RestartButton from "../RestartButton/RestartButton";
 import ProfileButton from "../ProfileButton/ProfileButton";
+import Footer from "../Footer/Footer";
 
 const baseURL = import.meta.env.VITE_API_URL;
 
@@ -275,6 +276,7 @@ function MonsterSelectionSwarm() {
             </Link>
           </section>
         </section>
+        <Footer />
       </main>
     </div>
   );

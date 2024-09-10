@@ -2,7 +2,6 @@ import "../MonsterSelection/MonsterSelectionOptions.scss";
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
-
 import { Link } from "react-router-dom";
 import deleteIcon from "../../assets/icons/delete_outline-24px.svg";
 import fangsIcon from "../../assets/images/fangs.svg";
@@ -11,6 +10,7 @@ import Loading from "../Loading/Loading";
 import BackButton from "../BackButton/BackButton";
 import RestartButton from "../RestartButton/RestartButton";
 import ProfileButton from "../ProfileButton/ProfileButton";
+import Footer from "../Footer/Footer";
 
 const baseURL = import.meta.env.VITE_API_URL;
 
@@ -202,6 +202,7 @@ function MonsterSelectionOne() {
             </Link>
           </section>
         </section>
+        <Footer />
       </main>
     </div>
   );

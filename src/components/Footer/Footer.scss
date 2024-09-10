@@ -3,11 +3,14 @@
 
 .footer-component {
   @include positioning(flex, row, space-between, end);
+  margin-top: 1rem;
+  width: 100%;
 
   &-by {
     color: $primary-brown;
     @include regular;
     font-size: medium;
+    text-decoration: none;
   }
   &-app {
     color: $primary-brown;

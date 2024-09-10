@@ -7,6 +7,7 @@ import Loading from "../Loading/Loading";
 import BackButton from "../BackButton/BackButton";
 import RestartButton from "../RestartButton/RestartButton";
 import ProfileButton from "../ProfileButton/ProfileButton";
+import Footer from "../Footer/Footer";
 const baseURL = import.meta.env.VITE_API_URL;
 
 const MonsterStatBlockIndividual = () => {
@@ -47,6 +48,7 @@ const MonsterStatBlockIndividual = () => {
               <RestartButton />
             </nav>
             <h1 className="monster-stats__title">Monsters</h1>
+            <Footer />
           </div>
           <section className="monster-stats__container">
             {loading && <Loading />}
